@@ -24,7 +24,18 @@ dependencies:
   dio: ^3.0.9
   cookie_jar: ^1.0.1
   dio_cookie_manager: ^1.0.0
-  flutter_easyrefresh: ^2.1.0
+  flutter_easyrefresh: ^1.2.7
+  event_bus: ^1.1.1
+  path_provider: ^0.5.0+1
+  rxdart: ^0.19.0
+  shared_preferences: ^0.5.6
+  flutter_spinkit: ^3.1.0
+  flutter_webview_plugin: ^0.3.10
+  cached_network_image: ^2.0.0
+  flutter_html: ^0.8.2
+  fish_redux: ^0.2.5
+  flare_flutter: ^2.0.1
+  fluttertoast: ^3.0.3
 
 dev_dependencies:
   flutter_test:

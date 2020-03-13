@@ -132,6 +132,15 @@ class Article {
     data['desc'] = this.desc;
     return data;
   }
+
+  static List<Article> parseList(List<dynamic> list) {
+    List<Article> articles = List();
+    for (var a in list) {
+      Article article = Article.fromJson(a);
+      articles.add(article);
+    }
+    return articles;
+  }
 }
 
 class ArticleTag {
