@@ -104,11 +104,11 @@ class LoginFormState extends State<LoginForm>
                   height: 40,
                   child: new RaisedButton(
                       onPressed: () {
-                        if (null == _name || _name.isEmpty) {
+                        if (_name == null || _name.isEmpty) {
                           CommonUtils.toast("请输入用户名");
                           return;
                         }
-                        if (null == _pwd || _pwd.isEmpty) {
+                        if (_pwd == null || _pwd.isEmpty) {
                           CommonUtils.toast("请输入密码");
                         }
                         doLogin();
@@ -116,8 +116,7 @@ class LoginFormState extends State<LoginForm>
                       textColor: Colors.white,
                       child: new Text(
                         "登录",
-                        style: TextStyle(
-                            fontSize: 20),
+                        style: TextStyle(fontSize: 20),
                       ),
                       color: Colors.lightBlue,
                       shape: new StadiumBorder(

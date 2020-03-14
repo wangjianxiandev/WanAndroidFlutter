@@ -1,6 +1,7 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:wanandroidflutter/page/LoginForm.dart';
+import 'package:wanandroidflutter/page/login_form.dart';
+import 'package:wanandroidflutter/page/register_form.dart';
 
 class LoginPage extends StatelessWidget {
   var _pageController = new PageController(initialPage: 0);
@@ -77,7 +78,7 @@ class LoginPage extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return index == 0
                       ? new LoginForm(_pageController)
-                      : new LoginForm(_pageController);
+                      : new RegisterForm(_pageController);
                 },
                 itemCount: 2,
                 controller: _pageController,

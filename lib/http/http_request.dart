@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/constant/Constants.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/base_response.dart';
-import 'package:wanandroidflutter/login/LoginFragment.dart';
 import 'package:wanandroidflutter/page/login_fragment.dart';
 
 class HttpRequest {
