@@ -1,7 +1,10 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
-import 'package:wanandroidflutter/page/HomeFragment.dart';
+import 'package:wanandroidflutter/page/home_fragment.dart';
 import 'package:wanandroidflutter/page/tabs.dart';
 import 'package:wanandroidflutter/routes/routes.dart';
+
+EventBus eventBus = EventBus();
 
 void main() => runApp(MyApp());
 

@@ -4,11 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:wanandroidflutter/utils/sp.dart';
-import 'package:wanandroidflutter/utils/textsize.dart';
 import 'package:wanandroidflutter/widget/expand_button.dart';
-
-import 'color.dart';
 import 'const.dart';
 
 
@@ -79,7 +75,7 @@ class CommonUtils {
                 height: height,
                 margin: EdgeInsets.all(20.0),
                 decoration: BoxDecoration(
-                  color: ColorConst.color_white,
+                  color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(4.0)),
                 ),
                 child: Column(
@@ -90,8 +86,8 @@ class CommonUtils {
                         title ?? "",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: ColorConst.color_333,
-                            fontSize: TextSizeConst.normalTextSize),
+                            color: Colors.grey,
+                            fontSize: 12.0),
                       ),
                     ),
                     Expanded(
@@ -102,8 +98,8 @@ class CommonUtils {
                         child: Text(content,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: ColorConst.color_555,
-                                fontSize: TextSizeConst.smallTextSize)),
+                                color: Colors.grey,
+                                fontSize: 12.0)),
                       )),
                     ),
                     Row(
@@ -119,7 +115,7 @@ class CommonUtils {
                           text: str,
                           textColor: colorList != null
                               ? colorList[index]
-                              : ColorConst.color_white,
+                              : Colors.white,
                           onPress: () {
                             Navigator.pop(context);
                             onTap(index);
@@ -145,12 +141,6 @@ class CommonUtils {
     Future result = Navigator.push(
         context, CupertinoPageRoute(builder: (context) => widget));
     return result;
-  }
-
-  //判断是否登录
-  static Future<bool> isLogin() async {
-    var id = await SpManager.singleton.getInt(Const.ID);
-    return id != null && id > 0;
   }
 
   static toast(String msg) {

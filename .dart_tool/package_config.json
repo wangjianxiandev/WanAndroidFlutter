@@ -140,6 +140,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "flutter_redux",
+      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/flutter_redux-0.5.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flutter_spinkit",
       "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/flutter_spinkit-3.1.0",
       "packageUri": "lib/",
@@ -242,6 +248,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "redux",
+      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/redux-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "1.24"
+    },
+    {
       "name": "rxdart",
       "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/rxdart-0.19.0",
       "packageUri": "lib/",
@@ -338,6 +350,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "url_launcher",
+      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-3.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "utf",
       "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/utf-0.9.0+5",
       "packageUri": "lib/",
@@ -356,6 +374,12 @@
       "languageVersion": "2.0"
     },
     {
+      "name": "webview_flutter",
+      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/webview_flutter-0.3.19+9",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "xml",
       "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/xml-3.5.0",
       "packageUri": "lib/",
@@ -368,7 +392,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-03-13T09:24:16.346731Z",
+  "generated": "2020-03-14T09:45:12.781715Z",
   "generator": "pub",
   "generatorVersion": "2.7.0"
 }

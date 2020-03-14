@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_html/flutter_html.dart';
 import 'package:wanandroidflutter/data/article.dart';
+import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/utils.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
@@ -35,12 +37,10 @@ class _ArticleWidgetState extends State<ArticleWidget> {
               .replaceAll("<em class='highlight'>", "")
               .replaceAll("</em>", "");
         }
-//        CommonUtils.push(
-//            context,
-//            WebViewPage(
-//              title: title,
-//              url: article.link,
-//            ));
+        Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+          return new WebViewPage(
+              url: article.link, title: article.title, id: article.id);
+        }));
       },
       child: Card(
         elevation: 15.0,
@@ -64,27 +64,31 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                             size: 20.0,
                             color: Colors.blue,
                           ),
-                          Text(
-                            "作者：${article.author.isNotEmpty ? article.author : article.shareUser}",
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: TextStyle(
-                                color: ColorConst.color_333,
-                                fontSize: 12),
+                          Container(
+                            padding: EdgeInsets.only(left: 5),
+                            child: Text(
+                              "${article.author.isNotEmpty ? article.author : article.shareUser}",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey,
+                                  fontSize: 10),
+                            ),
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 5),
                             child: Offstage(
                                 offstage: !article.fresh ?? true,
-                                child: WidgetUtils.buildStrokeWidget(
-                                    "新", Colors.redAccent)),
+                                child: WidgetUtils.buildStrokeWidget("新",
+                                    Colors.redAccent, FontWeight.w400, 9.0)),
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 5),
                             child: Offstage(
                                 offstage: article.type == 0 ?? false,
-                                child: WidgetUtils.buildStrokeWidget(
-                                    "置顶", Colors.redAccent)),
+                                child: WidgetUtils.buildStrokeWidget("置顶",
+                                    Colors.redAccent, FontWeight.w400, 9.0)),
                           )
                         ],
                       )),
@@ -92,18 +96,22 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                       alignment: Alignment.centerRight,
                       child: Row(
                         children: <Widget>[
-                          Icon(
-                            Icons.access_time,
-                            color: Colors.grey,
-                            size: 12,
+                          Container(
+                            child: Icon(
+                              Icons.access_time,
+                              color: Colors.grey,
+                              size: 20,
+                            ),
                           ),
-                          Text(
-                            "${article.niceDate}",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12),
-                          ),
+                          Container(
+                            padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                            child: Text(
+                              "${article.niceDate}",
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 10.0),
+                            ),
+                          )
                         ],
                       )),
                 ],
@@ -118,7 +126,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontSize: 15.0),
+                              fontSize: 13.0),
                         )
                       : Html(
                           data: article.title,
@@ -128,36 +136,37 @@ class _ArticleWidgetState extends State<ArticleWidget> {
               Row(
                 children: <Widget>[
                   Expanded(
-                    child: Text(
-                      "${article.chapterName}/${article.superChapterName}",
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12),
-                    ),
-
+                      flex: 1,
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: WidgetUtils.buildStrokeWidget(
+                            "${article.chapterName}/${article.superChapterName}",
+                            Colors.blue,
+                            FontWeight.w400,
+                            10.0),
+                      )),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: !article.collect
+                        ? IconButton(
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.only(right: 5),
+                            icon: Icon(
+                              Icons.favorite_border,
+                              color: Colors.black45,
+                            ),
+                            onPressed: () => _collect(),
+                          )
+                        : IconButton(
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.only(right: 5),
+                            icon: Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            ),
+                            onPressed: () => _collect(),
+                          ),
                   ),
-                  !article.collect
-                      ? IconButton(
-                          alignment: Alignment.centerRight,
-                          padding: EdgeInsets.all(0),
-                          icon: Icon(
-                            Icons.favorite_border,
-                            color: Colors.black45,
-                          ),
-                          onPressed: () => _collect(),
-                        )
-                      : IconButton(
-                          alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.all(0),
-                          icon: Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                          ),
-                          onPressed: () => _collect(),
-                        ),
                 ],
               ),
             ],
@@ -181,15 +190,14 @@ class _ArticleWidgetState extends State<ArticleWidget> {
     } else {
       url = "lg/uncollect_originId/${article.id}/json";
     }
-    CommonUtils.showLoadingDialog(context);
-    HttpRequest.singleton.post(url).whenComplete(() {
-      Navigator.pop(context);
-    }).then((result) {
-      if (result != null) {
-        setState(() {
-          article.collect = !article.collect;
-        });
-      }
-    });
+    HttpRequest.getInstance().post(
+        article.collect == false
+            ? "${Api.COLLECT}${article.id}/json"
+            : "${Api.UN_COLLECT_ORIGIN_ID}${article.id}/json",
+        successCallBack: (data) {
+      setState(() {
+        article.collect = !article.collect;
+      });
+    }, errorCallBack: (code, msg) {}, context: context);
   }
 }

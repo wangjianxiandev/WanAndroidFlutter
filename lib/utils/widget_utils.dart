@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 class WidgetUtils{
-  // 创建 tag widget 方法
-  static Widget buildStrokeWidget(String text , Color color) {
+
+  static Widget buildStrokeWidget(String text , Color color, FontWeight fontWeight, double fontSize) {
     return Padding(
       child: StrokeWidget(
           strokeWidth: 0.5,
@@ -12,9 +12,9 @@ class WidgetUtils{
           childWidget: Text(
             text,
             style: TextStyle(
-                fontSize: 10.0,
+                fontSize: fontSize,
                 color: color,
-                fontWeight: FontWeight.w100),
+                fontWeight: fontWeight),
           )
       ),
       padding: EdgeInsets.only(right: 5.0),
