@@ -60,7 +60,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                                 ? Icons.folder_shared
                                 : Icons.person,
                             size: 20.0,
-                            color: Colors.blue,
+                            color: Colors.red,
                           ),
                           Container(
                             padding: EdgeInsets.only(left: 5),
@@ -139,7 +139,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                         alignment: Alignment.centerLeft,
                         child: WidgetUtils.buildStrokeWidget(
                             "${article.chapterName}/${article.superChapterName}",
-                            Colors.blue,
+                            Colors.grey,
                             FontWeight.w400,
                             10.0),
                       )),

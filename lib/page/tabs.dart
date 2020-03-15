@@ -26,9 +26,10 @@ class _TabsState extends State<Tabs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: _currentIndex == 0 ? AppBar(
         title: Text(_titleList[_currentIndex]),
-      ),
+        backgroundColor: Colors.red,
+      ) : null,
       body: this._pageList[this._currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: this._currentIndex,
@@ -39,7 +40,7 @@ class _TabsState extends State<Tabs> {
             this._currentIndex = index;
           });
         },
-        fixedColor: Colors.blue,
+        fixedColor: Colors.red,
         //选中的颜色
         type: BottomNavigationBarType.fixed,
         //配置底部tabs可以有多个按钮

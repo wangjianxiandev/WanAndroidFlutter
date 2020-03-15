@@ -54,7 +54,7 @@ class _TitleBarState extends State<TitleBar> {
           gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [Colors.lightBlue, Colors.blue])),
+              colors: [Colors.redAccent, Colors.red])),
       child: Stack(
         children: <Widget>[
           Offstage(

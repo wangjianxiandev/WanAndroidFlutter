@@ -33,4 +33,10 @@ class Api {
 
   //获取项目列表数据
   static const String PROJECT_LIST = "project/list/";
+
+  //获取体系数据
+  static const String TREE = "tree/json";
+
+  //获取导航数据
+  static const String NAVIGATION = "navi/json";
 }

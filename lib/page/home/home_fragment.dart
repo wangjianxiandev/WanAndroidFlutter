@@ -160,7 +160,7 @@ class _HomeFragmentState extends State<HomeFragment>
                 })),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor.withAlpha(180),
+          backgroundColor: Colors.red.withAlpha(180),
           child: Icon(Icons.arrow_upward),
           onPressed: () {
             _scrollController.animateTo(0,
@@ -189,7 +189,7 @@ class _HomeFragmentState extends State<HomeFragment>
                   alignment: Alignment.centerRight,
                   child: new DotSwiperPaginationBuilder(
                           color: Colors.black12,
-                          activeColor: Colors.blue,
+                          activeColor: Colors.red,
                           size: 6.0,
                           activeSize: 6.0)
                       .build(context, config),

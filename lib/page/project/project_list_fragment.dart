@@ -98,7 +98,7 @@ class ProjectListFragmentState extends State<ProjectListFragment>
                 })),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor.withAlpha(180),
+          backgroundColor: Colors.red.withAlpha(180),
           child: Icon(Icons.arrow_upward),
           onPressed: () {
             _scrollController.animateTo(0,

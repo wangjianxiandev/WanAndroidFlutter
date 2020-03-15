@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -145,5 +146,19 @@ class CommonUtils {
 
   static toast(String msg) {
     Fluttertoast.showToast(msg: msg, fontSize: 14);
+  }
+
+  static Color getRandomColor() {
+    Random random = Random();
+    var temp = random.nextInt(6);
+    List<Color> colors = [
+      Colors.blueAccent,
+      Colors.grey ,
+      Colors.redAccent,
+      Colors.purpleAccent,
+      Colors.lightGreen,
+      Colors.deepOrangeAccent,
+    ];
+    return colors[temp];
   }
 }
