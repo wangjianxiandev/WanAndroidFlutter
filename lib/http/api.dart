@@ -21,4 +21,16 @@ class Api {
 
   //注册
   static const String REGISTER = "user/register";
+
+  //获取公众号Tab
+  static const String WECHAT_TAB = "wxarticle/chapters/json";
+
+  // 获取公众号文章
+  static const String WECHAT_LIST = "wxarticle/list/";
+
+  //获取项目分类
+  static const String PROJECT_TAB = "project/tree/json";
+
+  //获取项目列表数据
+  static const String PROJECT_LIST = "project/list/";
 }

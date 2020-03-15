@@ -5,8 +5,6 @@ import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
-import 'package:wanandroidflutter/utils/common.dart';
-import 'package:wanandroidflutter/utils/utils.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
 
 //文章item

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:wanandroidflutter/page/home_fragment.dart';
-import 'package:wanandroidflutter/page/projectf_ragment.dart';
-import 'package:wanandroidflutter/page/system_fragment.dart';
-import 'package:wanandroidflutter/page/wechat_fragment.dart';
+import 'package:wanandroidflutter/page/home/home_fragment.dart';
+import 'package:wanandroidflutter/page/project/project_fragment.dart';
+import 'package:wanandroidflutter/page/system/system_fragment.dart';
+import 'package:wanandroidflutter/page/wechat/wechat_fragment.dart';
 
 class Tabs extends StatefulWidget {
   final index;
