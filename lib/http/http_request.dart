@@ -64,12 +64,15 @@ class HttpRequest {
           /// 返回-1001跳转到登录页
             errorCallBack(baseResponse.errorCode, baseResponse.errorMessage);
             if (context != null) {
-              Navigator.of(context)
-                  .push(new MaterialPageRoute(builder: (context) {
-                return new Scaffold(
-                  body: new LoginPage(),
-                );
-              }));
+              Navigator.of(context).push(
+                new MaterialPageRoute(
+                  builder: (context) {
+                    return Scaffold(
+                      body: LoginPage(),
+                    );
+                  },
+                ),
+              );
             }
             break;
           default:
@@ -110,9 +113,9 @@ class HttpRequest {
             errorCallBack(baseResponse.errorCode, baseResponse.errorMessage);
             if (context != null) {
               Navigator.of(context)
-                  .push(new MaterialPageRoute(builder: (context) {
-                return new Scaffold(
-                  body: new LoginPage(),
+                  .push(MaterialPageRoute(builder: (context) {
+                return Scaffold(
+                  body: LoginPage(),
                 );
               }));
             }

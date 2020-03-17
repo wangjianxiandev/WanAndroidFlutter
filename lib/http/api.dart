@@ -1,13 +1,13 @@
 class Api {
   static const String BASE_URL = "https://www.wanandroid.com/";
 
-  // 首页banner
+  //首页banner
   static const String BANNER_URL = "banner/json";
 
   //置顶文章
   static const String ARTICLE_TOP = "article/top/json";
 
-  // 首页文章
+  //首页文章
   static const String HOME_ARTICLE_LIST = "article/list/";
 
   //收藏站内文章
@@ -25,7 +25,7 @@ class Api {
   //获取公众号Tab
   static const String WECHAT_TAB = "wxarticle/chapters/json";
 
-  // 获取公众号文章
+  //获取公众号文章
   static const String WECHAT_LIST = "wxarticle/list/";
 
   //获取项目分类
@@ -39,4 +39,13 @@ class Api {
 
   //获取导航数据
   static const String NAVIGATION = "navi/json";
+
+  //获取用户积分数据
+  static const String COIN_INFO = "lg/coin/userinfo/json";
+
+  //获取收藏文章列表
+  static const String COLLECT_LIST = "lg/collect/list/";
+
+  //取消收藏
+  static const String UN_COLLECT = "lg/uncollect/";
 }

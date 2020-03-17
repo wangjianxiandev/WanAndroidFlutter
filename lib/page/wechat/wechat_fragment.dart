@@ -61,7 +61,7 @@ class WeChatFragmentState extends State<WeChatFragment>
       length: mTabDatas.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.blue,
           title: TabBar(
             controller: mTabController,
             tabs: initTabs(),

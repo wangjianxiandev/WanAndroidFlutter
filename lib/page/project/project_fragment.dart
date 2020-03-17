@@ -60,7 +60,7 @@ class ProjectFragmentState extends State<ProjectFragment>
       length: mTabDatas.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.blue,
           title: TabBar(
             controller: mTabController,
             tabs: initTabs(),

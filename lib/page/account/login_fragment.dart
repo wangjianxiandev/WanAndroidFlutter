@@ -31,8 +31,7 @@ class LoginPage extends StatelessWidget {
                   children: <Widget>[
                     Container(
                         alignment: Alignment.centerLeft,
-                        height: 20,
-                        padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        padding: EdgeInsets.only(top: 20),
                         child: IconButton(
                           icon: Icon(
                             Icons.arrow_back,
@@ -43,34 +42,15 @@ class LoginPage extends StatelessWidget {
                           },
                         )),
                     Container(
-                      margin: EdgeInsets.fromLTRB(0, 50, 0, 0
-                      ),
-                      child: new Image(
-                        image: AssetImage("assets/img/logo.png"),
-                        width: 60,
-                        height: 60,
-                      )
-                    ),
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: new Image(
+                          image: AssetImage("assets/img/logo.png"),
+                          width: 60,
+                          height: 60,
+                        )),
                     new Container(
                       height: 20,
                     ),
-                    new Text(
-                      "欢迎使用",
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          decoration: TextDecoration.none),
-                    ),
-                    new Container(
-                      height: 15,
-                    ),
-                    new Text(
-                      "本App由wjxbless独立开发",
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          decoration: TextDecoration.none),
-                    )
                   ],
                 )),
             Expanded(

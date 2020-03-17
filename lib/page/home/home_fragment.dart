@@ -39,6 +39,8 @@ class _HomeFragmentState extends State<HomeFragment>
           List responseJson = json.decode(data);
           articleList.addAll(
               responseJson.map((m) => Article.fromJson(m)).toList());
+        } else {
+          _pageStateController.changeState(PageState.NoData);
         }
       }, errorCallBack: (code, msg) {});
       loadArticleData();
@@ -160,7 +162,7 @@ class _HomeFragmentState extends State<HomeFragment>
                 })),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red.withAlpha(180),
+          backgroundColor: Colors.blue.withAlpha(180),
           child: Icon(Icons.arrow_upward),
           onPressed: () {
             _scrollController.animateTo(0,
@@ -189,7 +191,7 @@ class _HomeFragmentState extends State<HomeFragment>
                   alignment: Alignment.centerRight,
                   child: new DotSwiperPaginationBuilder(
                           color: Colors.black12,
-                          activeColor: Colors.red,
+                          activeColor: Colors.blue,
                           size: 6.0,
                           activeSize: 6.0)
                       .build(context, config),

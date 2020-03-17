@@ -60,6 +60,8 @@ class ProjectListFragmentState extends State<ProjectListFragment>
           projectArticleList
               .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
         });
+      } else {
+        _pageStateController.changeState(PageState.NoData);
       }
     }, errorCallBack: (code, msg) {});
   }
@@ -98,7 +100,7 @@ class ProjectListFragmentState extends State<ProjectListFragment>
                 })),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red.withAlpha(180),
+          backgroundColor: Colors.blue.withAlpha(180),
           child: Icon(Icons.arrow_upward),
           onPressed: () {
             _scrollController.animateTo(0,

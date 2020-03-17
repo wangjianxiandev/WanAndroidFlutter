@@ -61,7 +61,7 @@ class _ProjectArticleWidgetState extends State<ProjectArticleWidget> {
                                 ? Icons.folder_shared
                                 : Icons.person,
                             size: 20.0,
-                            color: Colors.red,
+                            color: Colors.blue,
                           ),
                           Container(
                             padding: EdgeInsets.only(left: 5),
@@ -80,14 +80,14 @@ class _ProjectArticleWidgetState extends State<ProjectArticleWidget> {
                             child: Offstage(
                                 offstage: !article.fresh ?? true,
                                 child: WidgetUtils.buildStrokeWidget("新",
-                                    Colors.redAccent, FontWeight.w400, 9.0)),
+                                    Colors.blueAccent, FontWeight.w400, 9.0)),
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 5),
                             child: Offstage(
                                 offstage: article.type == 0 ?? false,
                                 child: WidgetUtils.buildStrokeWidget("置顶",
-                                    Colors.redAccent, FontWeight.w400, 9.0)),
+                                    Colors.blueAccent, FontWeight.w400, 9.0)),
                           )
                         ],
                       )),

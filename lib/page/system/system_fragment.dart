@@ -34,7 +34,7 @@ class _SystemFragmentState extends State<SystemFragment>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blue,
         centerTitle: true,
         title: TabBar(
           controller: mTabController,

@@ -9,7 +9,7 @@ import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
-import 'package:wanandroidflutter/utils/event_bus.dart';
+import 'package:wanandroidflutter/utils/login_event.dart';
 
 class LoginForm extends StatefulWidget {
   PageController _pageController;
@@ -136,18 +136,24 @@ class LoginFormState extends State<LoginForm>
     data = {'username': _name, 'password': _pwd};
     HttpRequest.getInstance().post(Api.LOGIN, data: data,
         successCallBack: (data) {
+          HttpRequest.getInstance().get(Api.COIN_INFO, successCallBack: (data) {
+              saveCoinInfo(data);
+          }, errorCallBack: (code, msg) {});
       eventBus.fire(LoginEvent());
-      saveInfo(data);
+      saveUserInfo(data);
       Navigator.of(context).pop();
     }, errorCallBack: (code, msg) {});
   }
 
-  void saveInfo(data) async {
-    Map userMap = json.decode(data);
-    LoginData entity = new LoginData.fromJson(userMap);
+  void saveUserInfo(data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(Config.SP_USER_INFO, data);
     await prefs.setString(Config.SP_PWD, _pwd);
+  }
+
+  void saveCoinInfo(data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(Config.SP_COIN, data);
   }
 
   @override

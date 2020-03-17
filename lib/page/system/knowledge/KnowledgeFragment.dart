@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/data/knowledge.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/page/system/knowledge/KnowledgeListFragment.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 
 class KnowledgeFragment extends StatefulWidget {
@@ -49,9 +50,19 @@ class _KnowledgeFragmentState extends State<KnowledgeFragment> {
     } else {
       childrenKnowList.add(new InkWell(
         onTap: () => {
-          Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-//            return new SystemDetailPage(knowledgeData, index);
-          }))
+          Navigator.of(context).push(
+            new MaterialPageRoute(
+              builder: (context) {
+                return Scaffold(
+                  appBar: AppBar(
+                    title: Text(knowledgeData.children[index].name.toString()),
+                    centerTitle: true,
+                  ),
+                  body: KnowledgeListFragment(knowledgeData.children[index].id),
+                );
+              },
+            ),
+          )
         },
         child: Container(
             padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -64,7 +75,8 @@ class _KnowledgeFragmentState extends State<KnowledgeFragment> {
             child: Text(
               childKnowledgeData.name,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 15, color: CommonUtils.getRandomColor()),
+              style:
+                  TextStyle(fontSize: 15, color: CommonUtils.getRandomColor()),
             )),
       ));
     }

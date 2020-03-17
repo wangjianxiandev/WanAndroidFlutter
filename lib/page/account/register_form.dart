@@ -9,7 +9,7 @@ import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
-import 'package:wanandroidflutter/utils/event_bus.dart';
+import 'package:wanandroidflutter/utils/login_event.dart';
 
 class RegisterForm extends StatefulWidget {
   PageController _pageController;
