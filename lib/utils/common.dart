@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wanandroidflutter/widget/expand_button.dart';
-import 'const.dart';
 
 
 class CommonUtils {
@@ -161,4 +160,5 @@ class CommonUtils {
     ];
     return colors[temp];
   }
+
 }

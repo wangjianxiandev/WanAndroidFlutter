@@ -225,6 +225,7 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           onTap: () {
             ///显示主题 dialog
+            eventBus.fire(LoginOutEvent());
             clearSharedPreferences();
             Navigator.of(context).pop();
           },

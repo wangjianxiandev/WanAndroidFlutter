@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_html/flutter_html.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
+import 'package:wanandroidflutter/utils/loginout_event.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
 
 //文章item
@@ -21,7 +24,6 @@ class ArticleWidget extends StatefulWidget {
 
 class _ArticleWidgetState extends State<ArticleWidget> {
   Article article;
-
   @override
   Widget build(BuildContext context) {
     article = widget.article;
@@ -164,6 +166,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                             ),
                             onPressed: () => _collect(),
                           ),
+
                   ),
                 ],
               ),
