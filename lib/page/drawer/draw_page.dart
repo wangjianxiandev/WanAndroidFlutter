@@ -8,8 +8,10 @@ import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/account/login_fragment.dart';
+import 'package:wanandroidflutter/page/collect/collect_fragment.dart';
 import 'package:wanandroidflutter/page/rank/rank_fragment.dart';
 import 'package:wanandroidflutter/page/square/square_fragment.dart';
+import 'package:wanandroidflutter/page/wenda/wenda_fragment.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/cookie_util.dart';
@@ -64,16 +66,16 @@ class _DrawerPageState extends State<DrawerPage> {
   }
 
   void loginOut() async {
-    HttpRequest.getInstance().get(Api.LOGIN_OUT_JSON,
-        successCallBack: (data) {
-          CommonUtils.toast("登出成功");
-        }, errorCallBack: (code, msg) {});
+    HttpRequest.getInstance().get(Api.LOGIN_OUT_JSON, successCallBack: (data) {
+      eventBus.fire(LoginOutEvent());
+      CommonUtils.toast("登出成功");
+    }, errorCallBack: (code, msg) {});
   }
 
-  void clearSharedPreferences()async{
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString(Config.SP_COIN, null);
-      await prefs.setString(Config.SP_USER_INFO, null);
+  void clearSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(Config.SP_COIN, null);
+    await prefs.setString(Config.SP_USER_INFO, null);
   }
 
   @override
@@ -95,19 +97,15 @@ class _DrawerPageState extends State<DrawerPage> {
   List<Widget> buildCoinWidget(bool isLogin) {
     List<Widget> list = [];
     if (coinData != null) {
-      list.add(Padding(
-        child: StrokeWidget(
-          strokeWidth: 2,
-          edgeInsets: EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
-          color: Colors.white,
-          childWidget: Text(
-          coinData != null ? "lv " + coinData.level.toString() : "lv --",
-              style: TextStyle(
-                  fontSize: 11.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold)),
-        ),
-        padding: EdgeInsets.only(right: 10.0),
+      list.add(
+        Text(coinData != null ? "排名 " + coinData.rank.toString() : "排名 --",
+            style: TextStyle(
+              fontSize: 15.0,
+              color: Colors.white,
+            )),
+      );
+      list.add(SizedBox(
+        width: 10,
       ));
       list.add(Text(
         coinData != null ? "积分：" + coinData.coinCount.toString() : "积分：-- ",
@@ -136,7 +134,7 @@ class _DrawerPageState extends State<DrawerPage> {
           currentAccountPicture: InkWell(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             child: CircleAvatar(
-              backgroundColor: Colors.white, //显示头像
+              backgroundColor: Colors.white,
               backgroundImage: AssetImage(loginData == null
                   ? "assets/img/ic_default_avatar.webp"
                   : "assets/img/ic_launcher_foreground.png"),
@@ -187,7 +185,21 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-
+            loginData != null
+                ? Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return Scaffold(
+                          appBar: AppBar(
+                            title: Text("我的收藏"),
+                            centerTitle: true,
+                          ),
+                          body: CollectFragment(),
+                        );
+                      },
+                    ),
+                  )
+                : goLogin();
           },
         ),
         ListTile(
@@ -199,7 +211,21 @@ class _DrawerPageState extends State<DrawerPage> {
             '问答',
             style: textStyle,
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Text("问答"),
+                      centerTitle: true,
+                    ),
+                    body: WenDaFragment(),
+                  );
+                },
+              ),
+            );
+          },
         ),
         ListTile(
           leading: Icon(
@@ -240,22 +266,11 @@ class _DrawerPageState extends State<DrawerPage> {
         ),
         ListTile(
           leading: Icon(
-            Icons.card_giftcard,
-            size: 27.0,
-          ),
-          title: Text(
-            '我的积分',
-            style: textStyle,
-          ),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: Icon(
             Icons.exit_to_app,
             size: 27.0,
           ),
           title: Text(
-            '退出',
+            '退出登录',
             style: textStyle,
           ),
           onTap: () {

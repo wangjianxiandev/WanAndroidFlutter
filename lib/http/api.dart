@@ -57,4 +57,7 @@ class Api {
 
   //获取积分列表
   static const String RANK_LIST = "coin/rank/";
+
+  //获取问答列表
+  static const String WENDA_LIST = "wenda/list/";
 }
