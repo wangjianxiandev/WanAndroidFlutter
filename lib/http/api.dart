@@ -54,4 +54,7 @@ class Api {
 
   //获取广场数据
   static const String SQUARE_LIST = "user_article/list/";
+
+  //获取积分列表
+  static const String RANK_LIST = "coin/rank/";
 }

@@ -8,6 +8,7 @@ import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/account/login_fragment.dart';
+import 'package:wanandroidflutter/page/rank/rank_fragment.dart';
 import 'package:wanandroidflutter/page/square/square_fragment.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
@@ -162,7 +163,7 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           onTap: () {
             Navigator.of(context).push(
-              new MaterialPageRoute(
+              MaterialPageRoute(
                 builder: (context) {
                   return Scaffold(
                     appBar: AppBar(
@@ -221,7 +222,21 @@ class _DrawerPageState extends State<DrawerPage> {
             '积分排行榜',
             style: textStyle,
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Text("积分排行"),
+                      centerTitle: true,
+                    ),
+                    body: RankFragment(),
+                  );
+                },
+              ),
+            );
+          },
         ),
         ListTile(
           leading: Icon(

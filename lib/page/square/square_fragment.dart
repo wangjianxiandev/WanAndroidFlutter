@@ -35,7 +35,6 @@ class _SquareFragmentState extends State<SquareFragment>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _pageStateController = PageStateController();
     _scrollController = ScrollController();
@@ -98,6 +97,5 @@ class _SquareFragmentState extends State<SquareFragment>
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
