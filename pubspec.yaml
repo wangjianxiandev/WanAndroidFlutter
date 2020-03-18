@@ -52,6 +52,7 @@ flutter:
     - assets/flrs/
     - assets/img/logo.png
     - assets/img/ic_back.png
+    - assets/img/load_fail.png
     - assets/img/ic_default_avatar.webp
     - assets/img/ic_launcher_foreground.png
 

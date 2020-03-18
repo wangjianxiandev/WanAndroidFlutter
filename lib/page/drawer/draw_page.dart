@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/data/coin.dart';
 import 'package:wanandroidflutter/data/login.dart';
+import 'package:wanandroidflutter/http/api.dart';
+import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/account/login_fragment.dart';
+import 'package:wanandroidflutter/page/square/square_fragment.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
+import 'package:wanandroidflutter/utils/common.dart';
+import 'package:wanandroidflutter/utils/cookie_util.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
 import 'package:wanandroidflutter/utils/loginout_event.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
@@ -53,9 +58,15 @@ class _DrawerPageState extends State<DrawerPage> {
       Map coinMap = json.decode(coinInfo);
       setState(() {
         coinData = CoinData.fromJson(coinMap);
-        print(coinData);
       });
     }
+  }
+
+  void loginOut() async {
+    HttpRequest.getInstance().get(Api.LOGIN_OUT_JSON,
+        successCallBack: (data) {
+          CommonUtils.toast("登出成功");
+        }, errorCallBack: (code, msg) {});
   }
 
   void clearSharedPreferences()async{
@@ -67,7 +78,7 @@ class _DrawerPageState extends State<DrawerPage> {
   @override
   void initState() {
     super.initState();
-    isLogin = loginData != null && coinData != null;
+    isLogin = loginData != null;
     if (!isLogin) {
       getUserInfo();
       getCoinCount();
@@ -78,23 +89,18 @@ class _DrawerPageState extends State<DrawerPage> {
         getCoinCount();
       });
     });
-    eventBus.on<LoginOutEvent>().listen((event) {
-      setState(() {
-
-      });
-    });
   }
 
   List<Widget> buildCoinWidget(bool isLogin) {
     List<Widget> list = [];
-    if (isLogin) {
+    if (coinData != null) {
       list.add(Padding(
         child: StrokeWidget(
           strokeWidth: 2,
           edgeInsets: EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
           color: Colors.white,
           childWidget: Text(
-              isLogin ? "lv " + coinData.level.toString() : "lv --",
+          coinData != null ? "lv " + coinData.level.toString() : "lv --",
               style: TextStyle(
                   fontSize: 11.0,
                   color: Colors.white,
@@ -103,7 +109,7 @@ class _DrawerPageState extends State<DrawerPage> {
         padding: EdgeInsets.only(right: 10.0),
       ));
       list.add(Text(
-        isLogin ? "积分：" + coinData.coinCount.toString() : "积分：-- ",
+        coinData != null ? "积分：" + coinData.coinCount.toString() : "积分：-- ",
         style: TextStyle(color: Colors.white, fontSize: 15.0),
       ));
     }
@@ -154,7 +160,21 @@ class _DrawerPageState extends State<DrawerPage> {
             '广场',
             style: textStyle,
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+              new MaterialPageRoute(
+                builder: (context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Text("广场"),
+                      centerTitle: true,
+                    ),
+                    body: SquareFragment(),
+                  );
+                },
+              ),
+            );
+          },
         ),
         ListTile(
           leading: Icon(
@@ -225,7 +245,7 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           onTap: () {
             ///显示主题 dialog
-            eventBus.fire(LoginOutEvent());
+            loginOut();
             clearSharedPreferences();
             Navigator.of(context).pop();
           },

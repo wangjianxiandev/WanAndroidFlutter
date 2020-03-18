@@ -23,7 +23,7 @@ class HomeFragment extends StatefulWidget {
 /// 首页
 class _HomeFragmentState extends State<HomeFragment>
     with AutomaticKeepAliveClientMixin {
-  List<Article> articleList = new List();
+  List<Article> articleList = List();
   int currentPage = 0;
   SwiperController _swiperController = SwiperController();
   List<BannerData> bannerList = List();

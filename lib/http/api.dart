@@ -19,6 +19,9 @@ class Api {
   //登录
   static const String LOGIN = "user/login";
 
+  //退出登录
+  static const String LOGIN_OUT_JSON = 'user/logout/json';
+
   //注册
   static const String REGISTER = "user/register";
 
@@ -48,4 +51,7 @@ class Api {
 
   //取消收藏
   static const String UN_COLLECT = "lg/uncollect/";
+
+  //获取广场数据
+  static const String SQUARE_LIST = "user_article/list/";
 }

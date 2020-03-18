@@ -17,7 +17,7 @@ class LoadFailWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ImageIcon(
-              AssetImage("assets/load_fail.png"),
+              AssetImage("assets/img/load_fail.png"),
               size: 50,
             ),
             Padding(

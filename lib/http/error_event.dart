@@ -1,4 +1,4 @@
-class ErrorEvent{
+class ErrorEvent {
   int errorCode;
   String errorMessage;
 
