@@ -10,6 +10,7 @@ import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/account/login_fragment.dart';
 import 'package:wanandroidflutter/page/collect/collect_fragment.dart';
 import 'package:wanandroidflutter/page/rank/rank_fragment.dart';
+import 'package:wanandroidflutter/page/setting/setting_fragment.dart';
 import 'package:wanandroidflutter/page/square/square_fragment.dart';
 import 'package:wanandroidflutter/page/wenda/wenda_fragment.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
@@ -274,7 +275,6 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            ///显示主题 dialog
             loginOut();
             clearSharedPreferences();
             Navigator.of(context).pop();
@@ -289,7 +289,21 @@ class _DrawerPageState extends State<DrawerPage> {
             '设置',
             style: textStyle,
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: Text("设置"),
+                      centerTitle: true,
+                    ),
+                    body: SettingFragment(),
+                  );
+                },
+              ),
+            );
+          },
         ),
       ],
     );
