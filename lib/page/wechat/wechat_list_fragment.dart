@@ -5,6 +5,10 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/http/api.dart';
+import 'package:wanandroidflutter/main.dart';
+import 'package:wanandroidflutter/utils/collect_event.dart';
+import 'package:wanandroidflutter/utils/login_event.dart';
+import 'package:wanandroidflutter/utils/loginout_event.dart';
 import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
@@ -38,6 +42,15 @@ class WeChatListFragmentState extends State<WeChatListFragment>
     _pageStateController = PageStateController();
     _scrollController = ScrollController();
     loadWeChatArticleList();
+    eventBus.on<LoginOutEvent>().listen((event) {
+      _onRefresh(true);
+    });
+    eventBus.on<LoginEvent>().listen((event) {
+      _onRefresh(true);
+    });
+    eventBus.on<CollectEvent>().listen((event) {
+      _onRefresh(true);
+    });
   }
 
   void loadWeChatArticleList() async {

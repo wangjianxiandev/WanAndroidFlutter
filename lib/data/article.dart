@@ -3,6 +3,7 @@ class Article {
   String projectLink;
   String prefix;
   String origin;
+  int originId;
   String link;
   String title;
   int type;
@@ -34,6 +35,7 @@ class Article {
       this.projectLink,
       this.prefix,
       this.origin,
+      this.originId,
       this.link,
       this.title,
       this.type,
@@ -64,6 +66,7 @@ class Article {
     shareDate = json['shareDate'];
     projectLink = json['projectLink'];
     prefix = json['prefix'];
+    originId = json['originId'];
     origin = json['origin'];
     link = json['link'];
     title = json['title'];
@@ -103,6 +106,7 @@ class Article {
     data['projectLink'] = this.projectLink;
     data['prefix'] = this.prefix;
     data['origin'] = this.origin;
+    data['originId'] = this.originId;
     data['link'] = this.link;
     data['title'] = this.title;
     data['type'] = this.type;

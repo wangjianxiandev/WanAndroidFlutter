@@ -50,6 +50,7 @@ class _NavigationFragmentState extends State<NavigationFragment> {
                 url: navigationList[i].articles[j].link,
                 title: navigationList[i].articles[j].title,
                 id: navigationList[i].articles[j].id,
+                isCollect: navigationList[i].articles[j].collect,
               );
             }))
           },

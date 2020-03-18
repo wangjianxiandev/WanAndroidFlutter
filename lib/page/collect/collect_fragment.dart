@@ -5,6 +5,8 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/main.dart';
+import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/collect_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
@@ -40,6 +42,11 @@ class _CollectFragmentState extends State<CollectFragment> with AutomaticKeepAli
     _pageStateController = PageStateController();
     _scrollController = ScrollController();
     loadCollectList();
+    eventBus.on<CollectEvent>().listen((event) {
+      setState(() {
+        _onRefresh(true);
+      });
+    });
   }
 
   void loadCollectList() async {

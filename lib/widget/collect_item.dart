@@ -4,7 +4,9 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
+import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
 
 //文章item
@@ -36,7 +38,7 @@ class _CollectWidgetState extends State<CollectWidget> {
         }
         Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
           return new WebViewPage(
-              url: article.link, title: article.title, id: article.id);
+              url: article.link, title: article.title, id: article.id, isCollect: article.collect,);
         }));
       },
       child: Card(
@@ -134,10 +136,10 @@ class _CollectWidgetState extends State<CollectWidget> {
                       alignment: Alignment.centerRight,
                       padding: EdgeInsets.only(right: 5),
                       icon: Icon(
-                        Icons.favorite,
+                        Icons.delete_forever,
                         color: Colors.red,
                       ),
-                      onPressed: () => _collect(),
+                      onPressed: () => _delete(),
                     ),
                   ),
                 ],
@@ -149,28 +151,17 @@ class _CollectWidgetState extends State<CollectWidget> {
     );
   }
 
-  //判断title是否有文字需要加斜体
   bool isHighLight(String title) {
     RegExp exp = new RegExp(r"<em class='highlight'>([\s\S]*?)</em>");
     return exp.hasMatch(title);
   }
 
   //收藏/取消收藏
-  _collect() {
-    String url = "";
-    if (!article.collect) {
-      url = "lg/collect/${article.id}/json";
-    } else {
-      url = "lg/uncollect_originId/${article.id}/json";
-    }
-    HttpRequest.getInstance().post(
-        article.collect == false
-            ? "${Api.COLLECT}${article.id}/json"
-            : "${Api.UN_COLLECT_ORIGIN_ID}${article.id}/json",
+  _delete() {
+    String url = "lg/uncollect_originId/${article.originId}/json";
+    HttpRequest.getInstance().post(url,
         successCallBack: (data) {
-          setState(() {
-            article.collect = !article.collect;
-          });
+          eventBus.fire(CollectEvent());
         }, errorCallBack: (code, msg) {}, context: context);
   }
 }

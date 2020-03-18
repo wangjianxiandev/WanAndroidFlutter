@@ -38,7 +38,7 @@ class _ProjectArticleWidgetState extends State<ProjectArticleWidget> {
         }
         Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
           return new WebViewPage(
-              url: article.link, title: article.title, id: article.id);
+              url: article.link, title: article.title, id: article.id, isCollect: article.collect,);
         }));
       },
       child: Card(
