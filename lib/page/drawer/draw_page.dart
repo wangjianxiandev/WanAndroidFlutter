@@ -11,6 +11,7 @@ import 'package:wanandroidflutter/page/account/login_fragment.dart';
 import 'package:wanandroidflutter/page/collect/collect_fragment.dart';
 import 'package:wanandroidflutter/page/rank/rank_fragment.dart';
 import 'package:wanandroidflutter/page/setting/setting_fragment.dart';
+import 'package:wanandroidflutter/page/share/share_article_fragment.dart';
 import 'package:wanandroidflutter/page/square/square_fragment.dart';
 import 'package:wanandroidflutter/page/wenda/wenda_fragment.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
@@ -174,6 +175,27 @@ class _DrawerPageState extends State<DrawerPage> {
                 },
               ),
             );
+          },
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.share,
+            size: 27.0,
+          ),
+          title: Text(
+            '我的分享',
+            style: textStyle,
+          ),
+          onTap: () {
+            loginData != null
+                ? Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ShareArticleFragment();
+                      },
+                    ),
+                  )
+                : goLogin();
           },
         ),
         ListTile(

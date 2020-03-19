@@ -125,7 +125,7 @@ class _CollectWidgetState extends State<CollectWidget> {
                       child: Container(
                         alignment: Alignment.centerLeft,
                         child: WidgetUtils.buildStrokeWidget(
-                            "${article.chapterName}/收藏",
+                            "${article.chapterName}",
                             Colors.grey,
                             FontWeight.w400,
                             10.0),
@@ -156,7 +156,7 @@ class _CollectWidgetState extends State<CollectWidget> {
     return exp.hasMatch(title);
   }
 
-  //收藏/取消收藏
+  //取消收藏
   _delete() {
     String url = "lg/uncollect_originId/${article.originId}/json";
     HttpRequest.getInstance().post(url,

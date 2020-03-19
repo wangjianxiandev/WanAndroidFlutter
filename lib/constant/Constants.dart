@@ -1,3 +1,5 @@
+import 'package:wanandroidflutter/page/input/page.dart';
+
 class Constants {
   /// 网络错误
   static const NETWORK_ERROR = -1;
@@ -10,4 +12,11 @@ class Constants {
 
   /// 成功
   static const SUCCESS = 200;
+
+  static final List<Page> todoTypes = [
+    Page('只用这一个', 0),
+    Page('工作', 1),
+    Page('学习', 2),
+    Page('生活', 3)
+  ];
 }

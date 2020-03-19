@@ -39,6 +39,7 @@ dependencies:
   fluttertoast: ^3.0.3
   url_launcher: ^3.0.3  #打开浏览器
   flutter_redux: ^0.5.2 # 数据共享
+  date_format: ^1.0.8
 
 dev_dependencies:
   flutter_test:

@@ -5,6 +5,8 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/page/input/share_fragment.dart';
+import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
@@ -90,10 +92,34 @@ class _SquareFragmentState extends State<SquareFragment>
           backgroundColor: Colors.blue.withAlpha(180),
           child: Icon(Icons.add),
           onPressed: () {
-            _scrollController.animateTo(0,
-                duration: Duration(milliseconds: 1000), curve: Curves.linear);
+            _inAddShare();
           }),
     );
+  }
+
+  //分享文章
+  void _inAddShare() {
+      showDialog<void>(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return SimpleInputDialogLayout(
+              isCollectArticle: false,
+              isDIYText: true,
+              themeText: "分享",
+              dialogTitleText: "分享文章",
+              confirmCallback2: (collectTitle,collectUrl) async{
+                //收藏文章
+                var data;
+                data = {'title': collectTitle, 'link': collectUrl};
+                HttpRequest.getInstance().post(Api.SHARE_ARTICLE, data: data, successCallBack: (data) {
+                  CommonUtils.toast("分享文章成功");
+                  _onRefresh(true);
+                });
+              },
+            );
+          }
+      );
   }
 
   @override

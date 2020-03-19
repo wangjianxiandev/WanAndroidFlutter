@@ -60,4 +60,10 @@ class Api {
 
   //获取问答列表
   static const String WENDA_LIST = "wenda/list/";
+
+  //分享文章
+  static const String SHARE_ARTICLE = "lg/user_article/add/json";
+
+  //分享文章列表
+  static const String SHARE_ARTICLE_LIST = "user/lg/private_articles/";
 }
