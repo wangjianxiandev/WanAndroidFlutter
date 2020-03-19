@@ -58,6 +58,9 @@ class Api {
   //取消收藏
   static const String UN_COLLECT = "lg/uncollect/";
 
+  //添加站外收藏
+  static const String ADD_COLLECT_ARTICLE = "lg/collect/add/json";
+
   //获取广场数据
   static const String SQUARE_LIST = "user_article/list/";
 

@@ -124,7 +124,8 @@ class _CollectWidgetState extends State<CollectWidget> {
                       child: Container(
                         alignment: Alignment.centerLeft,
                         child: WidgetUtils.buildStrokeWidget(
-                            "${article.chapterName}",
+                            article.chapterName.isNotEmpty ?
+                            "${article.chapterName}" : "站外",
                             Colors.grey,
                             FontWeight.w400,
                             10.0),
