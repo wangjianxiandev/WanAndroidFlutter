@@ -7,7 +7,6 @@ import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
-import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/collect_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';

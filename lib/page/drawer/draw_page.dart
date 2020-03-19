@@ -16,10 +16,8 @@ import 'package:wanandroidflutter/page/square/square_fragment.dart';
 import 'package:wanandroidflutter/page/wenda/wenda_fragment.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
-import 'package:wanandroidflutter/utils/cookie_util.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
 import 'package:wanandroidflutter/utils/loginout_event.dart';
-import 'package:wanandroidflutter/utils/widget_utils.dart';
 
 class DrawerPage extends StatefulWidget {
   @override
@@ -27,9 +25,10 @@ class DrawerPage extends StatefulWidget {
 }
 
 class _DrawerPageState extends State<DrawerPage> {
-  bool isLogin = false;
   LoginData loginData;
   CoinData coinData;
+  int rank = 0;
+  int coinCount = 0;
   final TextStyle textStyle =
       TextStyle(fontSize: 16, fontWeight: FontWeight.w300);
 
@@ -56,15 +55,18 @@ class _DrawerPageState extends State<DrawerPage> {
     }
   }
 
-  void getCoinCount() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String coinInfo = sharedPreferences.getString(Config.SP_COIN);
-    if (coinInfo != null && coinInfo.isNotEmpty) {
-      Map coinMap = json.decode(coinInfo);
-      setState(() {
-        coinData = CoinData.fromJson(coinMap);
-      });
-    }
+  void getCoinCount() {
+    HttpRequest.getInstance().get(Api.COIN_INFO, successCallBack: (data) {
+      if (data != null && data.isNotEmpty) {
+        Map coinMap = json.decode(data);
+        setState(() {
+          coinData = CoinData.fromJson(coinMap);
+          rank = coinData.rank;
+          coinCount = coinData.coinCount;
+          print(rank.toString() + "" + coinCount.toString());
+        });
+      }
+    }, errorCallBack: (code, msg) {});
   }
 
   void loginOut() async {
@@ -83,38 +85,16 @@ class _DrawerPageState extends State<DrawerPage> {
   @override
   void initState() {
     super.initState();
-    isLogin = loginData != null;
-    if (!isLogin) {
+    if (loginData == null) {
       getUserInfo();
-      getCoinCount();
     }
+    getCoinCount();
     eventBus.on<LoginEvent>().listen((event) {
       setState(() {
         getUserInfo();
         getCoinCount();
       });
     });
-  }
-
-  List<Widget> buildCoinWidget(bool isLogin) {
-    List<Widget> list = [];
-    if (coinData != null) {
-      list.add(
-        Text(coinData != null ? "排名 " + coinData.rank.toString() : "排名 --",
-            style: TextStyle(
-              fontSize: 15.0,
-              color: Colors.white,
-            )),
-      );
-      list.add(SizedBox(
-        width: 10,
-      ));
-      list.add(Text(
-        coinData != null ? "积分：" + coinData.coinCount.toString() : "积分：-- ",
-        style: TextStyle(color: Colors.white, fontSize: 15.0),
-      ));
-    }
-    return list;
   }
 
   @override
@@ -130,7 +110,20 @@ class _DrawerPageState extends State<DrawerPage> {
           accountEmail: Container(
             padding: const EdgeInsets.only(bottom: 10.0),
             child: Row(
-              children: buildCoinWidget(loginData != null),
+              children: <Widget>[
+                Text(loginData != null ? "排名 " + rank.toString() : "排名--",
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      color: Colors.white,
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  loginData != null ? "积分：" + coinCount.toString() : "积分：-- ",
+                  style: TextStyle(color: Colors.white, fontSize: 15.0),
+                )
+              ],
             ),
           ),
           currentAccountPicture: InkWell(

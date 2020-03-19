@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/page/drawer/draw_page.dart';
 import 'package:wanandroidflutter/page/home/home_fragment.dart';
+import 'package:wanandroidflutter/page/home/search_fragment.dart';
 import 'package:wanandroidflutter/page/project/project_fragment.dart';
 import 'package:wanandroidflutter/page/system/system_fragment.dart';
 import 'package:wanandroidflutter/page/wechat/wechat_fragment.dart';
@@ -36,6 +37,21 @@ class _TabsState extends State<Tabs> {
             ? AppBar(
                 title: Text(_titleList[_currentIndex]),
                 backgroundColor: Colors.blue,
+                actions: <Widget>[
+                  IconButton(
+                    padding: EdgeInsets.only(right: 10),
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SearchFragment();
+                          },
+                        ),
+                      );
+                    },
+                  )
+                ],
               )
             : null,
         body: this._pageList[this._currentIndex],

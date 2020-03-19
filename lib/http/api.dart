@@ -10,6 +10,12 @@ class Api {
   //首页文章
   static const String HOME_ARTICLE_LIST = "article/list/";
 
+  //搜索热词
+  static const String HOT_KEY = "hotkey/json";
+
+  //搜索
+  static const String SEARCH_RESULT_LIST = "article/query/";
+
   //收藏站内文章
   static const String COLLECT = "lg/collect/";
 

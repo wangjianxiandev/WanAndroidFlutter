@@ -136,9 +136,6 @@ class LoginFormState extends State<LoginForm>
     data = {'username': _name, 'password': _pwd};
     HttpRequest.getInstance().post(Api.LOGIN, data: data,
         successCallBack: (data) {
-          HttpRequest.getInstance().get(Api.COIN_INFO, successCallBack: (data) {
-              saveCoinInfo(data);
-          }, errorCallBack: (code, msg) {});
       eventBus.fire(LoginEvent());
       saveUserInfo(data);
       Navigator.of(context).pop();
@@ -151,10 +148,6 @@ class LoginFormState extends State<LoginForm>
     await prefs.setString(Config.SP_PWD, _pwd);
   }
 
-  void saveCoinInfo(data) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(Config.SP_COIN, data);
-  }
 
   @override
   bool get wantKeepAlive => true;
