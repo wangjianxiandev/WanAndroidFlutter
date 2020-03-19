@@ -47,7 +47,6 @@ class _SearchResultFragmentState extends State<SearchResultFragment> with Automa
             _pageStateController.changeState(PageState.LoadSuccess);
             Map<String, dynamic> dataJson = json.decode(data);
             List responseJson = json.decode(json.encode(dataJson["datas"]));
-            print("sear" + responseJson.toString());
             setState(() {
               searchResultList
                   .addAll(

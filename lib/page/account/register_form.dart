@@ -2,14 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wanandroidflutter/data/login.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
-import 'package:wanandroidflutter/main.dart';
-import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
-import 'package:wanandroidflutter/utils/login_event.dart';
+
 
 class RegisterForm extends StatefulWidget {
   PageController _pageController;
