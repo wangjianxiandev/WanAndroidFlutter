@@ -176,12 +176,6 @@
       "languageVersion": "2.0"
     },
     {
-      "name": "flutter_webview_plugin",
-      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/flutter_webview_plugin-0.3.10+1",
-      "packageUri": "lib/",
-      "languageVersion": "2.0"
-    },
-    {
       "name": "fluttertoast",
       "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/fluttertoast-3.1.3",
       "packageUri": "lib/",
@@ -246,6 +240,12 @@
       "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/petitparser-2.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.4"
+    },
+    {
+      "name": "plugin_platform_interface",
+      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/plugin_platform_interface-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
     },
     {
       "name": "provider",
@@ -363,7 +363,25 @@
     },
     {
       "name": "url_launcher",
-      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-3.0.3",
+      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher-5.4.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "url_launcher_macos",
+      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_macos-0.0.1+4",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
+      "name": "url_launcher_platform_interface",
+      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_platform_interface-1.0.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
+      "name": "url_launcher_web",
+      "rootUri": "file:///D:/Android/FlutterSdk/flutter/.pub-cache/hosted/pub.flutter-io.cn/url_launcher_web-0.1.1+1",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -404,7 +422,7 @@
       "languageVersion": "2.1"
     }
   ],
-  "generated": "2020-03-20T05:52:00.357278Z",
+  "generated": "2020-03-20T08:55:53.336509Z",
   "generator": "pub",
   "generatorVersion": "2.7.0"
 }

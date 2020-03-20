@@ -1,10 +1,11 @@
 # This is a generated file; do not edit or check into version control.
-flutter_webview_plugin=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\flutter_webview_plugin-0.3.10+1\\
 fluttertoast=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\fluttertoast-3.1.3\\
 path_provider=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\path_provider-0.5.0+1\\
 shared_preferences=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\shared_preferences-0.5.6+3\\
 shared_preferences_macos=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\shared_preferences_macos-0.0.1+6\\
 shared_preferences_web=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\shared_preferences_web-0.1.2+4\\
 sqflite=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\sqflite-1.2.2+1\\
-url_launcher=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\url_launcher-3.0.3\\
+url_launcher=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\url_launcher-5.4.2\\
+url_launcher_macos=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\url_launcher_macos-0.0.1+4\\
+url_launcher_web=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\url_launcher_web-0.1.1+1\\
 webview_flutter=D:\\Android\\FlutterSdk\\flutter\\.pub-cache\\hosted\\pub.flutter-io.cn\\webview_flutter-0.3.19+9\\
