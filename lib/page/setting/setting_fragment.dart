@@ -25,32 +25,6 @@ class _SettingFragmentState extends State<SettingFragment> {
                 title: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    "夜间模式",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-                onTap: () {
-                  CommonUtils.showAlertDialog(context, "确定清除缓存吗？",
-                      confirmText: "确定", confirmCallback: () {
-                    //清除缓存
-                    CommonUtils.clearCache();
-                  });
-                },
-              )),
-          Card(
-              elevation: 8.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              ),
-              clipBehavior: Clip.antiAlias,
-              semanticContainer: false,
-              child: ListTile(
-                title: Container(
-                  alignment: Alignment.center,
-                  child: Text(
                     "清除缓存",
                     style: TextStyle(
                         fontSize: 18,

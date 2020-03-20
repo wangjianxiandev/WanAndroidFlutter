@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 
 import 'marquee_widget.dart';
 
@@ -48,13 +50,14 @@ class TitleBar extends StatefulWidget implements PreferredSizeWidget {
 class _TitleBarState extends State<TitleBar> {
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return Container(
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [Colors.blueAccent, Colors.blue])),
+              colors: [appTheme.themeColor.withAlpha(180), appTheme.themeColor])),
       child: Stack(
         children: <Widget>[
           Offstage(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:wanandroidflutter/data/project_tab.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/page/project/project_list_fragment.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 
 class ProjectFragment extends StatefulWidget {
   @override
@@ -56,11 +58,12 @@ class ProjectFragmentState extends State<ProjectFragment>
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return DefaultTabController(
       length: mTabDatas.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: appTheme.themeColor,
           title: TabBar(
             controller: mTabController,
             tabs: initTabs(),

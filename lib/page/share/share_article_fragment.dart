@@ -77,9 +77,6 @@ class _ShareArticleFragmentState extends State<ShareArticleFragment>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("我的分享"),
-      ),
       body: PageWidget(
         controller: _pageStateController,
         reload: () {

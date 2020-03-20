@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/knowledge.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/system/knowledge/KnowledgeListFragment.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 
 class KnowledgeFragment extends StatefulWidget {
@@ -14,6 +16,7 @@ class KnowledgeFragment extends StatefulWidget {
 
 class _KnowledgeFragmentState extends State<KnowledgeFragment> {
   List<KnowledgeData> knowLedgeList = [];
+  var appTheme;
 
   @override
   void initState() {
@@ -56,6 +59,7 @@ class _KnowledgeFragmentState extends State<KnowledgeFragment> {
                 return Scaffold(
                   appBar: AppBar(
                     title: Text(knowledgeData.children[index].name.toString()),
+                    backgroundColor: appTheme.themeColor,
                     centerTitle: true,
                   ),
                   body: KnowledgeListFragment(knowledgeData.children[index].id),
@@ -93,6 +97,7 @@ class _KnowledgeFragmentState extends State<KnowledgeFragment> {
 
   @override
   Widget build(BuildContext context) {
+    appTheme = Provider.of<AppTheme>(context);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white.withAlpha(200),

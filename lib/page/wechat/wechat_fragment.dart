@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/wechat_tab.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/page/wechat/wechat_list_fragment.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 
 class WeChatFragment extends StatefulWidget {
   @override
@@ -57,11 +59,12 @@ class WeChatFragmentState extends State<WeChatFragment>
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return DefaultTabController(
       length: mTabDatas.length,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: appTheme.themeColor,
           title: TabBar(
             controller: mTabController,
             tabs: initTabs(),

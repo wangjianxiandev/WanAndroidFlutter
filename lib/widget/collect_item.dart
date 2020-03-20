@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_html/flutter_html.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
 
@@ -24,6 +26,7 @@ class _CollectWidgetState extends State<CollectWidget> {
   Article article;
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     article = widget.article;
     return GestureDetector(
       onTap: () {
@@ -60,7 +63,7 @@ class _CollectWidgetState extends State<CollectWidget> {
                                 ? Icons.folder_shared
                                 : Icons.person,
                             size: 20.0,
-                            color: Colors.blue,
+                            color: appTheme.themeColor,
                           ),
                           Container(
                             padding: EdgeInsets.only(left: 5),

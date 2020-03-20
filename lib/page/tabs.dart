@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/page/drawer/draw_page.dart';
 import 'package:wanandroidflutter/page/home/home_fragment.dart';
 import 'package:wanandroidflutter/page/home/search_fragment.dart';
 import 'package:wanandroidflutter/page/project/project_fragment.dart';
 import 'package:wanandroidflutter/page/system/system_fragment.dart';
 import 'package:wanandroidflutter/page/wechat/wechat_fragment.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 
 class Tabs extends StatefulWidget {
   final index;
@@ -32,11 +34,12 @@ class _TabsState extends State<Tabs> {
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
         appBar: _currentIndex == 0
             ? AppBar(
                 title: Text(_titleList[_currentIndex]),
-                backgroundColor: Colors.blue,
+                backgroundColor: appTheme.themeColor,
                 actions: <Widget>[
                   IconButton(
                     padding: EdgeInsets.only(right: 10),
@@ -64,7 +67,7 @@ class _TabsState extends State<Tabs> {
               this._currentIndex = index;
             });
           },
-          fixedColor: Colors.blue,
+          fixedColor: appTheme.themeColor,
           //选中的颜色
           type: BottomNavigationBarType.fixed,
           //配置底部tabs可以有多个按钮

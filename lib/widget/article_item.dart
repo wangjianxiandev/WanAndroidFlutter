@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_html/flutter_html.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
 
 //文章item
@@ -23,6 +25,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
   Article article;
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     article = widget.article;
     return GestureDetector(
       onTap: () {
@@ -59,7 +62,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                                 ? Icons.folder_shared
                                 : Icons.person,
                             size: 20.0,
-                            color: Colors.blue,
+                            color: appTheme.themeColor,
                           ),
                           Container(
                             padding: EdgeInsets.only(left: 5),
@@ -78,14 +81,14 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                             child: Offstage(
                                 offstage: !article.fresh ?? true,
                                 child: WidgetUtils.buildStrokeWidget("新",
-                                    Colors.blueAccent, FontWeight.w400, 9.0)),
+                                    appTheme.themeColor, FontWeight.w400, 9.0)),
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 5),
                             child: Offstage(
                                 offstage: article.type == 0 ?? false,
                                 child: WidgetUtils.buildStrokeWidget("置顶",
-                                    Colors.blueAccent, FontWeight.w400, 9.0)),
+                                    appTheme.themeColor, FontWeight.w400, 9.0)),
                           )
                         ],
                       )),

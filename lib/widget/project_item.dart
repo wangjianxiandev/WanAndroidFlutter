@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_html/flutter_html.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
 
 //项目item
@@ -26,6 +28,7 @@ class _ProjectArticleWidgetState extends State<ProjectArticleWidget> {
   @override
   Widget build(BuildContext context) {
     article = widget.article;
+    var appTheme = Provider.of<AppTheme>(context);
     return GestureDetector(
       onTap: () {
         String title = "";
@@ -61,7 +64,7 @@ class _ProjectArticleWidgetState extends State<ProjectArticleWidget> {
                                 ? Icons.folder_shared
                                 : Icons.person,
                             size: 20.0,
-                            color: Colors.blue,
+                            color: appTheme.themeColor,
                           ),
                           Container(
                             padding: EdgeInsets.only(left: 5),
@@ -80,14 +83,14 @@ class _ProjectArticleWidgetState extends State<ProjectArticleWidget> {
                             child: Offstage(
                                 offstage: !article.fresh ?? true,
                                 child: WidgetUtils.buildStrokeWidget("新",
-                                    Colors.blueAccent, FontWeight.w400, 9.0)),
+                                    appTheme.themeColor, FontWeight.w400, 9.0)),
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 5),
                             child: Offstage(
                                 offstage: article.type == 0 ?? false,
                                 child: WidgetUtils.buildStrokeWidget("置顶",
-                                    Colors.blueAccent, FontWeight.w400, 9.0)),
+                                    appTheme.themeColor, FontWeight.w400, 9.0)),
                           )
                         ],
                       )),

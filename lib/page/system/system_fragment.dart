@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/page/system/knowledge/KnowledgeFragment.dart';
 import 'package:wanandroidflutter/page/system/navigation/NavigationFragment.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 
 class SystemFragment extends StatefulWidget {
   @override
@@ -32,9 +34,10 @@ class _SystemFragmentState extends State<SystemFragment>
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: appTheme.themeColor,
         centerTitle: true,
         title: TabBar(
           controller: mTabController,

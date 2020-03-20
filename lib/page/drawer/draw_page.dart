@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/data/coin.dart';
 import 'package:wanandroidflutter/data/login.dart';
@@ -9,11 +10,13 @@ import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/account/login_fragment.dart';
 import 'package:wanandroidflutter/page/collect/collect_fragment.dart';
+import 'package:wanandroidflutter/page/home/theme_colors.dart';
 import 'package:wanandroidflutter/page/rank/rank_fragment.dart';
 import 'package:wanandroidflutter/page/setting/setting_fragment.dart';
 import 'package:wanandroidflutter/page/share/share_article_fragment.dart';
 import 'package:wanandroidflutter/page/square/square_fragment.dart';
 import 'package:wanandroidflutter/page/wenda/wenda_fragment.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
@@ -29,6 +32,12 @@ class _DrawerPageState extends State<DrawerPage> {
   CoinData coinData;
   int rank = 0;
   int coinCount = 0;
+
+  List<Color> themeColors = new List();
+
+  int curSelectedIndex = 0;
+  int clickedIndex = 0;
+
   final TextStyle textStyle =
       TextStyle(fontSize: 16, fontWeight: FontWeight.w300);
 
@@ -82,9 +91,116 @@ class _DrawerPageState extends State<DrawerPage> {
     await prefs.setString(Config.SP_USER_INFO, null);
   }
 
+  void showThemeChooserDialog(
+      BuildContext context, int selectIndex, AppTheme appTheme) {
+    var result = showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: Text(
+              "主题颜色选择",
+            ),
+            content: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: 250,
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 15,
+                      crossAxisSpacing: 15,
+                      childAspectRatio: 1.2,
+                    ),
+                    itemCount: themeColors.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            clickedIndex = index;
+                            print("clickindex = $clickedIndex");
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: themeColors[index],
+                            shape: BoxShape.circle,
+                          ),
+                          width: 30,
+                          height: 30,
+                          child: Visibility(
+                            visible: clickedIndex == index,
+                            child: Icon(
+                              Icons.check,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+            actions: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 0),
+                child: FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(selectIndex);
+                  },
+                  child: Text(
+                    "取消",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).textTheme.body1.color,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                  right: 20,
+                  top: 0,
+                ),
+                child: FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(clickedIndex);
+                  },
+                  child: Text(
+                    "确定",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).textTheme.body1.color,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+    // 选择的结果回调
+    result.then((colorSelectedIndex) {
+      print("colorSelectedIndex = $colorSelectedIndex");
+      curSelectedIndex = colorSelectedIndex;
+      saveThemeColor(curSelectedIndex);
+      appTheme.updateThemeColor(themeColors[curSelectedIndex]);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    themeColors = getThemeColors();
+    getSelectedColorIndex().then((index) {
+      curSelectedIndex = index ?? 0;
+      clickedIndex = curSelectedIndex;
+    });
     if (loginData == null) {
       getUserInfo();
     }
@@ -97,12 +213,26 @@ class _DrawerPageState extends State<DrawerPage> {
     });
   }
 
+  void saveThemeColor(int curIndex) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(Config.SP_THEME_COLOR, curIndex);
+  }
+
+  getSelectedColorIndex() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.get(Config.SP_THEME_COLOR);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return new ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
         UserAccountsDrawerHeader(
+          decoration: BoxDecoration(
+            color: appTheme.themeColor,
+          ),
           accountName: Text(
             loginData != null ? loginData.nickname : "点击头像登录",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -161,6 +291,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   return Scaffold(
                     appBar: AppBar(
                       title: Text("广场"),
+                      backgroundColor: appTheme.themeColor,
                       centerTitle: true,
                     ),
                     body: SquareFragment(),
@@ -184,7 +315,14 @@ class _DrawerPageState extends State<DrawerPage> {
                 ? Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) {
-                        return ShareArticleFragment();
+                        return Scaffold(
+                          appBar: AppBar(
+                            title: Text("我的分享"),
+                            backgroundColor: appTheme.themeColor,
+                            centerTitle: true,
+                          ),
+                          body: ShareArticleFragment(),
+                        );
                       },
                     ),
                   )
@@ -208,6 +346,7 @@ class _DrawerPageState extends State<DrawerPage> {
                         return Scaffold(
                           appBar: AppBar(
                             title: Text("我的收藏"),
+                            backgroundColor: appTheme.themeColor,
                             centerTitle: true,
                           ),
                           body: CollectFragment(),
@@ -234,6 +373,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   return Scaffold(
                     appBar: AppBar(
                       title: Text("问答"),
+                      backgroundColor: appTheme.themeColor,
                       centerTitle: true,
                     ),
                     body: WenDaFragment(),
@@ -249,10 +389,12 @@ class _DrawerPageState extends State<DrawerPage> {
             size: 27.0,
           ),
           title: Text(
-            'TODO',
+            '主题',
             style: textStyle,
           ),
-          onTap: () {},
+          onTap: () {
+            showThemeChooserDialog(context, curSelectedIndex, appTheme);
+          },
         ),
         new Divider(),
         ListTile(
@@ -271,6 +413,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   return Scaffold(
                     appBar: AppBar(
                       title: Text("积分排行"),
+                      backgroundColor: appTheme.themeColor,
                       centerTitle: true,
                     ),
                     body: RankFragment(),
@@ -311,6 +454,7 @@ class _DrawerPageState extends State<DrawerPage> {
                   return Scaffold(
                     appBar: AppBar(
                       title: Text("设置"),
+                      backgroundColor: appTheme.themeColor,
                       centerTitle: true,
                     ),
                     body: SettingFragment(),
