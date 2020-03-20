@@ -75,7 +75,7 @@ class _SplashViewState extends State<SplashView> {
       decoration: BoxDecoration(
         color: appTheme.themeColor,
       ),
-      child: Icon(Icons.settings),
+      child: Icon(Icons.android),
     ));
   }
 }

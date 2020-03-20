@@ -84,7 +84,7 @@ class _PageWidgetState extends State<PageWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ImageIcon(
-            AssetImage("assets/icon_no_data.png"),
+            AssetImage("assets/img/load_no_data.png"),
             size: 50,
           ),
           Padding(
