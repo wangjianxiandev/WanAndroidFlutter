@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
@@ -18,7 +20,8 @@ class SearchResultFragment extends StatefulWidget {
   _SearchResultFragmentState createState() => _SearchResultFragmentState();
 }
 
-class _SearchResultFragmentState extends State<SearchResultFragment> with AutomaticKeepAliveClientMixin{
+class _SearchResultFragmentState extends State<SearchResultFragment>
+    with AutomaticKeepAliveClientMixin {
   int currentPage = 0;
   List<Article> searchResultList = List();
   ScrollController _scrollController;
@@ -34,28 +37,28 @@ class _SearchResultFragmentState extends State<SearchResultFragment> with Automa
     _pageStateController = PageStateController();
     loadSearchList();
   }
+
   void loadSearchList() {
     var data = {'k': widget.keyWord};
     HttpRequest.getInstance().post("${Api.SEARCH_RESULT_LIST}$currentPage/json",
         data: data, successCallBack: (data) {
-          if (currentPage == 0) {
-            searchResultList.clear();
-          }
-          _easyRefreshKey.currentState.callRefreshFinish();
-          _easyRefreshKey.currentState.callLoadMoreFinish();
-          if (data != null) {
-            _pageStateController.changeState(PageState.LoadSuccess);
-            Map<String, dynamic> dataJson = json.decode(data);
-            List responseJson = json.decode(json.encode(dataJson["datas"]));
-            setState(() {
-              searchResultList
-                  .addAll(
-                  responseJson.map((m) => Article.fromJson(m)).toList());
-            });
-          }else {
-            _pageStateController.changeState(PageState.NoData);
-          }
-        }, errorCallBack: (code, msg) {});
+      if (currentPage == 0) {
+        searchResultList.clear();
+      }
+      _easyRefreshKey.currentState.callRefreshFinish();
+      _easyRefreshKey.currentState.callLoadMoreFinish();
+      if (data != null) {
+        _pageStateController.changeState(PageState.LoadSuccess);
+        Map<String, dynamic> dataJson = json.decode(data);
+        List responseJson = json.decode(json.encode(dataJson["datas"]));
+        setState(() {
+          searchResultList
+              .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
+        });
+      } else {
+        _pageStateController.changeState(PageState.NoData);
+      }
+    }, errorCallBack: (code, msg) {});
   }
 
   void _onRefresh(bool up) {
@@ -70,6 +73,7 @@ class _SearchResultFragmentState extends State<SearchResultFragment> with Automa
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
       body: PageWidget(
         controller: _pageStateController,
@@ -92,7 +96,7 @@ class _SearchResultFragmentState extends State<SearchResultFragment> with Automa
                 })),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blue.withAlpha(180),
+          backgroundColor: appTheme.themeColor.withAlpha(180),
           child: Icon(Icons.arrow_upward),
           onPressed: () {
             _scrollController.animateTo(0,

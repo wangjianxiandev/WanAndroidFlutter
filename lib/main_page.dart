@@ -35,7 +35,7 @@ class _MainPageState extends State<MainPage> {
   /// 查询暗黑模式
   queryDark() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    bool isDark = sp.getBool("dark") ?? false;
+    bool isDark = sp.getBool(Config.SP_DARK) ?? false;
     return isDark;
   }
 

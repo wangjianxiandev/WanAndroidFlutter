@@ -5,15 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/data/banner.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
 import 'package:wanandroidflutter/utils/loginout_event.dart';
+import 'package:wanandroidflutter/utils/refresh_event.dart';
 import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
@@ -34,6 +37,7 @@ class _HomeFragmentState extends State<HomeFragment>
   List<BannerData> bannerList = List();
   ScrollController _scrollController;
   PageStateController _pageStateController;
+  var appTheme;
 
   void loadArticleList() {
     if (currentPage == 0) {
@@ -125,10 +129,10 @@ class _HomeFragmentState extends State<HomeFragment>
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    appTheme = Provider.of<AppTheme>(context);
     super.build(context);
     return Scaffold(
-      body: PageWidget(
+      body:PageWidget(
         controller: _pageStateController,
         reload: () {
           loadArticleList();
@@ -212,7 +216,7 @@ class _HomeFragmentState extends State<HomeFragment>
                   alignment: Alignment.centerRight,
                   child: new DotSwiperPaginationBuilder(
                           color: Colors.black12,
-                          activeColor: Colors.blue,
+                          activeColor: appTheme.themeColor,
                           size: 6.0,
                           activeSize: 6.0)
                       .build(context, config),
@@ -222,25 +226,6 @@ class _HomeFragmentState extends State<HomeFragment>
           ),
         );
       }));
-
-  List<Widget> getTags(Article entity) {
-    List<Widget> tags = [];
-    for (int i = 0; i < entity.tags.length; i++) {
-      tags.add(new Container(
-          margin: EdgeInsets.only(left: 15),
-          decoration: new BoxDecoration(
-            border: new Border.all(color: Color(0xFF4282f4), width: 1),
-            // 边色与边宽度
-            color: Colors.transparent,
-            borderRadius: new BorderRadius.circular((2.0)), // 圆角度
-          ),
-          child: new Text(
-            entity.tags[i].name,
-            style: new TextStyle(fontSize: 32, color: const Color(0xFF4282f4)),
-          )));
-    }
-    return tags;
-  }
 
   /// with AutomaticKeepAliveClientMixin 切换Tabhou保留Tab状态，避免instance方法重复调用
   @override

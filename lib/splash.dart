@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/data/login.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 
 import 'main_page.dart';
@@ -66,11 +68,12 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return new Scaffold(
         body: new Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.lightBlue,
+        color: appTheme.themeColor,
       ),
       child: Icon(Icons.settings),
     ));
