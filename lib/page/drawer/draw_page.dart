@@ -261,15 +261,13 @@ class _DrawerPageState extends State<DrawerPage> {
             child: CircleAvatar(
               backgroundColor: Colors.white,
               backgroundImage: AssetImage(loginData == null
-                  ? "assets/img/ic_default_avatar.webp"
-                  : "assets/img/ic_launcher_foreground.png"),
+                  ? "assets/img/ic_default.png"
+                  : "assets/img/ic_avatar.png"),
             ),
             onTap: () {
               if (loginData == null) {
-                // 没有登录 跳转登录页面
                 goLogin();
               } else {
-                //登录则跳转用户中心
                 print("点击跳转用户中心");
               }
             },

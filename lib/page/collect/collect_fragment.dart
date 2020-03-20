@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/input/share_fragment.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/widget/collect_item.dart';
@@ -74,6 +76,7 @@ class _CollectFragmentState extends State<CollectFragment>
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
       body: PageWidget(
         controller: _pageStateController,
@@ -96,7 +99,7 @@ class _CollectFragmentState extends State<CollectFragment>
                 })),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blue.withAlpha(180),
+          backgroundColor: appTheme.themeColor.withAlpha(180),
           child: Icon(Icons.add),
           onPressed: () {
             _inAddCollect();

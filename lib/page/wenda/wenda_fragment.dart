@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
@@ -44,27 +46,28 @@ class _WenDaFragmentState extends State<WenDaFragment>
   void loadWenDaList() async {
     HttpRequest.getInstance().get("${Api.WENDA_LIST}$currentPage/json",
         successCallBack: (data) {
-          if (currentPage == 0) {
-            wendaList.clear();
-          }
-          _easyRefreshKey.currentState.callRefreshFinish();
-          _easyRefreshKey.currentState.callLoadMoreFinish();
-          if (data != null) {
-            _pageStateController.changeState(PageState.LoadSuccess);
-            Map<String, dynamic> dataJson = json.decode(data);
-            List responseJson = json.decode(json.encode(dataJson["datas"]));
-            setState(() {
-              wendaList
-                  .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
-            });
-          } else {
-            _pageStateController.changeState(PageState.NoData);
-          }
-        }, errorCallBack: (code, msg) {});
+      if (currentPage == 0) {
+        wendaList.clear();
+      }
+      _easyRefreshKey.currentState.callRefreshFinish();
+      _easyRefreshKey.currentState.callLoadMoreFinish();
+      if (data != null) {
+        _pageStateController.changeState(PageState.LoadSuccess);
+        Map<String, dynamic> dataJson = json.decode(data);
+        List responseJson = json.decode(json.encode(dataJson["datas"]));
+        setState(() {
+          wendaList
+              .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
+        });
+      } else {
+        _pageStateController.changeState(PageState.NoData);
+      }
+    }, errorCallBack: (code, msg) {});
   }
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
       body: PageWidget(
         controller: _pageStateController,
@@ -87,7 +90,7 @@ class _WenDaFragmentState extends State<WenDaFragment>
                 })),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blue.withAlpha(180),
+          backgroundColor: appTheme.themeColor.withAlpha(180),
           child: Icon(Icons.add),
           onPressed: () {
             _scrollController.animateTo(0,

@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/input/share_fragment.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
@@ -67,6 +69,7 @@ class _SquareFragmentState extends State<SquareFragment>
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
       body: PageWidget(
         controller: _pageStateController,
@@ -89,7 +92,7 @@ class _SquareFragmentState extends State<SquareFragment>
                 })),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blue.withAlpha(180),
+          backgroundColor: appTheme.themeColor.withAlpha(180),
           child: Icon(Icons.add),
           onPressed: () {
             _inAddShare();
