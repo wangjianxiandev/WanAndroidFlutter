@@ -28,13 +28,19 @@ class HttpRequest {
 
   HttpRequest() {
     options = BaseOptions(
+      // 访问url
       baseUrl: _baseUrl,
+      // 连接超时时间
       connectTimeout: 5000,
+      // 响应流收到数据的间隔
       receiveTimeout: 15000,
+      // http请求头
       headers: {"version": "1.0.0"},
+      // 接收响应数据的格式
       responseType: ResponseType.plain,
     );
     dio = Dio(options);
+    // 在拦截其中加入Cookie管理器
     dio.interceptors.add(CookieManager(CookieJar()));
   }
 

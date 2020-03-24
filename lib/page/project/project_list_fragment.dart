@@ -36,6 +36,7 @@ class ProjectListFragmentState extends State<ProjectListFragment>
 
   ScrollController _scrollController;
   PageStateController _pageStateController;
+  bool isShowFab = false;
 
   GlobalKey<EasyRefreshState> _easyRefreshKey =
       new GlobalKey<EasyRefreshState>();
@@ -54,6 +55,21 @@ class ProjectListFragmentState extends State<ProjectListFragment>
     });
     eventBus.on<CollectEvent>().listen((event) {
       _onRefresh(true);
+    });
+    initFabAnimator();
+  }
+
+  void initFabAnimator() {
+    _scrollController.addListener(() {
+      if (_scrollController.offset < 200) {
+        setState(() {
+          isShowFab = false;
+        });
+      } else if (_scrollController.offset >= 200) {
+        setState(() {
+          isShowFab = true;
+        });
+      }
     });
   }
 
@@ -115,13 +131,13 @@ class ProjectListFragmentState extends State<ProjectListFragment>
                   return ProjectArticleWidget(projectArticleList[index]);
                 })),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: isShowFab ? FloatingActionButton(
           backgroundColor: appTheme.themeColor.withAlpha(180),
           child: Icon(Icons.arrow_upward),
           onPressed: () {
             _scrollController.animateTo(0,
                 duration: Duration(milliseconds: 1000), curve: Curves.linear);
-          }),
+          }) : null,
     );
   }
 

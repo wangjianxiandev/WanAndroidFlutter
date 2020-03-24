@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,8 @@ import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/data/banner.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/page/drawer/draw_page.dart';
+import 'package:wanandroidflutter/page/home/search_fragment.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
@@ -37,6 +40,7 @@ class _HomeFragmentState extends State<HomeFragment>
   List<BannerData> bannerList = List();
   ScrollController _scrollController;
   PageStateController _pageStateController;
+  bool isShowFab = false;
   var appTheme;
 
   void loadArticleList() {
@@ -104,6 +108,7 @@ class _HomeFragmentState extends State<HomeFragment>
     eventBus.on<CollectEvent>().listen((event) {
       _onRefresh(true);
     });
+    initFabAnimator();
   }
 
   @override
@@ -111,6 +116,20 @@ class _HomeFragmentState extends State<HomeFragment>
     _swiperController.stopAutoplay();
     _swiperController.dispose();
     super.dispose();
+  }
+
+  void initFabAnimator() {
+    _scrollController.addListener(() {
+      if (_scrollController.offset < 200) {
+        setState(() {
+          isShowFab = false;
+        });
+      } else if (_scrollController.offset >= 200) {
+        setState(() {
+          isShowFab = true;
+        });
+      }
+    });
   }
 
   void _onRefresh(bool up) {
@@ -132,6 +151,26 @@ class _HomeFragmentState extends State<HomeFragment>
     appTheme = Provider.of<AppTheme>(context);
     super.build(context);
     return Scaffold(
+      appBar: AppBar(
+        title: Text("首页"),
+        centerTitle: true,
+        backgroundColor: appTheme.themeColor,
+        actions: <Widget>[
+          IconButton(
+            padding: EdgeInsets.only(right: 10),
+            icon: Icon(Icons.search),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SearchFragment();
+                  },
+                ),
+              );
+            },
+          )
+        ],
+      ),
       body:PageWidget(
         controller: _pageStateController,
         reload: () {
@@ -186,13 +225,16 @@ class _HomeFragmentState extends State<HomeFragment>
                       : ArticleWidget(articleList[index - 1]);
                 })),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: isShowFab ? FloatingActionButton(
           backgroundColor: appTheme.themeColor.withAlpha(180),
           child: Icon(Icons.arrow_upward),
           onPressed: () {
             _scrollController.animateTo(0,
                 duration: Duration(milliseconds: 1000), curve: Curves.linear);
-          }),
+          }) : null,
+        drawer: Drawer(
+          child: DrawerPage(),
+        )
     );
   }
 
