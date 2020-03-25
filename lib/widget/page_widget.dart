@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 
 import 'load_fail_widget.dart';
 
@@ -54,6 +56,7 @@ class _PageWidgetState extends State<PageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return IndexedStack(
       index: index,
       children: <Widget>[
@@ -65,7 +68,9 @@ class _PageWidgetState extends State<PageWidget> {
           },
         ),
         Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation(appTheme.themeColor),
+          ),
         ),
         GestureDetector(
           onTap: () {

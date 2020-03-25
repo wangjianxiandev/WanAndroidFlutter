@@ -21,12 +21,12 @@ class _SplashViewState extends State<SplashView> {
   getUserInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String info = prefs.getString(Config.SP_USER_INFO);
-    if (null != info && info.isNotEmpty) {
+    if (info != null && info.isNotEmpty) {
       Map userMap = json.decode(info);
       LoginData userEntity = new LoginData.fromJson(userMap);
       String _name = userEntity.username;
       String _pwd = prefs.getString(Config.SP_PWD);
-      if (null != _pwd && _pwd.isNotEmpty) {
+      if (_pwd != null && _pwd.isNotEmpty) {
         doLogin(_name, _pwd);
       }
     }
@@ -50,7 +50,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   void countdown() {
-    Timer timer = new Timer(new Duration(seconds: 3), () {
+    Timer(new Duration(seconds: 2), () {
       Navigator.pushAndRemoveUntil(
         context,
         new MaterialPageRoute(builder: (context) => new MainPage()),

@@ -6,8 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/splash.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
-import 'package:wanandroidflutter/theme/colours.dart';
-import 'package:wanandroidflutter/theme/dark_model.dart';
 
 EventBus eventBus = EventBus();
 
@@ -21,6 +19,7 @@ void main() {
 
   runApp(
     MultiProvider(
+      // 接受监听
       providers: [
         ChangeNotifierProvider.value(value: appTheme),
       ],
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       home: SplashView(),
     );
   }
