@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:provider/provider.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
-import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/input/share_fragment.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
@@ -45,7 +45,7 @@ class _CollectFragmentState extends State<CollectFragment>
     _pageStateController = PageStateController();
     _scrollController = ScrollController();
     loadCollectList();
-    eventBus.on<CollectEvent>().listen((event) {
+    Application.eventBus.on<CollectEvent>().listen((event) {
       setState(() {
         _onRefresh(true);
       });
@@ -124,7 +124,7 @@ class _CollectFragmentState extends State<CollectFragment>
               HttpRequest.getInstance().post(Api.ADD_COLLECT_ARTICLE,
                   data: data, successCallBack: (data) {
                 CommonUtils.toast("收藏文章成功");
-                eventBus.fire(CollectEvent());
+                Application.eventBus.fire(CollectEvent());
               });
             },
           );

@@ -8,15 +8,15 @@ class BannerData {
   int type;
   String url;
 
-  BannerData.fromJson(Map<String, dynamic> json) {
-    desc = json["desc"];
-    id = json["id"];
-    imagePath = json["imagePath"];
-    isVisible = json["isVisible"];
-    order = json["order"];
-    title = json["title"];
-    type = json["type"];
-    url = json["url"];
+  BannerData.fromJson(Map<String, dynamic> map) {
+    desc = map["desc"];
+    id = map["id"];
+    imagePath = map["imagePath"];
+    isVisible = map["isVisible"];
+    order = map["order"];
+    title = map["title"];
+    type = map["type"];
+    url = map["url"];
   }
 
   Map<String, dynamic> toJson() {

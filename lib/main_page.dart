@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/page/home/theme_colors.dart';
 import 'package:wanandroidflutter/page/tabs.dart';
 import 'package:wanandroidflutter/routes/routes.dart';
@@ -15,7 +15,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     queryThemeColor().then((index) {
       Provider.of<AppTheme>(context).updateThemeColor(getThemeColors()[index]);
@@ -23,8 +22,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   queryThemeColor() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    int themeColorIndex = sp.getInt(Config.SP_THEME_COLOR) ?? 0;
+    int themeColorIndex = Application.sp.getInt(Config.SP_THEME_COLOR) ?? 0;
     return themeColorIndex;
   }
 

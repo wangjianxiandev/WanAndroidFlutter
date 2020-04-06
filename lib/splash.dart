@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/login.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
@@ -19,13 +20,12 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   getUserInfo() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String info = prefs.getString(Config.SP_USER_INFO);
+    String info = Application.sp.getString(Config.SP_USER_INFO);
     if (info != null && info.isNotEmpty) {
       Map userMap = json.decode(info);
       LoginData userEntity = new LoginData.fromJson(userMap);
       String _name = userEntity.username;
-      String _pwd = prefs.getString(Config.SP_PWD);
+      String _pwd = Application.sp.getString(Config.SP_PWD);
       if (_pwd != null && _pwd.isNotEmpty) {
         doLogin(_name, _pwd);
       }
@@ -45,8 +45,7 @@ class _SplashViewState extends State<SplashView> {
 
 //  保存用户信息
   void saveInfo(data) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(Config.SP_USER_INFO, data);
+    await Application.sp.putString(Config.SP_USER_INFO, data);
   }
 
   void countdown() {

@@ -2,9 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
-import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
@@ -134,16 +134,15 @@ class LoginFormState extends State<LoginForm>
     data = {'username': _name, 'password': _pwd};
     HttpRequest.getInstance().post(Api.LOGIN, data: data,
         successCallBack: (data) {
-      eventBus.fire(LoginEvent());
+          Application.eventBus.fire(LoginEvent());
       saveUserInfo(data);
       Navigator.of(context).pop();
     }, errorCallBack: (code, msg) {});
   }
 
-  void saveUserInfo(data) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(Config.SP_USER_INFO, data);
-    await prefs.setString(Config.SP_PWD, _pwd);
+  void saveUserInfo(data) {
+     Application.sp.putString(Config.SP_USER_INFO, data);
+     Application.sp.putString(Config.SP_PWD, _pwd);
   }
 
 

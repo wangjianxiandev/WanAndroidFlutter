@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 
-
 class CommonUtils {
   //Dialog 封装
-  static void showAlertDialog(BuildContext context,
-      String contentText,{Function confirmCallback,
-        Function dismissCallback,String confirmText = ""}) async {
+  static void showAlertDialog(BuildContext context, String contentText,
+      {Function confirmCallback,
+      Function dismissCallback,
+      String confirmText = ""}) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true, // user must tap button!
@@ -23,16 +23,16 @@ class CommonUtils {
             FlatButton(
               child: Text('我手滑了'),
               onPressed: () {
-                if(dismissCallback!=null){
+                if (dismissCallback != null) {
                   dismissCallback();
                 }
                 Navigator.of(context).pop();
               },
             ),
             FlatButton(
-              child: Text(confirmText == "" ? '注销':confirmText),
+              child: Text(confirmText == "" ? '注销' : confirmText),
               onPressed: () {
-                if(confirmCallback != null){
+                if (confirmCallback != null) {
                   confirmCallback();
                 }
                 Navigator.of(context).pop();
@@ -76,7 +76,7 @@ class CommonUtils {
     var temp = random.nextInt(6);
     List<Color> colors = [
       Colors.blueAccent,
-      Colors.grey ,
+      Colors.grey,
       Colors.redAccent,
       Colors.purpleAccent,
       Colors.lightGreen,
@@ -85,4 +85,23 @@ class CommonUtils {
     return colors[temp];
   }
 
+  static Future push(BuildContext context, Widget widget) {
+    Future result = Navigator.push(
+        context,
+//        PageRouteBuilder(
+//          transitionDuration: Duration(milliseconds: 500),
+//          pageBuilder: (BuildContext context, Animation animation,
+//              Animation secondaryAnimatioZn) {
+//            return new FadeTransition(
+//              //使用渐隐渐入过渡,
+//              opacity: animation,
+//              child: widget, //路由B
+//            );
+//          },
+//        ));
+    // 使用ios的转场动画
+        CupertinoPageRoute(
+          builder: (context) => widget,
+        ));
+  }
 }

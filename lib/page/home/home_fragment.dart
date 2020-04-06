@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/data/banner.dart';
 import 'package:wanandroidflutter/http/api.dart';
@@ -15,11 +14,9 @@ import 'package:wanandroidflutter/page/drawer/draw_page.dart';
 import 'package:wanandroidflutter/page/home/search_fragment.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
-import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
 import 'package:wanandroidflutter/utils/loginout_event.dart';
-import 'package:wanandroidflutter/utils/refresh_event.dart';
 import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
@@ -96,16 +93,16 @@ class _HomeFragmentState extends State<HomeFragment>
     _swiperController.autoplay = true;
     _scrollController = ScrollController();
     loadArticleList();
-    eventBus.on<LoginEvent>().listen((event) {
+    Application.eventBus.on<LoginEvent>().listen((event) {
       _onRefresh(true);
     });
-    eventBus.on<LoginOutEvent>().listen((event) {
+    Application.eventBus.on<LoginOutEvent>().listen((event) {
       _onRefresh(true);
     });
-    eventBus.on<LoginEvent>().listen((event) {
+    Application.eventBus.on<LoginEvent>().listen((event) {
       _onRefresh(true);
     });
-    eventBus.on<CollectEvent>().listen((event) {
+    Application.eventBus.on<CollectEvent>().listen((event) {
       _onRefresh(true);
     });
     initFabAnimator();

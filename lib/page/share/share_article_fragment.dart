@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:provider/provider.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
@@ -11,8 +12,6 @@ import 'package:wanandroidflutter/utils/refresh_event.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
 import 'package:wanandroidflutter/widget/share_item.dart';
-
-import '../../main.dart';
 
 class ShareArticleFragment extends StatefulWidget {
   @override
@@ -44,7 +43,7 @@ class _ShareArticleFragmentState extends State<ShareArticleFragment>
     super.initState();
     _pageStateController = PageStateController();
     _scrollController = ScrollController();
-    eventBus.on<RefreshEvent>().listen((event) {
+    Application.eventBus.on<RefreshEvent>().listen((event) {
       setState(() {
         _onRefresh(true);
       });

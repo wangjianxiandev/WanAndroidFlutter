@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/coin.dart';
 import 'package:wanandroidflutter/data/login.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
-import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/account/login_fragment.dart';
 import 'package:wanandroidflutter/page/collect/collect_fragment.dart';
 import 'package:wanandroidflutter/page/home/theme_colors.dart';
@@ -54,8 +54,7 @@ class _DrawerPageState extends State<DrawerPage> {
   }
 
   void getUserInfo() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String localInfo = sharedPreferences.getString(Config.SP_USER_INFO);
+    String localInfo = Application.sp.getString(Config.SP_USER_INFO);
     if (localInfo != null && localInfo.isNotEmpty) {
       Map userMap = json.decode(localInfo);
       setState(() {
@@ -80,7 +79,7 @@ class _DrawerPageState extends State<DrawerPage> {
 
   void loginOut() async {
     HttpRequest.getInstance().get(Api.LOGIN_OUT_JSON, successCallBack: (data) {
-      eventBus.fire(LoginOutEvent());
+      Application.eventBus.fire(LoginOutEvent());
       CommonUtils.toast("登出成功");
     }, errorCallBack: (code, msg) {});
   }
@@ -205,7 +204,7 @@ class _DrawerPageState extends State<DrawerPage> {
       getUserInfo();
     }
     getCoinCount();
-    eventBus.on<LoginEvent>().listen((event) {
+    Application.eventBus.on<LoginEvent>().listen((event) {
       setState(() {
         getUserInfo();
         getCoinCount();
@@ -213,14 +212,12 @@ class _DrawerPageState extends State<DrawerPage> {
     });
   }
 
-  void saveThemeColor(int curIndex) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(Config.SP_THEME_COLOR, curIndex);
+  void saveThemeColor(int curIndex) {
+    Application.sp.putInt(Config.SP_THEME_COLOR, curIndex);
   }
 
   getSelectedColorIndex() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(Config.SP_THEME_COLOR);
+    return await Application.sp.getInt(Config.SP_THEME_COLOR);
   }
 
   @override

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/data/hot_key.dart';
 import 'package:wanandroidflutter/http/api.dart';
@@ -50,9 +50,8 @@ class _SearchFragmentState extends State<SearchFragment> {
     }, errorCallBack: (code, msg) {});
   }
 
-  void initSearchHistory() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String history = sharedPreferences.getString(Config.SP_SEARCH_HISTORY);
+  void initSearchHistory() {
+    String history = Application.sp.getString(Config.SP_SEARCH_HISTORY);
     if (history != null && history.isNotEmpty) {
       setState(() {
         searchHistory = history.split(",");
@@ -60,7 +59,7 @@ class _SearchFragmentState extends State<SearchFragment> {
     }
   }
 
-  void addSearchHistory(String key) async {
+  void addSearchHistory(String key) {
     if (searchHistory.contains(key)) {
       searchHistory.remove(key);
     }
@@ -72,13 +71,11 @@ class _SearchFragmentState extends State<SearchFragment> {
         result += ",";
       }
     }
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString(Config.SP_SEARCH_HISTORY, result);
+    Application.sp.putString(Config.SP_SEARCH_HISTORY, result);
   }
 
   void clearHistory() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.remove(Config.SP_SEARCH_HISTORY);
+    await Application.sp.remove(Config.SP_SEARCH_HISTORY);
     setState(() {
       searchHistory.clear();
     });

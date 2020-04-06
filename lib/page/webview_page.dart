@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
-import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/utils/clipboard_utils.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/common.dart';
@@ -376,7 +376,7 @@ class WebViewPageState extends State<WebViewPage>
             ? "${Api.COLLECT}$id/json"
             : "${Api.UN_COLLECT_ORIGIN_ID}$id/json",
         successCallBack: (data) {
-          eventBus.fire(CollectEvent());
+          Application.eventBus.fire(CollectEvent());
           setState(() {
            isCollect = !isCollect;
           });

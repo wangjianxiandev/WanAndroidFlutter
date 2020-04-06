@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
-import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
@@ -164,7 +164,7 @@ class _CollectWidgetState extends State<CollectWidget> {
     String url = "lg/uncollect_originId/${article.originId}/json";
     HttpRequest.getInstance().post(url,
         successCallBack: (data) {
-          eventBus.fire(CollectEvent());
+          Application.eventBus.fire(CollectEvent());
         }, errorCallBack: (code, msg) {}, context: context);
   }
 }

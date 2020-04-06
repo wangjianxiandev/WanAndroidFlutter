@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
+import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
-import 'package:wanandroidflutter/main.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/refresh_event.dart';
@@ -163,7 +163,7 @@ class _ShareWidgetState extends State<ShareWidget> {
     String url = "lg/user_article/delete/${article.id}/json";
     HttpRequest.getInstance().post(url,
         successCallBack: (data) {
-          eventBus.fire(RefreshEvent());
+          Application.eventBus.fire(RefreshEvent());
         }, errorCallBack: (code, msg) {}, context: context);
   }
 }
