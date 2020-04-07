@@ -15,13 +15,13 @@ import 'package:wanandroidflutter/page/home/search_fragment.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
+import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
 import 'package:wanandroidflutter/utils/loginout_event.dart';
+import 'package:wanandroidflutter/widget/animate_provider.dart';
 import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
-
-import '../../main.dart';
 
 class HomeFragment extends StatefulWidget {
   @override
@@ -37,10 +37,11 @@ class _HomeFragmentState extends State<HomeFragment>
   List<BannerData> bannerList = List();
   ScrollController _scrollController;
   PageStateController _pageStateController;
-  bool isShowFab = false;
+  bool isShowSearchFab = true;
+  bool isShowAppbar = false;
   var appTheme;
 
-  void loadArticleList() {
+  void loadArticleList() async {
     if (currentPage == 0) {
       HttpRequest.getInstance().get(Api.ARTICLE_TOP, successCallBack: (data) {
         _easyRefreshKey.currentState.callRefreshFinish();
@@ -49,8 +50,8 @@ class _HomeFragmentState extends State<HomeFragment>
         if (data != null) {
           _pageStateController.changeState(PageState.LoadSuccess);
           List responseJson = json.decode(data);
-          articleList.addAll(
-              responseJson.map((m) => Article.fromJson(m)).toList());
+          articleList
+              .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
         } else {
           _pageStateController.changeState(PageState.NoData);
         }
@@ -105,7 +106,7 @@ class _HomeFragmentState extends State<HomeFragment>
     Application.eventBus.on<CollectEvent>().listen((event) {
       _onRefresh(true);
     });
-    initFabAnimator();
+    initAnimator();
   }
 
   @override
@@ -115,15 +116,19 @@ class _HomeFragmentState extends State<HomeFragment>
     super.dispose();
   }
 
-  void initFabAnimator() {
+  void initAnimator() {
     _scrollController.addListener(() {
       if (_scrollController.offset < 200) {
         setState(() {
-          isShowFab = false;
+          isShowSearchFab = true;
+          isShowAppbar = false;
         });
       } else if (_scrollController.offset >= 200) {
         setState(() {
-          isShowFab = true;
+          isShowSearchFab = false;
+          Future.delayed(Duration(milliseconds: 100), () {
+            isShowAppbar = true;
+          });
         });
       }
     });
@@ -148,91 +153,107 @@ class _HomeFragmentState extends State<HomeFragment>
     appTheme = Provider.of<AppTheme>(context);
     super.build(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("首页"),
-        centerTitle: true,
-        backgroundColor: appTheme.themeColor,
-        actions: <Widget>[
-          IconButton(
-            padding: EdgeInsets.only(right: 10),
-            icon: Icon(Icons.search),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return SearchFragment();
+        appBar: isShowSearchFab
+            ? null
+            : AppBar(
+                title: EmptyAnimatedSwitcher(
+                    display: isShowAppbar, child: Text("首页")),
+                centerTitle: true,
+                backgroundColor: appTheme.themeColor,
+                actions: <Widget>[
+                  EmptyAnimatedSwitcher(
+                      display: isShowAppbar,
+                      child: IconButton(
+                        padding: EdgeInsets.only(right: 10),
+                        icon: Icon(Icons.search),
+                        onPressed: () {
+                          CommonUtils.push(context, SearchFragment());
+                        },
+                      ))
+                ],
+              ),
+        body: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: PageWidget(
+              controller: _pageStateController,
+              reload: () {
+                loadArticleList();
+              },
+              child: CustomRefresh(
+                  easyRefreshKey: _easyRefreshKey,
+                  onRefresh: () {
+                    _onRefresh(true);
                   },
-                ),
-              );
-            },
-          )
-        ],
-      ),
-      body:PageWidget(
-        controller: _pageStateController,
-        reload: () {
-          loadArticleList();
-        },
-        child: CustomRefresh(
-            easyRefreshKey: _easyRefreshKey,
-            onRefresh: () {
-              _onRefresh(true);
-            },
-            loadMore: () {
-              _onRefresh(false);
-            },
-            child: ListView.builder(
-                controller: _scrollController,
-                itemCount: articleList.length + 1,
-                itemBuilder: (context, index) {
-                  return index == 0
-                      ? Container(
-                          height: 200,
-                          child: bannerList.length != 0
-                              ? Swiper(
-                                  autoplayDelay: 5000,
-                                  controller: _swiperController,
-                                  itemHeight: 200,
-                                  pagination: pagination(),
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return new Image.network(
-                                      bannerList[index].imagePath,
-                                      fit: BoxFit.fill,
-                                    );
-                                  },
-                                  itemCount: bannerList.length,
-                                  onTap: (index) {
-                                    var item = bannerList[index];
-                                    Navigator.of(context).push(
-                                        new MaterialPageRoute(builder: (_) {
-                                      return new WebViewPage(
-                                          url: item.url,
-                                          title: item.title,
-                                          id: item.id,
-                                      isCollect: false,);
-                                    }));
-                                  },
-                                )
-                              : SizedBox(
-                                  width: 0,
-                                  height: 0,
-                                ),
-                        )
-                      : ArticleWidget(articleList[index - 1]);
-                })),
-      ),
-      floatingActionButton: isShowFab ? FloatingActionButton(
-          backgroundColor: appTheme.themeColor.withAlpha(180),
-          child: Icon(Icons.arrow_upward),
-          onPressed: () {
-            _scrollController.animateTo(0,
-                duration: Duration(milliseconds: 1000), curve: Curves.linear);
-          }) : null,
+                  loadMore: () {
+                    _onRefresh(false);
+                  },
+                  child: ListView.builder(
+                      controller: _scrollController,
+                      itemCount: articleList.length + 1,
+                      itemBuilder: (context, index) {
+                        return index == 0
+                            ? Container(
+                                height: 200,
+                                child: bannerList.length != 0
+                                    ? Swiper(
+                                        autoplayDelay: 5000,
+                                        controller: _swiperController,
+                                        itemHeight: 200,
+                                        pagination: pagination(),
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return new Image.network(
+                                            bannerList[index].imagePath,
+                                            fit: BoxFit.fill,
+                                          );
+                                        },
+                                        itemCount: bannerList.length,
+                                        onTap: (index) {
+                                          var item = bannerList[index];
+                                          Navigator.of(context).push(
+                                              new MaterialPageRoute(
+                                                  builder: (_) {
+                                            return new WebViewPage(
+                                              url: item.url,
+                                              title: item.title,
+                                              id: item.id,
+                                              isCollect: false,
+                                            );
+                                          }));
+                                        },
+                                      )
+                                    : SizedBox(
+                                        width: 0,
+                                        height: 0,
+                                      ),
+                              )
+                            : ArticleWidget(articleList[index - 1]);
+                      })),
+            )),
+        floatingActionButton: ScaleAnimatedSwitcher(
+            child: isShowSearchFab
+                ? FloatingActionButton(
+                    heroTag: 'homeFab',
+                    key: ValueKey(Icons.search),
+                    backgroundColor: appTheme.themeColor.withAlpha(180),
+                    child: Icon(Icons.search),
+                    onPressed: () {
+                      CommonUtils.push(context, SearchFragment());
+                    })
+                : FloatingActionButton(
+                    heroTag: 'homeEmpty',
+                    key: ValueKey(Icons.vertical_align_top),
+                    backgroundColor: appTheme.themeColor.withAlpha(180),
+                    child: Icon(Icons.vertical_align_top),
+                    onPressed: () {
+                      _scrollController.animateTo(0,
+                          duration: Duration(milliseconds: 1000),
+                          curve: Curves.linear);
+                    })),
         drawer: Drawer(
           child: DrawerPage(),
-        )
-    );
+        ));
   }
 
   SwiperPagination pagination() => SwiperPagination(

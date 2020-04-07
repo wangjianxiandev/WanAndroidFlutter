@@ -51,6 +51,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  fonts:
+    - family: kuaile # 站酷 快乐字体  https://fonts.google.com/?selection.family=Noto+Sans+SC&subset=chinese-simplified
+      fonts:
+        - asset: assets/fonts/ZCOOLKuaiLe-Regular.ttf
+
   assets:
     - assets/flrs/
     - assets/img/logo.png

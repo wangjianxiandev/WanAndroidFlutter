@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
@@ -37,10 +35,10 @@ class _FavouriteAnimationState extends State<FavouriteAnimation> {
     return Hero(
       tag: widget.tag,
       child: FlareActor(
-        "assets/animations/like.flr",
+        "assets/flrs/like.flr",
         alignment: Alignment.center,
         fit: BoxFit.contain,
-        animation: widget.isAdded ? 'like' : 'unlike',
+        animation: widget.isAdded ? 'like' : 'unLike',
         shouldClip: false,
         isPaused: !isPlaying,
         callback: (name) {
@@ -55,7 +53,7 @@ class _FavouriteAnimationState extends State<FavouriteAnimation> {
 class HeroDialogRoute<T> extends PageRoute<T> {
   final WidgetBuilder builder;
 
-  HeroDialogRoute(this.builder);
+  HeroDialogRoute({this.builder}) : super();
 
   @override
   Color get barrierColor => Colors.black12;

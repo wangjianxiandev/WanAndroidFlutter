@@ -10,6 +10,8 @@ import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
 
+import 'favourite_animation.dart';
+
 //文章item
 class ArticleWidget extends StatefulWidget {
   Article article;
@@ -40,11 +42,14 @@ class _ArticleWidgetState extends State<ArticleWidget> {
               .replaceAll("<em class='highlight'>", "")
               .replaceAll("</em>", "");
         }
-        CommonUtils.push(context, WebViewPage(
-          url: article.link,
-          title: article.title,
-          id: article.id,
-          isCollect: article.collect,));
+        CommonUtils.push(
+            context,
+            WebViewPage(
+              url: article.link,
+              title: article.title,
+              id: article.id,
+              isCollect: article.collect,
+            ));
       },
       child: Card(
         elevation: 15.0,
@@ -71,30 +76,30 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                           Container(
                             padding: EdgeInsets.only(left: 5),
                             child: Text(
-                              "${article.author.isNotEmpty
-                                  ? article.author
-                                  : article.shareUser}",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey,
-                                  fontSize: 10),
-                            ),
+                                "${article.author.isNotEmpty ? article.author : article.shareUser}",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: Theme.of(context).textTheme.caption),
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 5),
                             child: Offstage(
                                 offstage: !article.fresh ?? true,
-                                child: WidgetUtils.buildStrokeWidget("新",
-                                    appTheme.themeColor, FontWeight.w400, 9.0)),
+                                child: WidgetUtils.buildStrokeWidget(
+                                    "新",
+                                    appTheme.themeColor,
+                                    FontWeight.w400,
+                                    11.0)),
                           ),
                           Container(
                             margin: EdgeInsets.only(left: 5),
                             child: Offstage(
                                 offstage: article.type == 0 ?? false,
-                                child: WidgetUtils.buildStrokeWidget("置顶",
-                                    appTheme.themeColor, FontWeight.w400, 9.0)),
+                                child: WidgetUtils.buildStrokeWidget(
+                                    "置顶",
+                                    appTheme.themeColor,
+                                    FontWeight.w400,
+                                    11.0)),
                           )
                         ],
                       )),
@@ -105,18 +110,15 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                           Container(
                             child: Icon(
                               Icons.access_time,
-                              color: Colors.grey,
+                              color: Colors.black54,
                               size: 20,
                             ),
                           ),
                           Container(
                             padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Text(
-                              "${article.niceDate}",
-                              textAlign: TextAlign.center,
-                              style:
-                              TextStyle(color: Colors.grey, fontSize: 10.0),
-                            ),
+                            child: Text("${article.niceDate}",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.caption),
                           )
                         ],
                       )),
@@ -127,16 +129,11 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   child: !isHighLight(article.title)
-                      ? Text(
-                    "${article.title}",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13.0),
-                  )
+                      ? Text("${article.title}",
+                          style: Theme.of(context).textTheme.subtitle)
                       : Html(
-                    data: article.title,
-                  ),
+                          data: article.title,
+                        ),
                 ),
               ),
               Row(
@@ -145,35 +142,33 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                       flex: 1,
                       child: Container(
                         alignment: Alignment.centerLeft,
-                        child: WidgetUtils.buildStrokeWidget(
-                            "${article.chapterName}/${article
-                                .superChapterName}",
-                            Colors.grey,
-                            FontWeight.w400,
-                            10.0),
+                        child: Text(
+                          "${article.chapterName}/${article.superChapterName}",
+                          style: TextStyle(
+                              color: appTheme.themeColor, fontSize: 11.0),
+                        ),
                       )),
                   Align(
                     alignment: Alignment.centerRight,
                     child: !article.collect
                         ? IconButton(
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.only(right: 5),
-                      icon: Icon(
-                        Icons.favorite_border,
-                        color: Colors.black45,
-                      ),
-                      onPressed: () => _collect(),
-                    )
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.only(right: 5),
+                            icon: Icon(
+                              Icons.favorite_border,
+                              color: Colors.black45,
+                            ),
+                            onPressed: () => _collect(uniqueKey),
+                          )
                         : IconButton(
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.only(right: 5),
-                      icon: Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                      ),
-                      onPressed: () => _collect(),
-                    ),
-
+                            alignment: Alignment.centerRight,
+                            padding: EdgeInsets.only(right: 5),
+                            icon: Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            ),
+                            onPressed: () => _collect(uniqueKey),
+                          ),
                   ),
                 ],
               ),
@@ -191,7 +186,14 @@ class _ArticleWidgetState extends State<ArticleWidget> {
   }
 
   //收藏/取消收藏
-  _collect() {
+  _collect(UniqueKey uniqueKey) {
+    Navigator.push(
+        context,
+        HeroDialogRoute(
+            builder: (_) => FavouriteAnimation(
+                  tag: uniqueKey,
+                  isAdded: !article.collect,
+                )));
     String url = "";
     if (!article.collect) {
       url = "lg/collect/${article.id}/json";
@@ -203,9 +205,9 @@ class _ArticleWidgetState extends State<ArticleWidget> {
             ? "${Api.COLLECT}${article.id}/json"
             : "${Api.UN_COLLECT_ORIGIN_ID}${article.id}/json",
         successCallBack: (data) {
-          setState(() {
-            article.collect = !article.collect;
-          });
-        }, errorCallBack: (code, msg) {}, context: context);
+      setState(() {
+        article.collect = !article.collect;
+      });
+    }, errorCallBack: (code, msg) {}, context: context);
   }
 }

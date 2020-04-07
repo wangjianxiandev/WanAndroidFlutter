@@ -46,9 +46,9 @@ class _SystemFragmentState extends State<SystemFragment>
           isScrollable: true,
           indicatorColor: Colors.white,
           labelColor: Colors.white,
-          labelStyle: TextStyle(fontWeight: FontWeight.w600),
+          labelStyle: Theme.of(context).textTheme.subtitle,
           unselectedLabelColor: Colors.grey,
-          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+          unselectedLabelStyle: Theme.of(context).textTheme.caption,
         ),
       ),
       body: TabBarView(
