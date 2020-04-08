@@ -45,14 +45,14 @@ class _NavigationFragmentState extends State<NavigationFragment> {
       for (int j = 0; j < navigationList[i].articles.length; j++) {
         children.add(new GestureDetector(
           onTap: () => {
-            Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-              return WebViewPage(
-                url: navigationList[i].articles[j].link,
-                title: navigationList[i].articles[j].title,
-                id: navigationList[i].articles[j].id,
-                isCollect: navigationList[i].articles[j].collect,
-              );
-            }))
+            CommonUtils.push(
+                context,
+                WebViewPage(
+                  url: navigationList[i].articles[j].link,
+                  title: navigationList[i].articles[j].title,
+                  id: navigationList[i].articles[j].id,
+                  isCollect: navigationList[i].articles[j].collect,
+                ))
           },
           child: new Container(
               padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -66,8 +66,7 @@ class _NavigationFragmentState extends State<NavigationFragment> {
                 navigationList[i].articles[j].title,
                 textAlign: TextAlign.center,
                 style: new TextStyle(
-                    fontSize: 15,
-                    color: CommonUtils.getRandomColor()),
+                    fontSize: 15, color: CommonUtils.getRandomColor()),
               )),
         ));
       }

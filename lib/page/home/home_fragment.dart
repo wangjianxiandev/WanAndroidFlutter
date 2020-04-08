@@ -147,15 +147,23 @@ class _HomeFragmentState extends State<HomeFragment>
 
   GlobalKey<EasyRefreshState> _easyRefreshKey =
       new GlobalKey<EasyRefreshState>();
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     appTheme = Provider.of<AppTheme>(context);
     super.build(context);
     return Scaffold(
+        key: _scaffoldKey,
         appBar: isShowSearchFab
             ? null
             : AppBar(
+                leading: EmptyAnimatedSwitcher(
+                    display: isShowAppbar,
+                    child: IconButton(
+                        icon: Icon(Icons.menu),
+                        onPressed: () =>
+                            _scaffoldKey.currentState.openDrawer())),
                 title: EmptyAnimatedSwitcher(
                     display: isShowAppbar, child: Text("首页")),
                 centerTitle: true,
@@ -211,16 +219,12 @@ class _HomeFragmentState extends State<HomeFragment>
                                         itemCount: bannerList.length,
                                         onTap: (index) {
                                           var item = bannerList[index];
-                                          Navigator.of(context).push(
-                                              new MaterialPageRoute(
-                                                  builder: (_) {
-                                            return new WebViewPage(
-                                              url: item.url,
-                                              title: item.title,
-                                              id: item.id,
-                                              isCollect: false,
-                                            );
-                                          }));
+                                          CommonUtils.push(context, WebViewPage(
+                                            url: item.url,
+                                            title: item.title,
+                                            id: item.id,
+                                            isCollect: false,
+                                          ));
                                         },
                                       )
                                     : SizedBox(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
@@ -10,6 +9,7 @@ import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
 
+import 'article_title.dart';
 import 'favourite_animation.dart';
 
 //文章item
@@ -34,14 +34,6 @@ class _ArticleWidgetState extends State<ArticleWidget> {
     article = widget.article;
     return GestureDetector(
       onTap: () {
-        String title = "";
-        if (!isHighLight(article.title)) {
-          title = article.title;
-        } else {
-          title = article.title
-              .replaceAll("<em class='highlight'>", "")
-              .replaceAll("</em>", "");
-        }
         CommonUtils.push(
             context,
             WebViewPage(
@@ -129,12 +121,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                    child: !isHighLight(article.title)
-                        ? Text("${article.title}",
-                            style: Theme.of(context).textTheme.subtitle)
-                        : Html(
-                            data: article.title,
-                          ),
+                    child: ArticleTitleWidget(article.title),
                   ),
                 )
               else
@@ -218,12 +205,6 @@ class _ArticleWidgetState extends State<ArticleWidget> {
     );
   }
 
-  //判断title是否有文字需要加斜体
-  bool isHighLight(String title) {
-    RegExp exp = new RegExp(r"<em class='highlight'>([\s\S]*?)</em>");
-    return exp.hasMatch(title);
-  }
-
   //收藏/取消收藏
   _collect(UniqueKey uniqueKey) {
     Navigator.push(
@@ -251,17 +232,3 @@ class _ArticleWidgetState extends State<ArticleWidget> {
   }
 }
 
-class ArticleTitleWidget extends StatelessWidget {
-  final String title;
-
-  ArticleTitleWidget(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return Html(
-      padding: EdgeInsets.symmetric(vertical: 5),
-      data: title,
-      defaultTextStyle: Theme.of(context).textTheme.subtitle,
-    );
-  }
-}

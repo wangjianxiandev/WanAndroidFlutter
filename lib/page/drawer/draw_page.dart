@@ -42,15 +42,11 @@ class _DrawerPageState extends State<DrawerPage> {
       TextStyle(fontSize: 16, fontWeight: FontWeight.w300);
 
   void goLogin() {
-    Navigator.of(context).push(
-      new MaterialPageRoute(
-        builder: (context) {
-          return Scaffold(
-            body: LoginPage(),
-          );
-        },
-      ),
-    );
+    CommonUtils.push(
+        context,
+        Scaffold(
+          body: LoginPage(),
+        ));
   }
 
   void getUserInfo() async {
@@ -63,7 +59,7 @@ class _DrawerPageState extends State<DrawerPage> {
     }
   }
 
-  void getCoinCount() {
+  void getCoinCount() async {
     HttpRequest.getInstance().get(Api.COIN_INFO, successCallBack: (data) {
       if (data != null && data.isNotEmpty) {
         Map coinMap = json.decode(data);
@@ -280,20 +276,16 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: Text("广场"),
-                      backgroundColor: appTheme.themeColor,
-                      centerTitle: true,
-                    ),
-                    body: SquareFragment(),
-                  );
-                },
-              ),
-            );
+            CommonUtils.push(
+                context,
+                Scaffold(
+                  appBar: AppBar(
+                    title: Text("广场"),
+                    backgroundColor: appTheme.themeColor,
+                    centerTitle: true,
+                  ),
+                  body: SquareFragment(),
+                ));
           },
         ),
         ListTile(
@@ -307,20 +299,16 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           onTap: () {
             loginData != null
-                ? Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return Scaffold(
-                          appBar: AppBar(
-                            title: Text("我的分享"),
-                            backgroundColor: appTheme.themeColor,
-                            centerTitle: true,
-                          ),
-                          body: ShareArticleFragment(),
-                        );
-                      },
-                    ),
-                  )
+                ? CommonUtils.push(
+                    context,
+                    Scaffold(
+                      appBar: AppBar(
+                        title: Text("我的分享"),
+                        backgroundColor: appTheme.themeColor,
+                        centerTitle: true,
+                      ),
+                      body: ShareArticleFragment(),
+                    ))
                 : goLogin();
           },
         ),
@@ -335,20 +323,16 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           onTap: () {
             loginData != null
-                ? Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return Scaffold(
-                          appBar: AppBar(
-                            title: Text("我的收藏"),
-                            backgroundColor: appTheme.themeColor,
-                            centerTitle: true,
-                          ),
-                          body: CollectFragment(),
-                        );
-                      },
-                    ),
-                  )
+                ? CommonUtils.push(
+                    context,
+                    Scaffold(
+                      appBar: AppBar(
+                        title: Text("我的收藏"),
+                        backgroundColor: appTheme.themeColor,
+                        centerTitle: true,
+                      ),
+                      body: CollectFragment(),
+                    ))
                 : goLogin();
           },
         ),
@@ -362,20 +346,16 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: Text("问答"),
-                      backgroundColor: appTheme.themeColor,
-                      centerTitle: true,
-                    ),
-                    body: WenDaFragment(),
-                  );
-                },
-              ),
-            );
+            CommonUtils.push(
+                context,
+                Scaffold(
+                  appBar: AppBar(
+                    title: Text("问答"),
+                    backgroundColor: appTheme.themeColor,
+                    centerTitle: true,
+                  ),
+                  body: WenDaFragment(),
+                ));
           },
         ),
         ListTile(
@@ -402,20 +382,16 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: Text("积分排行"),
-                      backgroundColor: appTheme.themeColor,
-                      centerTitle: true,
-                    ),
-                    body: RankFragment(),
-                  );
-                },
-              ),
-            );
+            CommonUtils.push(
+                context,
+                Scaffold(
+                  appBar: AppBar(
+                    title: Text("积分排行"),
+                    backgroundColor: appTheme.themeColor,
+                    centerTitle: true,
+                  ),
+                  body: RankFragment(),
+                ));
           },
         ),
         ListTile(
@@ -443,20 +419,16 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return Scaffold(
-                    appBar: AppBar(
-                      title: Text("设置"),
-                      backgroundColor: appTheme.themeColor,
-                      centerTitle: true,
-                    ),
-                    body: SettingFragment(),
-                  );
-                },
-              ),
-            );
+            CommonUtils.push(
+                context,
+                Scaffold(
+                  appBar: AppBar(
+                    title: Text("设置"),
+                    backgroundColor: appTheme.themeColor,
+                    centerTitle: true,
+                  ),
+                  body: SettingFragment(),
+                ));
           },
         ),
       ],

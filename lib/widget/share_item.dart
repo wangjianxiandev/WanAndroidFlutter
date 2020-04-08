@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/refresh_event.dart';
-import 'package:wanandroidflutter/utils/widget_utils.dart';
+
+import 'article_title.dart';
 
 //文章item
 class ShareWidget extends StatefulWidget {
@@ -24,24 +25,21 @@ class ShareWidget extends StatefulWidget {
 
 class _ShareWidgetState extends State<ShareWidget> {
   Article article;
+
   @override
   Widget build(BuildContext context) {
     article = widget.article;
     var appTheme = Provider.of<AppTheme>(context);
     return GestureDetector(
       onTap: () {
-        String title = "";
-        if (!isHighLight(article.title)) {
-          title = article.title;
-        } else {
-          title = article.title
-              .replaceAll("<em class='highlight'>", "")
-              .replaceAll("</em>", "");
-        }
-        Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-          return new WebViewPage(
-            url: article.link, title: article.title, id: article.id, isCollect: article.collect,);
-        }));
+        CommonUtils.push(
+            context,
+            WebViewPage(
+              url: article.link,
+              title: article.title,
+              id: article.id,
+              isCollect: article.collect,
+            ));
       },
       child: Card(
         elevation: 15.0,
@@ -68,14 +66,10 @@ class _ShareWidgetState extends State<ShareWidget> {
                           Container(
                             padding: EdgeInsets.only(left: 5),
                             child: Text(
-                              "${article.author.isNotEmpty ? article.author : article.shareUser}",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey,
-                                  fontSize: 10),
-                            ),
+                                "${article.author.isNotEmpty ? article.author : article.shareUser}",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: Theme.of(context).textTheme.caption),
                           ),
                         ],
                       )),
@@ -92,12 +86,9 @@ class _ShareWidgetState extends State<ShareWidget> {
                           ),
                           Container(
                             padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Text(
-                              "${article.niceDate}",
-                              textAlign: TextAlign.center,
-                              style:
-                              TextStyle(color: Colors.grey, fontSize: 10.0),
-                            ),
+                            child: Text("${article.niceDate}",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.caption),
                           )
                         ],
                       )),
@@ -106,32 +97,19 @@ class _ShareWidgetState extends State<ShareWidget> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: !isHighLight(article.title)
-                      ? Text(
-                    "${article.title}",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13.0),
-                  )
-                      : Html(
-                    data: article.title,
-                  ),
-                ),
+                    padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    child: ArticleTitleWidget(article.title)),
               ),
               Row(
                 children: <Widget>[
                   Expanded(
                       flex: 1,
                       child: Container(
-                        alignment: Alignment.centerLeft,
-                        child: WidgetUtils.buildStrokeWidget(
-                            "${article.chapterName}",
-                            Colors.grey,
-                            FontWeight.w400,
-                            10.0),
-                      )),
+                          alignment: Alignment.centerLeft,
+                          child: Text("${article.chapterName}",
+                              style: TextStyle(
+                                  color: appTheme.themeColor,
+                                  fontSize: 11.0)))),
                   Align(
                     alignment: Alignment.centerRight,
                     child: IconButton(
@@ -153,17 +131,11 @@ class _ShareWidgetState extends State<ShareWidget> {
     );
   }
 
-  bool isHighLight(String title) {
-    RegExp exp = new RegExp(r"<em class='highlight'>([\s\S]*?)</em>");
-    return exp.hasMatch(title);
-  }
-
   //删除分享
   _delete() {
     String url = "lg/user_article/delete/${article.id}/json";
-    HttpRequest.getInstance().post(url,
-        successCallBack: (data) {
-          Application.eventBus.fire(RefreshEvent());
-        }, errorCallBack: (code, msg) {}, context: context);
+    HttpRequest.getInstance().post(url, successCallBack: (data) {
+      Application.eventBus.fire(RefreshEvent());
+    }, errorCallBack: (code, msg) {}, context: context);
   }
 }

@@ -53,20 +53,16 @@ class _KnowledgeFragmentState extends State<KnowledgeFragment> {
     } else {
       childrenKnowList.add(new InkWell(
         onTap: () => {
-          Navigator.of(context).push(
-            new MaterialPageRoute(
-              builder: (context) {
-                return Scaffold(
-                  appBar: AppBar(
-                    title: Text(knowledgeData.children[index].name.toString()),
-                    backgroundColor: appTheme.themeColor,
-                    centerTitle: true,
-                  ),
-                  body: KnowledgeListFragment(knowledgeData.children[index].id),
-                );
-              },
-            ),
-          )
+          CommonUtils.push(
+              context,
+              Scaffold(
+                appBar: AppBar(
+                  title: Text(knowledgeData.children[index].name.toString()),
+                  backgroundColor: appTheme.themeColor,
+                  centerTitle: true,
+                ),
+                body: KnowledgeListFragment(knowledgeData.children[index].id),
+              ))
         },
         child: Container(
             padding: EdgeInsets.fromLTRB(10, 5, 10, 5),

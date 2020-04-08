@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
@@ -8,7 +6,9 @@ import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
+import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
+import 'package:wanandroidflutter/widget/article_title.dart';
 
 //文章item
 class CollectWidget extends StatefulWidget {
@@ -30,18 +30,8 @@ class _CollectWidgetState extends State<CollectWidget> {
     article = widget.article;
     return GestureDetector(
       onTap: () {
-        String title = "";
-        if (!isHighLight(article.title)) {
-          title = article.title;
-        } else {
-          title = article.title
-              .replaceAll("<em class='highlight'>", "")
-              .replaceAll("</em>", "");
-        }
-        Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-          return new WebViewPage(
-              url: article.link, title: article.title, id: article.id, isCollect: article.collect,);
-        }));
+        CommonUtils.push(context, WebViewPage(
+          url: article.link, title: article.title, id: article.id, isCollect: article.collect,));
       },
       child: Card(
         elevation: 15.0,
@@ -107,17 +97,7 @@ class _CollectWidgetState extends State<CollectWidget> {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: !isHighLight(article.title)
-                      ? Text(
-                    "${article.title}",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13.0),
-                  )
-                      : Html(
-                    data: article.title,
-                  ),
+                  child: ArticleTitleWidget(article.title)
                 ),
               ),
               Row(
@@ -152,11 +132,6 @@ class _CollectWidgetState extends State<CollectWidget> {
         ),
       ),
     );
-  }
-
-  bool isHighLight(String title) {
-    RegExp exp = new RegExp(r"<em class='highlight'>([\s\S]*?)</em>");
-    return exp.hasMatch(title);
   }
 
   //取消收藏

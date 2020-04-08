@@ -83,20 +83,16 @@ class _SearchFragmentState extends State<SearchFragment> {
 
   _goToSearchResultPage(String name) async {
     addSearchHistory(name);
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(name),
-              backgroundColor: appTheme.themeColor,
-              centerTitle: true,
-            ),
-            body: SearchResultFragment(name),
-          );
-        },
-      ),
-    );
+    CommonUtils.push(
+        context,
+        Scaffold(
+          appBar: AppBar(
+            title: Text(name),
+            backgroundColor: appTheme.themeColor,
+            centerTitle: true,
+          ),
+          body: SearchResultFragment(name),
+        ));
   }
 
   _buildWrapItem() {

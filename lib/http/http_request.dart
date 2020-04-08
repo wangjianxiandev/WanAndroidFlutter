@@ -9,6 +9,7 @@ import 'package:wanandroidflutter/constant/Constants.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/base_response.dart';
 import 'package:wanandroidflutter/page/account/login_fragment.dart';
+import 'package:wanandroidflutter/utils/common.dart';
 
 class HttpRequest {
   static String _baseUrl = Api.BASE_URL;
@@ -46,11 +47,11 @@ class HttpRequest {
 
   get(url,
       {data,
-        options,
-        cancelToken,
-        BuildContext context,
-        Function successCallBack,
-        Function errorCallBack}) async {
+      options,
+      cancelToken,
+      BuildContext context,
+      Function successCallBack,
+      Function errorCallBack}) async {
     Response response;
     try {
       response = await dio.get(url,
@@ -60,25 +61,22 @@ class HttpRequest {
     }
     if (response.data != null) {
       BaseResponse baseResponse =
-      BaseResponse.fromJson(json.decode(response.data));
+          BaseResponse.fromJson(json.decode(response.data));
       if (baseResponse != null) {
         switch (baseResponse.errorCode) {
           case 0:
             successCallBack(jsonEncode(baseResponse.data));
             break;
           case -1001:
-          /// 返回-1001跳转到登录页
+
+            /// 返回-1001跳转到登录页
             errorCallBack(baseResponse.errorCode, baseResponse.errorMessage);
             if (context != null) {
-              Navigator.of(context).push(
-                new MaterialPageRoute(
-                  builder: (context) {
-                    return Scaffold(
-                      body: LoginPage(),
-                    );
-                  },
-                ),
-              );
+              CommonUtils.push(
+                  context,
+                  Scaffold(
+                    body: LoginPage(),
+                  ));
             }
             break;
           default:
@@ -95,11 +93,11 @@ class HttpRequest {
 
   post(url,
       {data,
-        options,
-        cancelToken,
-        BuildContext context,
-        Function successCallBack,
-        Function errorCallBack}) async {
+      options,
+      cancelToken,
+      BuildContext context,
+      Function successCallBack,
+      Function errorCallBack}) async {
     Response response;
     try {
       response = await dio.post(url,
@@ -109,7 +107,7 @@ class HttpRequest {
     }
     if (response.data != null) {
       BaseResponse baseResponse =
-      BaseResponse.fromJson(json.decode(response.data));
+          BaseResponse.fromJson(json.decode(response.data));
       if (baseResponse != null) {
         switch (baseResponse.errorCode) {
           case 0:
@@ -118,12 +116,11 @@ class HttpRequest {
           case -1001:
             errorCallBack(baseResponse.errorCode, baseResponse.errorMessage);
             if (context != null) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) {
-                return Scaffold(
-                  body: LoginPage(),
-                );
-              }));
+              CommonUtils.push(
+                  context,
+                  Scaffold(
+                    body: LoginPage(),
+                  ));
             }
             break;
           default:

@@ -9,6 +9,7 @@ import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
+import 'package:wanandroidflutter/utils/login_event.dart';
 
 import 'main_page.dart';
 
@@ -37,9 +38,10 @@ class _SplashViewState extends State<SplashView> {
     data = {'username': _name, 'password': _pwd};
     HttpRequest.getInstance().post(Api.LOGIN, data: data,
         successCallBack: (data) {
-          saveInfo(data);
-          Navigator.of(context).pop();
-        }, errorCallBack: (code, msg) {});
+      Application.eventBus.fire(LoginEvent());
+      saveInfo(data);
+      Navigator.of(context).pop();
+    }, errorCallBack: (code, msg) {});
   }
 
 //  保存用户信息
@@ -52,7 +54,7 @@ class _SplashViewState extends State<SplashView> {
       Navigator.pushAndRemoveUntil(
         context,
         new MaterialPageRoute(builder: (context) => new MainPage()),
-            (route) => route == null,
+        (route) => route == null,
       );
     });
   }
@@ -69,14 +71,14 @@ class _SplashViewState extends State<SplashView> {
     var appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
         body: MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-        color: appTheme.themeColor,
-    ),
-    child: Icon(Icons.android),
-    )));
+            context: context,
+            removeTop: true,
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: appTheme.themeColor,
+              ),
+              child: Icon(Icons.android),
+            )));
   }
 }

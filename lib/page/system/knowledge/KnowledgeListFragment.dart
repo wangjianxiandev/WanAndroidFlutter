@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
@@ -75,6 +77,7 @@ class _KnowledgeListFragmentState extends State<KnowledgeListFragment>
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
       body: PageWidget(
         controller: _pageStateController,
@@ -97,7 +100,7 @@ class _KnowledgeListFragmentState extends State<KnowledgeListFragment>
                 })),
       ),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blue.withAlpha(180),
+          backgroundColor: appTheme.themeColor.withAlpha(180),
           child: Icon(Icons.arrow_upward),
           onPressed: () {
             _scrollController.animateTo(0,
