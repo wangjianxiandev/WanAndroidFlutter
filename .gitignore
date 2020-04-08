@@ -39,3 +39,9 @@ build/
 .android/
 .ios/
 .flutter-plugins
+.flutter-plugins-dependencies
+.gitattributes
+.metadata
+LICENSE
+captures/
+

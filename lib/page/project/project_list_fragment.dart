@@ -11,9 +11,9 @@ import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
 import 'package:wanandroidflutter/utils/loginout_event.dart';
+import 'package:wanandroidflutter/widget/article_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
-import 'package:wanandroidflutter/widget/project_item.dart';
 
 class ProjectListFragment extends StatefulWidget {
   int _Id;
@@ -128,7 +128,7 @@ class ProjectListFragmentState extends State<ProjectListFragment>
                 controller: _scrollController,
                 itemCount: projectArticleList.length,
                 itemBuilder: (context, index) {
-                  return ProjectArticleWidget(projectArticleList[index]);
+                  return ArticleWidget(projectArticleList[index]);
                 })),
       ),
       floatingActionButton: isShowFab ? FloatingActionButton(

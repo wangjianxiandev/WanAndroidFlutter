@@ -124,18 +124,57 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                       )),
                 ],
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: !isHighLight(article.title)
-                      ? Text("${article.title}",
-                          style: Theme.of(context).textTheme.subtitle)
-                      : Html(
-                          data: article.title,
-                        ),
+              if (article.envelopePic.isEmpty)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    child: !isHighLight(article.title)
+                        ? Text("${article.title}",
+                            style: Theme.of(context).textTheme.subtitle)
+                        : Html(
+                            data: article.title,
+                          ),
+                  ),
+                )
+              else
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 5,
+                          ),
+                          ArticleTitleWidget(article.title),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text(
+                            article.desc,
+                            style: Theme.of(context).textTheme.caption,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Image.network(
+                        article.envelopePic,
+                        height: 60,
+                        width: 60,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  ],
                 ),
-              ),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -209,5 +248,20 @@ class _ArticleWidgetState extends State<ArticleWidget> {
         article.collect = !article.collect;
       });
     }, errorCallBack: (code, msg) {}, context: context);
+  }
+}
+
+class ArticleTitleWidget extends StatelessWidget {
+  final String title;
+
+  ArticleTitleWidget(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return Html(
+      padding: EdgeInsets.symmetric(vertical: 5),
+      data: title,
+      defaultTextStyle: Theme.of(context).textTheme.subtitle,
+    );
   }
 }
