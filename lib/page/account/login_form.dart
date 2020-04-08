@@ -1,10 +1,11 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
@@ -16,7 +17,7 @@ class LoginForm extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new LoginFormState(_pageController);
+    return LoginFormState(_pageController);
   }
 }
 
@@ -31,14 +32,15 @@ class LoginFormState extends State<LoginForm>
 
   @override
   Widget build(BuildContext context) {
-    return new Column(
+    var appTheme = Provider.of<AppTheme>(context);
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        new Container(
-          height: 70,
+        Container(
+          height: 40,
         ),
-        new GestureDetector(
-          child: new Row(
+        GestureDetector(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Visibility(
@@ -49,16 +51,16 @@ class LoginFormState extends State<LoginForm>
                   onPressed: null,
                 ),
               ),
-              new Text(
+              Text(
                 "去注册",
                 style: TextStyle(
-                    color: Colors.lightBlue,
+                    color: appTheme.themeColor,
                     fontSize: 15,
                     decoration: TextDecoration.none),
               ),
               IconButton(
                 icon: Icon(Icons.arrow_right),
-                disabledColor: Colors.lightBlue,
+                disabledColor: appTheme.themeColor,
                 onPressed: null,
               ),
             ],
@@ -69,38 +71,54 @@ class LoginFormState extends State<LoginForm>
                 curve: Curves.ease);
           },
         ),
-        new Container(
+        Container(
           margin: EdgeInsets.fromLTRB(50, 10, 50, 0),
-          child: new Column(
+          child: Column(
             children: <Widget>[
-              new TextField(
+              TextField(
+                cursorColor: appTheme.themeColor,
                 decoration: InputDecoration(
                     filled: true,
                     hintText: "请输入用户名",
                     fillColor: Colors.transparent,
-                    prefixIcon: Icon(Icons.account_circle)),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: appTheme.themeColor),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: appTheme.themeColor),
+                    ),
+                    prefixIcon:
+                        Icon(Icons.account_circle, color: appTheme.themeColor)),
                 onChanged: (val) {
                   _name = val;
                 },
               ),
-              new Container(
+              Container(
                 height: 30,
               ),
-              new TextField(
+              TextField(
+                cursorColor: appTheme.themeColor,
                 decoration: InputDecoration(
                     filled: true,
                     hintText: "请输入密码",
                     fillColor: Colors.transparent,
-                    prefixIcon: Icon(Icons.lock_open)),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: appTheme.themeColor),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: appTheme.themeColor),
+                    ),
+                    prefixIcon:
+                        Icon(Icons.lock_open, color: appTheme.themeColor)),
                 onChanged: (val) {
                   _pwd = val;
                 },
               ),
-              new Container(
+              Container(
                   width: double.infinity,
                   margin: EdgeInsets.all(50),
                   height: 40,
-                  child: new RaisedButton(
+                  child: RaisedButton(
                       onPressed: () {
                         if (_name == null || _name.isEmpty) {
                           CommonUtils.toast("请输入用户名");
@@ -112,13 +130,13 @@ class LoginFormState extends State<LoginForm>
                         doLogin();
                       },
                       textColor: Colors.white,
-                      child: new Text(
+                      child: Text(
                         "登录",
                         style: TextStyle(fontSize: 20),
                       ),
-                      color: Colors.lightBlue,
-                      shape: new StadiumBorder(
-                          side: new BorderSide(
+                      color: appTheme.themeColor,
+                      shape: StadiumBorder(
+                          side: BorderSide(
                         style: BorderStyle.solid,
                         color: Colors.transparent,
                       ))))
@@ -134,17 +152,16 @@ class LoginFormState extends State<LoginForm>
     data = {'username': _name, 'password': _pwd};
     HttpRequest.getInstance().post(Api.LOGIN, data: data,
         successCallBack: (data) {
-          Application.eventBus.fire(LoginEvent());
+      Application.eventBus.fire(LoginEvent());
       saveUserInfo(data);
       Navigator.of(context).pop();
     }, errorCallBack: (code, msg) {});
   }
 
   void saveUserInfo(data) {
-     Application.sp.putString(Config.SP_USER_INFO, data);
-     Application.sp.putString(Config.SP_PWD, _pwd);
+    Application.sp.putString(Config.SP_USER_INFO, data);
+    Application.sp.putString(Config.SP_PWD, _pwd);
   }
-
 
   @override
   bool get wantKeepAlive => true;

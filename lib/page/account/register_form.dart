@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/common.dart';
-
 
 class RegisterForm extends StatefulWidget {
   PageController _pageController;
@@ -14,7 +15,7 @@ class RegisterForm extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new RegisterFormState(_pageController);
+    return RegisterFormState(_pageController);
   }
 }
 
@@ -30,14 +31,15 @@ class RegisterFormState extends State<RegisterForm>
 
   @override
   Widget build(BuildContext context) {
-    return new Column(
+    var appTheme = Provider.of<AppTheme>(context);
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        new Container(
-          height: 70,
+        Container(
+          height: 40,
         ),
-        new GestureDetector(
-          child: new Row(
+        GestureDetector(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Visibility(
@@ -48,16 +50,16 @@ class RegisterFormState extends State<RegisterForm>
                   onPressed: null,
                 ),
               ),
-              new Text(
+              Text(
                 "去登录",
                 style: TextStyle(
-                    color: Colors.lightBlue,
+                    color: appTheme.themeColor,
                     fontSize: 15,
                     decoration: TextDecoration.none),
               ),
               IconButton(
                 icon: Icon(Icons.arrow_left),
-                disabledColor: Colors.lightBlue,
+                disabledColor: appTheme.themeColor,
                 onPressed: null,
               ),
             ],
@@ -68,51 +70,76 @@ class RegisterFormState extends State<RegisterForm>
                 curve: Curves.ease);
           },
         ),
-        new Container(
+        Container(
           margin: EdgeInsets.fromLTRB(50, 10, 50, 0),
-          child: new Column(
+          child: Column(
             children: <Widget>[
-              new TextField(
+              TextField(
+                cursorColor: appTheme.themeColor,
                 decoration: InputDecoration(
                     filled: true,
                     hintText: "请输入用户名",
                     fillColor: Colors.transparent,
-                    prefixIcon: Icon(Icons.account_circle)),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: appTheme.themeColor),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: appTheme.themeColor),
+                    ),
+                    prefixIcon:
+                        Icon(Icons.account_circle, color: appTheme.themeColor)),
                 onChanged: (val) {
                   _name = val;
                 },
               ),
-              new Container(
+              Container(
                 height: 30,
               ),
-              new TextField(
+              TextField(
+                cursorColor: appTheme.themeColor,
                 decoration: InputDecoration(
                     filled: true,
                     hintText: "请输入密码",
                     fillColor: Colors.transparent,
-                    prefixIcon: Icon(Icons.lock_open)),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: appTheme.themeColor),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: appTheme.themeColor),
+                    ),
+                    prefixIcon:
+                        Icon(Icons.lock_open, color: appTheme.themeColor)),
                 onChanged: (val) {
                   _pwd = val;
                 },
               ),
-              new Container(
+              Container(
                 height: 30,
               ),
-              new TextField(
+              TextField(
+                cursorColor: appTheme.themeColor,
                 decoration: InputDecoration(
                     filled: true,
                     hintText: "请输入密码",
                     fillColor: Colors.transparent,
-                    prefixIcon: Icon(Icons.lock_open)),
+                    focusColor: appTheme.themeColor,
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: appTheme.themeColor),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: appTheme.themeColor),
+                    ),
+                    prefixIcon:
+                        Icon(Icons.lock_open, color: appTheme.themeColor)),
                 onChanged: (val) {
                   _pwd2 = val;
                 },
               ),
-              new Container(
+              Container(
                   width: double.infinity,
                   margin: EdgeInsets.all(50),
                   height: 40,
-                  child: new RaisedButton(
+                  child: RaisedButton(
                       onPressed: () {
                         if (_name == null || _name.isEmpty) {
                           CommonUtils.toast("请输入用户名");
@@ -127,13 +154,13 @@ class RegisterFormState extends State<RegisterForm>
                         doRegister();
                       },
                       textColor: Colors.white,
-                      child: new Text(
+                      child: Text(
                         "注册",
                         style: TextStyle(fontSize: 20),
                       ),
-                      color: Colors.lightBlue,
-                      shape: new StadiumBorder(
-                          side: new BorderSide(
+                      color: appTheme.themeColor,
+                      shape: StadiumBorder(
+                          side: BorderSide(
                         style: BorderStyle.solid,
                         color: Colors.transparent,
                       ))))

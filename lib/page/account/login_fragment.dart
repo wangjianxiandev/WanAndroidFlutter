@@ -1,58 +1,43 @@
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/page/account/login_form.dart';
 import 'package:wanandroidflutter/page/account/register_form.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/widget/login_widget.dart';
 
 class LoginPage extends StatelessWidget {
   var _pageController = new PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          child: FlareActor(
-            "assets/flrs/loginbg.flr",
-            animation: "wave",
-            fit: BoxFit.fill,
+    var appTheme = Provider.of<AppTheme>(context);
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: appTheme.themeColor,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              height: 20,
-              child: null,
-            ),
+        body: Stack(children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
             Expanded(
-                flex: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(top: 20),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        )),
-                    Container(
-                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                        child: new Image(
-                          image: AssetImage("assets/img/logo.png"),
-                          width: 60,
-                          height: 60,
-                        )),
-                    new Container(
-                      height: 20,
-                    ),
-                  ],
-                )),
+              flex: 2,
+              child:
+              Stack(
+                children: <Widget>[
+                  LoginTopPanel(),
+                  Align(
+                    alignment: Alignment.center,
+                    child: LoginLogo(),
+                  )
+                ],
+              ),
+            ),
             Expanded(
               child: new PageView.builder(
                 itemBuilder: (BuildContext context, int index) {
@@ -65,9 +50,7 @@ class LoginPage extends StatelessWidget {
               ),
               flex: 4,
             )
-          ],
-        )
-      ],
-    );
+          ]),
+        ]));
   }
 }

@@ -207,13 +207,6 @@ class _ArticleWidgetState extends State<ArticleWidget> {
 
   //收藏/取消收藏
   _collect(UniqueKey uniqueKey) {
-    Navigator.push(
-        context,
-        HeroDialogRoute(
-            builder: (_) => FavouriteAnimation(
-                  tag: uniqueKey,
-                  isAdded: !article.collect,
-                )));
     String url = "";
     if (!article.collect) {
       url = "lg/collect/${article.id}/json";
@@ -226,6 +219,13 @@ class _ArticleWidgetState extends State<ArticleWidget> {
             : "${Api.UN_COLLECT_ORIGIN_ID}${article.id}/json",
         successCallBack: (data) {
       setState(() {
+        Navigator.push(
+            context,
+            HeroDialogRoute(
+                builder: (_) => FavouriteAnimation(
+                  tag: uniqueKey,
+                  isAdded: article.collect,
+                )));
         article.collect = !article.collect;
       });
     }, errorCallBack: (code, msg) {}, context: context);
