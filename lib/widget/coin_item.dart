@@ -25,17 +25,27 @@ class _CoinRankWidgetState extends State<CoinRankWidget> {
       onTap: () {},
       leading: buildIcon(rankData),
       title: Text(
-        (rankData.username),
+        rankData == null ? "--" : (rankData.username),
         style: TextStyle(fontSize: 16),
       ),
       trailing: Text(
-        rankData.coinCount.toString(),
+        rankData == null ? "--" : rankData.coinCount.toString(),
         style: TextStyle(color: appTheme.themeColor),
       ),
     );
   }
 
   Widget buildIcon(RankData rankData) {
+    if (rankData == null) {
+      return Padding(
+        padding: EdgeInsets.only(left: 8),
+        child: Text(
+          "--",
+          style: TextStyle(
+              color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.bold),
+        ),
+      );
+    }
     if (rankData.rank == 1 || rankData.rank == 2 || rankData.rank == 3) {
       switch (rankData.rank) {
         case 1:

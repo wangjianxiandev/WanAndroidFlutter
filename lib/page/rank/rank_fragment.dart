@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/rank.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/widget/coin_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
@@ -22,6 +24,18 @@ class _RankFragmentState extends State<RankFragment>
   PageStateController _pageStateController;
   GlobalKey<EasyRefreshState> _easyRefreshKey =
       new GlobalKey<EasyRefreshState>();
+  RankData coinData;
+
+  void getCoinCount() async {
+    HttpRequest.getInstance().get(Api.COIN_INFO, successCallBack: (data) {
+      if (data != null && data.isNotEmpty) {
+        Map coinMap = json.decode(data);
+        setState(() {
+          coinData = RankData.fromJson(coinMap);
+        });
+      }
+    }, errorCallBack: (code, msg) {});
+  }
 
   @override
   void initState() {
@@ -29,6 +43,7 @@ class _RankFragmentState extends State<RankFragment>
     _pageStateController = PageStateController();
     _scrollController = ScrollController();
     loadRankList();
+    getCoinCount();
   }
 
   void _onRefresh(bool up) {
@@ -65,8 +80,10 @@ class _RankFragmentState extends State<RankFragment>
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
-      body: PageWidget(
+        body: Stack(children: <Widget>[
+      PageWidget(
         controller: _pageStateController,
         reload: () {
           loadRankList();
@@ -86,7 +103,14 @@ class _RankFragmentState extends State<RankFragment>
                   return CoinRankWidget(rankList[index]);
                 })),
       ),
-    );
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          child: CoinRankWidget(coinData),
+          color: Color(0xFFCDCDCD),
+        ),
+      )
+    ]));
   }
 
   @override
