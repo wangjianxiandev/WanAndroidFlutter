@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/rank.dart';
+import 'package:wanandroidflutter/theme/app_theme.dart';
 
 class CoinRankWidget extends StatefulWidget {
   RankData rankData;
@@ -15,46 +17,22 @@ class _CoinRankWidgetState extends State<CoinRankWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
     rankData = widget.rankData;
-    return Card(
-        elevation: 15.0,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(14.0))),
-        child: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Stack(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(right: 5),
-                        child: buildIcon(rankData),
-                      ),
-                      Text((rankData.username),
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold),
-                          maxLines: 1, // title 只显示一行
-                          overflow: TextOverflow.ellipsis //超出一行 显示 ...
-                          ),
-                    ],
-                  ),
-                ),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(("  积分：" + rankData.coinCount.toString()),
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold),
-                        maxLines: 1, // title 只显示一行
-                        overflow: TextOverflow.ellipsis //超出一行 显示 ...
-                        )),
-              ],
-            )));
+    return ListTile(
+      dense: true,
+      contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+      onTap: () {},
+      leading: buildIcon(rankData),
+      title: Text(
+        (rankData.username),
+        style: TextStyle(fontSize: 16),
+      ),
+      trailing: Text(
+        rankData.coinCount.toString(),
+        style: TextStyle(color: appTheme.themeColor),
+      ),
+    );
   }
 
   Widget buildIcon(RankData rankData) {
