@@ -8,7 +8,7 @@ import 'package:wanandroidflutter/data/hot_key.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/home/search_result_fragment.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/widget/icon_text.dart';
@@ -153,7 +153,7 @@ class _SearchFragmentState extends State<SearchFragment> {
 
   @override
   Widget build(BuildContext context) {
-    appTheme = Provider.of<AppTheme>(context);
+    appTheme = Provider.of<ThemeModel>(context);
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,13 +194,13 @@ class _SearchFragmentState extends State<SearchFragment> {
                                 Expanded(
                                   flex: 1,
                                   child: Text("搜索记录",
-                                      style: TextStyle(color: Colors.blue)),
+                                      style: Theme.of(context).textTheme.caption),
                                 ),
                                 InkWell(
                                   child: Padding(
                                     padding: EdgeInsets.all(5),
                                     child: Text("清空",
-                                        style: TextStyle(color: Colors.blue)),
+                                        style: Theme.of(context).textTheme.caption),
                                   ),
                                   onTap: () {
                                     clearHistory();
@@ -225,7 +225,7 @@ class _SearchFragmentState extends State<SearchFragment> {
   Widget _title(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      color: Colors.white,
+      color: Theme.of(context).iconTheme.color.withAlpha(0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[

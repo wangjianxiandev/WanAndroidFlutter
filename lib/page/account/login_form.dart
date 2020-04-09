@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
@@ -32,7 +32,7 @@ class LoginFormState extends State<LoginForm>
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[

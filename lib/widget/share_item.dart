@@ -5,7 +5,8 @@ import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/dark_model.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/refresh_event.dart';
 
@@ -29,7 +30,8 @@ class _ShareWidgetState extends State<ShareWidget> {
   @override
   Widget build(BuildContext context) {
     article = widget.article;
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
+    var isDarkMode = Provider.of<DarkMode>(context).isDark;
     return GestureDetector(
       onTap: () {
         CommonUtils.push(
@@ -61,7 +63,9 @@ class _ShareWidgetState extends State<ShareWidget> {
                                 ? Icons.folder_shared
                                 : Icons.person,
                             size: 20.0,
-                            color: appTheme.themeColor,
+                            color: !isDarkMode
+                                ? appTheme.themeColor
+                                : Colors.white.withAlpha(120),
                           ),
                           Container(
                             padding: EdgeInsets.only(left: 5),
@@ -80,7 +84,10 @@ class _ShareWidgetState extends State<ShareWidget> {
                           Container(
                             child: Icon(
                               Icons.access_time,
-                              color: Colors.grey,
+                              color: Theme.of(context)
+                                  .iconTheme
+                                  .color
+                                  .withAlpha(120),
                               size: 20,
                             ),
                           ),
@@ -108,7 +115,9 @@ class _ShareWidgetState extends State<ShareWidget> {
                           alignment: Alignment.centerLeft,
                           child: Text("${article.chapterName}",
                               style: TextStyle(
-                                  color: appTheme.themeColor,
+                                  color: !isDarkMode
+                                      ? appTheme.themeColor
+                                      : Colors.white.withAlpha(120),
                                   fontSize: 11.0)))),
                   Align(
                     alignment: Alignment.centerRight,

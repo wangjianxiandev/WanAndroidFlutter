@@ -4,7 +4,7 @@ import 'package:wanandroidflutter/page/home/home_fragment.dart';
 import 'package:wanandroidflutter/page/project/project_fragment.dart';
 import 'package:wanandroidflutter/page/system/system_fragment.dart';
 import 'package:wanandroidflutter/page/wechat/wechat_fragment.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 
 class Tabs extends StatefulWidget {
   final index;
@@ -30,7 +30,7 @@ class _TabsState extends State<Tabs> {
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
     return Scaffold(
         body: this._pageList[this._currentIndex],
         bottomNavigationBar: BottomNavigationBar(

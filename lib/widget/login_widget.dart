@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 
 class LoginTopPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
     return ClipPath(
       clipper: BottomClipper(),
       child: Container(
@@ -20,7 +20,7 @@ class LoginTopPanel extends StatelessWidget {
 class LoginLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
     return Hero(
       tag: "loginlogo",
       child: Image.asset(
@@ -42,7 +42,7 @@ class LoginFormContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),

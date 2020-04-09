@@ -7,7 +7,7 @@ import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/http/api.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
 import 'package:wanandroidflutter/utils/loginout_event.dart';
@@ -109,7 +109,7 @@ class ProjectListFragmentState extends State<ProjectListFragment>
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
     return Scaffold(
       body: PageWidget(
         controller: _pageStateController,

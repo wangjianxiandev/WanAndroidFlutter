@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/rank.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/dark_model.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/widget/coin_item.dart';
 import 'package:wanandroidflutter/widget/custom_refresh.dart';
 import 'package:wanandroidflutter/widget/page_widget.dart';
@@ -80,7 +81,7 @@ class _RankFragmentState extends State<RankFragment>
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var isDarkMode = Provider.of<DarkMode>(context).isDark;
     return Scaffold(
         body: Stack(children: <Widget>[
       PageWidget(
@@ -107,7 +108,7 @@ class _RankFragmentState extends State<RankFragment>
         alignment: Alignment.bottomCenter,
         child: Container(
           child: CoinRankWidget(coinData),
-          color: Color(0xFFCDCDCD),
+          color: isDarkMode ? Color(0xff323638) : Color(0xFFCDCDCD),
         ),
       )
     ]));

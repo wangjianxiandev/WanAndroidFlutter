@@ -13,6 +13,13 @@ class Constants {
   /// 成功
   static const SUCCESS = 200;
 
+  //主题颜色
+  static const String THEME_COLOR_KEY = 'theme_color_key';
+
+  //是否为夜间模式
+  static const String THEME_DARK_MODE_KEY = 'theme_dark_mode_key';
+
+
   static final List<Page> todoTypes = [
     Page('只用这一个', 0),
     Page('工作', 1),

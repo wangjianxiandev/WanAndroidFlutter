@@ -4,7 +4,8 @@ import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/dark_model.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
@@ -27,7 +28,8 @@ class _CollectWidgetState extends State<CollectWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
+    var isDarkMode = Provider.of<DarkMode>(context).isDark;
     article = widget.article;
     return GestureDetector(
       onTap: () {
@@ -60,7 +62,9 @@ class _CollectWidgetState extends State<CollectWidget> {
                                 ? Icons.folder_shared
                                 : Icons.person,
                             size: 20.0,
-                            color: appTheme.themeColor,
+                            color: !isDarkMode
+                                ? appTheme.themeColor
+                                : Colors.white.withAlpha(120),
                           ),
                           Container(
                             padding: EdgeInsets.only(left: 5),
@@ -79,17 +83,18 @@ class _CollectWidgetState extends State<CollectWidget> {
                           Container(
                             child: Icon(
                               Icons.access_time,
-                              color: Colors.black54,
+                              color: Theme.of(context)
+                                  .iconTheme
+                                  .color
+                                  .withAlpha(120),
                               size: 20,
                             ),
                           ),
                           Container(
                             padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                            child: Text(
-                              "${article.niceDate}",
-                              textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.caption
-                            ),
+                            child: Text("${article.niceDate}",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.caption),
                           )
                         ],
                       )),
@@ -110,7 +115,10 @@ class _CollectWidgetState extends State<CollectWidget> {
                         child: Text(
                           "${article.chapterName}",
                           style: TextStyle(
-                              color: appTheme.themeColor, fontSize: 11.0),
+                              color: !isDarkMode
+                                  ? appTheme.themeColor
+                                  : Colors.white.withAlpha(120),
+                              fontSize: 11.0),
                         ),
                       )),
                   Align(

@@ -7,13 +7,15 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/splash.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/dark_model.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/sp_util.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Application.sp = await SpUtil.getInstance();
-  final appTheme = AppTheme();
+  final appTheme = ThemeModel();
+  final darkMode = new DarkMode();
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle =
         SystemUiOverlayStyle(statusBarColor: Colors.transparent);
@@ -58,6 +60,7 @@ void main() async {
         // 接受监听
         providers: [
           ChangeNotifierProvider.value(value: appTheme),
+          ChangeNotifierProvider.value(value: darkMode),
         ],
         child: MyApp(),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppTheme with ChangeNotifier {
+class ThemeModel with ChangeNotifier {
   Color _themeColor;
 
   get themeColor => _themeColor;

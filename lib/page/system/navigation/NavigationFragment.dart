@@ -6,7 +6,7 @@ import 'package:wanandroidflutter/data/navigation.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 
 class NavigationFragment extends StatefulWidget {
@@ -36,10 +36,10 @@ class _NavigationFragmentState extends State<NavigationFragment> {
 
   @override
   Widget build(BuildContext context) {
-    appTheme = Provider.of<AppTheme>(context);
+    appTheme = Provider.of<ThemeModel>(context);
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withAlpha(200),
+        color: Theme.of(context).iconTheme.color.withAlpha(0),
       ),
       child: Scrollbar(
         child: ListView.builder(
@@ -62,7 +62,7 @@ class NavigationCategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -87,7 +87,7 @@ class NavigationCategoryWidget extends StatelessWidget {
                               isCollect: navigationData.articles[index].collect,
                             ));
                       },
-                      backgroundColor: Color(0xFFF5F5F5),
+                      backgroundColor: Theme.of(context).iconTheme.color.withAlpha(20),
                       label: Text(
                         navigationData.articles[index].title,
                         maxLines: 1,

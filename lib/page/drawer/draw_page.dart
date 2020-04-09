@@ -11,13 +11,13 @@ import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/account/login_fragment.dart';
 import 'package:wanandroidflutter/page/collect/collect_fragment.dart';
-import 'package:wanandroidflutter/page/home/theme_colors.dart';
+import 'package:wanandroidflutter/theme/theme_colors.dart';
 import 'package:wanandroidflutter/page/rank/rank_fragment.dart';
 import 'package:wanandroidflutter/page/setting/setting_fragment.dart';
 import 'package:wanandroidflutter/page/share/share_article_fragment.dart';
 import 'package:wanandroidflutter/page/square/square_fragment.dart';
 import 'package:wanandroidflutter/page/wenda/wenda_fragment.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
@@ -34,7 +34,7 @@ class _DrawerPageState extends State<DrawerPage> {
   int rank = 0;
   int coinCount = 0;
 
-  List<Color> themeColors = new List();
+  List<Color> themeColors = List();
 
   int curSelectedIndex = 0;
   int clickedIndex = 0;
@@ -88,7 +88,7 @@ class _DrawerPageState extends State<DrawerPage> {
   }
 
   void showThemeChooserDialog(
-      BuildContext context, int selectIndex, AppTheme appTheme) {
+      BuildContext context, int selectIndex, ThemeModel appTheme) {
     var result = showDialog(
       context: context,
       barrierDismissible: false,
@@ -219,7 +219,7 @@ class _DrawerPageState extends State<DrawerPage> {
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
     return new ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
@@ -421,15 +421,9 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           onTap: () {
             CommonUtils.push(
-                context,
-                Scaffold(
-                  appBar: AppBar(
-                    title: Text("设置"),
-                    backgroundColor: appTheme.themeColor,
-                    centerTitle: true,
-                  ),
-                  body: SettingFragment(),
-                ));
+              context,
+              SettingFragment(),
+            );
           },
         ),
       ],

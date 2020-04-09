@@ -13,7 +13,7 @@ import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/drawer/draw_page.dart';
 import 'package:wanandroidflutter/page/home/search_fragment.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
@@ -151,7 +151,7 @@ class _HomeFragmentState extends State<HomeFragment>
 
   @override
   Widget build(BuildContext context) {
-    appTheme = Provider.of<AppTheme>(context);
+    appTheme = Provider.of<ThemeModel>(context);
     super.build(context);
     return Scaffold(
         key: _scaffoldKey,
@@ -219,12 +219,14 @@ class _HomeFragmentState extends State<HomeFragment>
                                         itemCount: bannerList.length,
                                         onTap: (index) {
                                           var item = bannerList[index];
-                                          CommonUtils.push(context, WebViewPage(
-                                            url: item.url,
-                                            title: item.title,
-                                            id: item.id,
-                                            isCollect: false,
-                                          ));
+                                          CommonUtils.push(
+                                              context,
+                                              WebViewPage(
+                                                url: item.url,
+                                                title: item.title,
+                                                id: item.id,
+                                                isCollect: false,
+                                              ));
                                         },
                                       )
                                     : SizedBox(

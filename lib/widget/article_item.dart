@@ -5,7 +5,8 @@ import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/dark_model.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 import 'package:wanandroidflutter/utils/widget_utils.dart';
 
@@ -29,7 +30,8 @@ class _ArticleWidgetState extends State<ArticleWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
+    var isDarkMode = Provider.of<DarkMode>(context).isDark;
     UniqueKey uniqueKey = UniqueKey();
     article = widget.article;
     return GestureDetector(
@@ -63,7 +65,9 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                                 ? Icons.folder_shared
                                 : Icons.person,
                             size: 20.0,
-                            color: appTheme.themeColor,
+                            color: !isDarkMode
+                                ? appTheme.themeColor
+                                : Colors.white.withAlpha(120),
                           ),
                           Container(
                             padding: EdgeInsets.only(left: 5),
@@ -79,7 +83,9 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                                 offstage: !article.fresh ?? true,
                                 child: WidgetUtils.buildStrokeWidget(
                                     "新",
-                                    appTheme.themeColor,
+                                    !isDarkMode
+                                        ? appTheme.themeColor
+                                        : Colors.white.withAlpha(120),
                                     FontWeight.w400,
                                     11.0)),
                           ),
@@ -89,7 +95,9 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                                 offstage: article.type == 0 ?? false,
                                 child: WidgetUtils.buildStrokeWidget(
                                     "置顶",
-                                    appTheme.themeColor,
+                                    !isDarkMode
+                                        ? appTheme.themeColor
+                                        : Colors.white.withAlpha(120),
                                     FontWeight.w400,
                                     11.0)),
                           )
@@ -102,7 +110,10 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                           Container(
                             child: Icon(
                               Icons.access_time,
-                              color: Colors.black54,
+                              color: Theme.of(context)
+                                  .iconTheme
+                                  .color
+                                  .withAlpha(120),
                               size: 20,
                             ),
                           ),
@@ -171,7 +182,10 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                         child: Text(
                           "${article.chapterName}/${article.superChapterName}",
                           style: TextStyle(
-                              color: appTheme.themeColor, fontSize: 11.0),
+                              color: !isDarkMode
+                                  ? appTheme.themeColor
+                                  : Colors.white.withAlpha(120),
+                              fontSize: 11.0),
                         ),
                       )),
                   Align(
@@ -223,12 +237,11 @@ class _ArticleWidgetState extends State<ArticleWidget> {
             context,
             HeroDialogRoute(
                 builder: (_) => FavouriteAnimation(
-                  tag: uniqueKey,
-                  isAdded: article.collect,
-                )));
+                      tag: uniqueKey,
+                      isAdded: article.collect,
+                    )));
         article.collect = !article.collect;
       });
     }, errorCallBack: (code, msg) {}, context: context);
   }
 }
-

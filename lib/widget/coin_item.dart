@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/rank.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/dark_model.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 
 class CoinRankWidget extends StatefulWidget {
   RankData rankData;
@@ -17,13 +18,14 @@ class _CoinRankWidgetState extends State<CoinRankWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
+    var isDarkMode = Provider.of<DarkMode>(context).isDark;
     rankData = widget.rankData;
     return ListTile(
       dense: true,
       contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
       onTap: () {},
-      leading: buildIcon(rankData),
+      leading: buildIcon(rankData, !isDarkMode),
       title: Text(
         rankData == null ? "--" : (rankData.username),
         style: TextStyle(fontSize: 16),
@@ -35,14 +37,14 @@ class _CoinRankWidgetState extends State<CoinRankWidget> {
     );
   }
 
-  Widget buildIcon(RankData rankData) {
+  Widget buildIcon(RankData rankData, bool isDarkMode) {
     if (rankData == null) {
       return Padding(
         padding: EdgeInsets.only(left: 8),
         child: Text(
           "--",
           style: TextStyle(
-              color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.bold),
+              color: !isDarkMode ? Colors.black : Colors.white.withAlpha(120), fontSize: 15.0, fontWeight: FontWeight.bold),
         ),
       );
     }
@@ -64,7 +66,7 @@ class _CoinRankWidgetState extends State<CoinRankWidget> {
         child: Text(
           rankData.rank.toString(),
           style: TextStyle(
-              color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.bold),
+              color: !isDarkMode ? Colors.black : Colors.white.withAlpha(120), fontSize: 15.0, fontWeight: FontWeight.bold),
         ),
       );
     }

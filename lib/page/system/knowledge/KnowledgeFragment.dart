@@ -6,7 +6,7 @@ import 'package:wanandroidflutter/data/knowledge.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/system/knowledge/KnowledgeListFragment.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 
 class KnowledgeFragment extends StatefulWidget {
@@ -36,10 +36,10 @@ class _KnowledgeFragmentState extends State<KnowledgeFragment> {
 
   @override
   Widget build(BuildContext context) {
-    appTheme = Provider.of<AppTheme>(context);
+    appTheme = Provider.of<ThemeModel>(context);
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withAlpha(200),
+        color: Theme.of(context).iconTheme.color.withAlpha(0),
       ),
       child: Scrollbar(
         child: ListView.builder(
@@ -61,7 +61,7 @@ class KnowledgeCategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
+    var appTheme = Provider.of<ThemeModel>(context);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -90,7 +90,7 @@ class KnowledgeCategoryWidget extends StatelessWidget {
                                   knowledgeData.children[index].id),
                             ));
                       },
-                      backgroundColor: Color(0xFFF5F5F5),
+                      backgroundColor: Theme.of(context).iconTheme.color.withAlpha(20),
                       label: Text(
                         knowledgeData.children[index].name,
                         maxLines: 1,

@@ -1,16 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/login.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
-import 'package:wanandroidflutter/theme/app_theme.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/login_event.dart';
-
 import 'main_page.dart';
 
 class SplashView extends StatefulWidget {
@@ -53,7 +49,7 @@ class _SplashViewState extends State<SplashView> {
     Timer(new Duration(seconds: 2), () {
       Navigator.pushAndRemoveUntil(
         context,
-        new MaterialPageRoute(builder: (context) => new MainPage()),
+        MaterialPageRoute(builder: (context) => MainPage()),
         (route) => route == null,
       );
     });
@@ -68,16 +64,12 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    var appTheme = Provider.of<AppTheme>(context);
     return Scaffold(
         body: MediaQuery.removePadding(
             context: context,
             removeTop: true,
             child: Container(
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: appTheme.themeColor,
-              ),
               child: Icon(Icons.android),
             )));
   }
