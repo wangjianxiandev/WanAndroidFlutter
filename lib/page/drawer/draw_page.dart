@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/application.dart';
-import 'package:wanandroidflutter/data/coin.dart';
+import 'package:wanandroidflutter/data/rank.dart';
 import 'package:wanandroidflutter/data/login.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
@@ -30,7 +30,7 @@ class DrawerPage extends StatefulWidget {
 
 class _DrawerPageState extends State<DrawerPage> {
   LoginData loginData;
-  CoinData coinData;
+  RankData coinData;
   int rank = 0;
   int coinCount = 0;
 
@@ -65,7 +65,7 @@ class _DrawerPageState extends State<DrawerPage> {
       if (data != null && data.isNotEmpty) {
         Map coinMap = json.decode(data);
         setState(() {
-          coinData = CoinData.fromJson(coinMap);
+          coinData = RankData.fromJson(coinMap);
           rank = coinData.rank;
           coinCount = coinData.coinCount;
           print(rank.toString() + "" + coinCount.toString());
