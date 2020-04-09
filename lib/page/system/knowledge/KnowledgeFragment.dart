@@ -34,63 +34,6 @@ class _KnowledgeFragmentState extends State<KnowledgeFragment> {
     }, errorCallBack: (code, msg) {});
   }
 
-  List<Widget> getChild(KnowledgeData knowledgeData, int index,
-      KnowledgeData childKnowledgeData) {
-    List<Widget> childrenKnowList = [];
-    if (childKnowledgeData.children.length > 0) {
-      childrenKnowList.add(new Row(
-        children: <Widget>[
-          new Text(
-            childKnowledgeData.name,
-            style: TextStyle(fontSize: 15),
-          )
-        ],
-      ));
-      for (int i = 0; i < childKnowledgeData.children.length; i++) {
-        childrenKnowList.addAll(
-            getChild(childKnowledgeData, i, childKnowledgeData.children[i]));
-      }
-    } else {
-      childrenKnowList.add(new InkWell(
-        onTap: () => {
-          CommonUtils.push(
-              context,
-              Scaffold(
-                appBar: AppBar(
-                  title: Text(knowledgeData.children[index].name.toString()),
-                  backgroundColor: appTheme.themeColor,
-                  centerTitle: true,
-                ),
-                body: KnowledgeListFragment(knowledgeData.children[index].id),
-              ))
-        },
-        child: Container(
-            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-            decoration: new BoxDecoration(
-              border: new Border.all(color: Colors.transparent, width: 1),
-              // 边色与边宽度
-              color: Color(0xFFf5f5f5),
-              borderRadius: new BorderRadius.circular(10), // 圆角度
-            ),
-            child: Text(
-              childKnowledgeData.name,
-              textAlign: TextAlign.center,
-              style:
-                  TextStyle(fontSize: 15, color: CommonUtils.getRandomColor()),
-            )),
-      ));
-    }
-    return childrenKnowList;
-  }
-
-  List<Widget> getChildren() {
-    List<Widget> children = [];
-    for (int i = 0; i < knowLedgeList.length; i++) {
-      children.addAll(getChild(null, i, knowLedgeList[i]));
-    }
-    return children;
-  }
-
   @override
   Widget build(BuildContext context) {
     appTheme = Provider.of<AppTheme>(context);
@@ -98,15 +41,65 @@ class _KnowledgeFragmentState extends State<KnowledgeFragment> {
       decoration: BoxDecoration(
         color: Colors.white.withAlpha(200),
       ),
-      child: SingleChildScrollView(
-        padding: EdgeInsets.all(10),
-        child: Wrap(
-          direction: Axis.horizontal,
-          alignment: WrapAlignment.start,
-          spacing: 10.0,
-          runSpacing: 10.0,
-          children: getChildren(),
-        ),
+      child: Scrollbar(
+        child: ListView.builder(
+            padding: EdgeInsets.all(15),
+            itemCount: knowLedgeList.length,
+            itemBuilder: (context, index) {
+              return KnowledgeCategoryWidget(
+                knowledgeData: knowLedgeList[index],
+              );
+            }),
+      ),
+    );
+  }
+}
+
+class KnowledgeCategoryWidget extends StatelessWidget {
+  final KnowledgeData knowledgeData;
+  KnowledgeCategoryWidget({Key key, this.knowledgeData});
+
+  @override
+  Widget build(BuildContext context) {
+    var appTheme = Provider.of<AppTheme>(context);
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            knowledgeData.name,
+            style: Theme.of(context).textTheme.subtitle,
+          ),
+          Wrap(
+            spacing: 10,
+            children: List.generate(
+                knowledgeData.children.length,
+                (index) => ActionChip(
+                      onPressed: () {
+                        CommonUtils.push(
+                            context,
+                            Scaffold(
+                              appBar: AppBar(
+                                title: Text(knowledgeData.children[index].name
+                                    .toString()),
+                                backgroundColor: appTheme.themeColor,
+                                centerTitle: true,
+                              ),
+                              body: KnowledgeListFragment(
+                                  knowledgeData.children[index].id),
+                            ));
+                      },
+                      backgroundColor: Color(0xFFF5F5F5),
+                      label: Text(
+                        knowledgeData.children[index].name,
+                        maxLines: 1,
+                        style: TextStyle(
+                            fontSize: 13, color: CommonUtils.getRandomColor()),
+                      ),
+                    )),
+          )
+        ],
       ),
     );
   }
