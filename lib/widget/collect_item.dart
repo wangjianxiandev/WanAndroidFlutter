@@ -24,14 +24,21 @@ class CollectWidget extends StatefulWidget {
 
 class _CollectWidgetState extends State<CollectWidget> {
   Article article;
+
   @override
   Widget build(BuildContext context) {
     var appTheme = Provider.of<AppTheme>(context);
     article = widget.article;
     return GestureDetector(
       onTap: () {
-        CommonUtils.push(context, WebViewPage(
-          url: article.link, title: article.title, id: article.id, isCollect: article.collect,));
+        CommonUtils.push(
+            context,
+            WebViewPage(
+              url: article.link,
+              title: article.title,
+              id: article.id,
+              isCollect: article.collect,
+            ));
       },
       child: Card(
         elevation: 15.0,
@@ -58,14 +65,10 @@ class _CollectWidgetState extends State<CollectWidget> {
                           Container(
                             padding: EdgeInsets.only(left: 5),
                             child: Text(
-                              "${article.author.isNotEmpty ? article.author : article.shareUser}",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey,
-                                  fontSize: 10),
-                            ),
+                                "${article.author.isNotEmpty ? article.author : "匿名"}",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: Theme.of(context).textTheme.caption),
                           ),
                         ],
                       )),
@@ -76,7 +79,7 @@ class _CollectWidgetState extends State<CollectWidget> {
                           Container(
                             child: Icon(
                               Icons.access_time,
-                              color: Colors.grey,
+                              color: Colors.black54,
                               size: 20,
                             ),
                           ),
@@ -85,8 +88,7 @@ class _CollectWidgetState extends State<CollectWidget> {
                             child: Text(
                               "${article.niceDate}",
                               textAlign: TextAlign.center,
-                              style:
-                              TextStyle(color: Colors.grey, fontSize: 10.0),
+                                style: Theme.of(context).textTheme.caption
                             ),
                           )
                         ],
@@ -96,9 +98,8 @@ class _CollectWidgetState extends State<CollectWidget> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: ArticleTitleWidget(article.title)
-                ),
+                    padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    child: ArticleTitleWidget(article.title)),
               ),
               Row(
                 children: <Widget>[
@@ -106,12 +107,11 @@ class _CollectWidgetState extends State<CollectWidget> {
                       flex: 1,
                       child: Container(
                         alignment: Alignment.centerLeft,
-                        child: WidgetUtils.buildStrokeWidget(
-                            article.chapterName.isNotEmpty ?
-                            "${article.chapterName}" : "站外",
-                            Colors.grey,
-                            FontWeight.w400,
-                            10.0),
+                        child: Text(
+                          "${article.chapterName}",
+                          style: TextStyle(
+                              color: appTheme.themeColor, fontSize: 11.0),
+                        ),
                       )),
                   Align(
                     alignment: Alignment.centerRight,
@@ -137,9 +137,8 @@ class _CollectWidgetState extends State<CollectWidget> {
   //取消收藏
   _delete() {
     String url = "lg/uncollect_originId/${article.originId}/json";
-    HttpRequest.getInstance().post(url,
-        successCallBack: (data) {
-          Application.eventBus.fire(CollectEvent());
-        }, errorCallBack: (code, msg) {}, context: context);
+    HttpRequest.getInstance().post(url, successCallBack: (data) {
+      Application.eventBus.fire(CollectEvent());
+    }, errorCallBack: (code, msg) {}, context: context);
   }
 }
