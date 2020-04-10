@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/application.dart';
@@ -11,6 +12,7 @@ import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/account/login_fragment.dart';
 import 'package:wanandroidflutter/page/collect/collect_fragment.dart';
+import 'package:wanandroidflutter/theme/dark_model.dart';
 import 'package:wanandroidflutter/theme/theme_colors.dart';
 import 'package:wanandroidflutter/page/rank/rank_fragment.dart';
 import 'package:wanandroidflutter/page/setting/setting_fragment.dart';
@@ -220,6 +222,7 @@ class _DrawerPageState extends State<DrawerPage> {
   @override
   Widget build(BuildContext context) {
     var appTheme = Provider.of<ThemeModel>(context);
+    bool isDarkMode = Provider.of<DarkMode>(context).isDark;
     return new ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
@@ -369,7 +372,9 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            showThemeChooserDialog(context, curSelectedIndex, appTheme);
+            isDarkMode
+                ? CommonUtils.toast("夜间模式下不可以更改主题嗷~")
+                : showThemeChooserDialog(context, curSelectedIndex, appTheme);
           },
         ),
         new Divider(),

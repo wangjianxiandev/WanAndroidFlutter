@@ -19,6 +19,9 @@ class Constants {
   //是否为夜间模式
   static const String THEME_DARK_MODE_KEY = 'theme_dark_mode_key';
 
+  // 字体列表
+  static const FontList = ['normal', 'kuaile'];
+
 
   static final List<Page> todoTypes = [
     Page('只用这一个', 0),

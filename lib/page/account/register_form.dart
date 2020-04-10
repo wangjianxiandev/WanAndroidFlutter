@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/theme/dark_model.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/common.dart';
 
@@ -32,6 +33,7 @@ class RegisterFormState extends State<RegisterForm>
   @override
   Widget build(BuildContext context) {
     var appTheme = Provider.of<ThemeModel>(context);
+    bool isDarkMode = Provider.of<DarkMode>(context).isDark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
@@ -53,13 +55,17 @@ class RegisterFormState extends State<RegisterForm>
               Text(
                 "去登录",
                 style: TextStyle(
-                    color: appTheme.themeColor,
+                    color: !isDarkMode
+                        ? appTheme.themeColor
+                        : Colors.white.withAlpha(120),
                     fontSize: 15,
                     decoration: TextDecoration.none),
               ),
               IconButton(
                 icon: Icon(Icons.arrow_left),
-                disabledColor: appTheme.themeColor,
+                disabledColor: !isDarkMode
+                    ? appTheme.themeColor
+                    : Colors.white.withAlpha(120),
                 onPressed: null,
               ),
             ],
@@ -86,8 +92,12 @@ class RegisterFormState extends State<RegisterForm>
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: appTheme.themeColor),
                     ),
-                    prefixIcon:
-                        Icon(Icons.account_circle, color: appTheme.themeColor)),
+                    prefixIcon: Icon(
+                      Icons.account_circle,
+                      color: !isDarkMode
+                          ? appTheme.themeColor
+                          : Colors.white.withAlpha(120),
+                    )),
                 onChanged: (val) {
                   _name = val;
                 },
@@ -107,8 +117,12 @@ class RegisterFormState extends State<RegisterForm>
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: appTheme.themeColor),
                     ),
-                    prefixIcon:
-                        Icon(Icons.lock_open, color: appTheme.themeColor)),
+                    prefixIcon: Icon(
+                      Icons.lock_open,
+                      color: !isDarkMode
+                          ? appTheme.themeColor
+                          : Colors.white.withAlpha(120),
+                    )),
                 onChanged: (val) {
                   _pwd = val;
                 },
@@ -129,8 +143,12 @@ class RegisterFormState extends State<RegisterForm>
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: appTheme.themeColor),
                     ),
-                    prefixIcon:
-                        Icon(Icons.lock_open, color: appTheme.themeColor)),
+                    prefixIcon: Icon(
+                      Icons.lock_open,
+                      color: !isDarkMode
+                          ? appTheme.themeColor
+                          : Colors.white.withAlpha(120),
+                    )),
                 onChanged: (val) {
                   _pwd2 = val;
                 },

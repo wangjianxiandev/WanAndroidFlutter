@@ -1,6 +1,9 @@
+import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
+import 'package:wanandroidflutter/constant/Constants.dart';
+import 'package:wanandroidflutter/theme/font_model.dart';
 import 'package:wanandroidflutter/theme/theme_colors.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/theme/dark_model.dart';
@@ -20,7 +23,8 @@ class _SettingFragmentState extends State<SettingFragment> {
   @override
   Widget build(BuildContext context) {
     var appTheme = Provider.of<ThemeModel>(context);
-    if (!Provider.of<DarkMode>(context).isDark) {
+    bool isDarkMode = Provider.of<DarkMode>(context).isDark;
+    if (!isDarkMode) {
       saveBeforeChangeTheme(appTheme.themeColor);
     }
     getBeforeChangeColorIndex().then((index) {
@@ -43,7 +47,8 @@ class _SettingFragmentState extends State<SettingFragment> {
             clipBehavior: Clip.antiAlias,
             semanticContainer: false,
             child: ListTile(
-              leading: Icon(Icons.brightness_6),
+              leading: Icon(!isDarkMode ? Icons.brightness_6 : Icons.brightness_2,
+              color: !isDarkMode ? Color(0xFFFFC400) : Colors.yellow,),
               title: Text(
                 "夜间模式",
                 style: Theme.of(context).textTheme.title,
@@ -61,6 +66,44 @@ class _SettingFragmentState extends State<SettingFragment> {
             ),
           ),
           Card(
+            elevation: 8.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            clipBehavior: Clip.antiAlias,
+            semanticContainer: false,
+            child: ExpansionTile(
+              leading: Icon(
+                Icons.font_download,
+                color: appTheme.themeColor,
+              ),
+              title: Text(
+                "切换字体",
+                style: Theme.of(context).textTheme.title,
+              ),
+              trailing: Icon(Icons.keyboard_arrow_down,
+              color: appTheme.themeColor,),
+              children: <Widget>[
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: Constants.FontList.length,
+                    itemBuilder: (context, index) {
+                      return RadioListTile(
+                        activeColor: appTheme.themeColor,
+                        value: index,
+                        onChanged: (index) {
+                          print("index = $index");
+                          Provider.of<FontModel>(context).updateFontIndex(index);
+                          saveFontMode(index);
+                        },
+                        groupValue: Provider.of<FontModel>(context).fontIndex,
+                        title: Text(index == 0? "正常字体" : "喵趣字体"),
+                      );
+                    })
+              ],
+            ),
+          ),
+          Card(
               elevation: 8.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -68,7 +111,8 @@ class _SettingFragmentState extends State<SettingFragment> {
               clipBehavior: Clip.antiAlias,
               semanticContainer: false,
               child: ListTile(
-                leading: Icon(Icons.delete),
+                leading: Icon(Icons.delete,
+                color: appTheme.themeColor,),
                 title: Text(
                   "清除缓存",
                   style: Theme.of(context).textTheme.title,
@@ -89,7 +133,8 @@ class _SettingFragmentState extends State<SettingFragment> {
               clipBehavior: Clip.antiAlias,
               semanticContainer: false,
               child: ListTile(
-                leading: Icon(Icons.send),
+                leading: Icon(Icons.send,
+                color: appTheme.themeColor,),
                 title: Text(
                   "关于作者",
                   style: Theme.of(context).textTheme.title,
@@ -114,6 +159,11 @@ class _SettingFragmentState extends State<SettingFragment> {
   void saveDarkMode(bool value) async {
     print("dark  = $value");
     Application.sp.putBool(Config.SP_DARK_MODEL, value);
+  }
+
+  void saveFontMode(int index) async {
+    print("fontIndex  = $index");
+    Application.sp.putInt(Config.SP_FONT_INDEX, index);
   }
 
   void saveBeforeChangeTheme(Color color) async {

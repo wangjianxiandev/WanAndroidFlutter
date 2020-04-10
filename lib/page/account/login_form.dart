@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/theme/dark_model.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 import 'package:wanandroidflutter/utils/common.dart';
@@ -33,6 +34,7 @@ class LoginFormState extends State<LoginForm>
   @override
   Widget build(BuildContext context) {
     var appTheme = Provider.of<ThemeModel>(context);
+    bool isDarkMode = Provider.of<DarkMode>(context).isDark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
@@ -54,13 +56,17 @@ class LoginFormState extends State<LoginForm>
               Text(
                 "去注册",
                 style: TextStyle(
-                    color: appTheme.themeColor,
+                    color: !isDarkMode
+                        ? appTheme.themeColor
+                        : Colors.white.withAlpha(120),
                     fontSize: 15,
                     decoration: TextDecoration.none),
               ),
               IconButton(
                 icon: Icon(Icons.arrow_right),
-                disabledColor: appTheme.themeColor,
+                disabledColor: !isDarkMode
+                    ? appTheme.themeColor
+                    : Colors.white.withAlpha(120),
                 onPressed: null,
               ),
             ],
@@ -87,8 +93,12 @@ class LoginFormState extends State<LoginForm>
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: appTheme.themeColor),
                     ),
-                    prefixIcon:
-                        Icon(Icons.account_circle, color: appTheme.themeColor)),
+                    prefixIcon: Icon(
+                      Icons.account_circle,
+                      color: !isDarkMode
+                          ? appTheme.themeColor
+                          : Colors.white.withAlpha(120),
+                    )),
                 onChanged: (val) {
                   _name = val;
                 },
@@ -108,8 +118,12 @@ class LoginFormState extends State<LoginForm>
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: appTheme.themeColor),
                     ),
-                    prefixIcon:
-                        Icon(Icons.lock_open, color: appTheme.themeColor)),
+                    prefixIcon: Icon(
+                      Icons.lock_open,
+                      color: !isDarkMode
+                          ? appTheme.themeColor
+                          : Colors.white.withAlpha(120),
+                    )),
                 onChanged: (val) {
                   _pwd = val;
                 },
