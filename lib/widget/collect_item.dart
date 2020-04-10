@@ -8,7 +8,6 @@ import 'package:wanandroidflutter/theme/dark_model.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/common.dart';
-import 'package:wanandroidflutter/utils/widget_utils.dart';
 import 'package:wanandroidflutter/widget/article_title.dart';
 
 //文章item

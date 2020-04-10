@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
+import 'package:wanandroidflutter/theme/dark_model.dart';
+import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/clipboard_utils.dart';
 import 'package:wanandroidflutter/utils/collect_event.dart';
 import 'package:wanandroidflutter/utils/common.dart';
@@ -76,6 +79,7 @@ class WebViewPageState extends State<WebViewPage>
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Provider.of<DarkMode>(context).isDark;
     return new WillPopScope(
       child: Scaffold(
           appBar: TitleBar(
@@ -116,7 +120,7 @@ class WebViewPageState extends State<WebViewPage>
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Color(0xfff7f7f7),
+                  color: isDarkMode ? Color(0xff323638) : Color(0xfff7f7f7),
                 ),
                 height: 50,
                 child: Row(
@@ -164,7 +168,7 @@ class WebViewPageState extends State<WebViewPage>
                           child: Icon(Icons.menu),
                         ),
                         onTap: () {
-                          showBottomMenu();
+                          showBottomMenu(isDarkMode);
                         },
                       ),
                       flex: 1,
@@ -207,16 +211,17 @@ class WebViewPageState extends State<WebViewPage>
   }
 
   ///弹出框
-  void showBottomMenu() {
+  void showBottomMenu(bool isDarkMode) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
+        var appTheme = Provider.of<ThemeModel>(context);
         return new Container(
           height: 90,
           alignment: Alignment.bottomCenter,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isDarkMode ? Color(0xff323638) : Colors.white,
           ),
           child: Column(
             children: <Widget>[
@@ -224,135 +229,156 @@ class WebViewPageState extends State<WebViewPage>
                 children: <Widget>[
                   Expanded(
                       child: Column(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(bottom: 10),
-                            decoration: new BoxDecoration(
-                              border: new Border.all(
-                                  color: Colors.transparent, width: 0),
-                              // 边色与边宽度
-                              color: Color(0xFFf5f5f5),
-                              // 底色
-                              shape: BoxShape.circle, // 默认值也是矩形
-                            ),
-                            width: 40,
-                            height: 40,
-                            child: Center(
-                                child: Icon(
-                                  Icons.share,
-                                  size: 30,
-                                )),
-                          ),
-                          Text(
-                            "分享到广场",
-                            style: TextStyle(fontSize: 8,
-                                color: Color(0xff333333)),
-                          )
-                        ],
-                      )),
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        decoration: new BoxDecoration(
+                          border: new Border.all(
+                              color: Colors.transparent, width: 0),
+                          // 边色与边宽度
+                          color: Color(0xFFf5f5f5),
+                          // 底色
+                          shape: BoxShape.circle, // 默认值也是矩形
+                        ),
+                        width: 40,
+                        height: 40,
+                        child: Center(
+                            child: Icon(
+                          Icons.share,
+                          size: 30,
+                          color: appTheme.themeColor,
+                        )),
+                      ),
+                      Text(
+                        "分享到广场",
+                        style: TextStyle(
+                            color: !isDarkMode
+                                ? appTheme.themeColor
+                                : Colors.white.withAlpha(120),
+                            fontSize: 11.0),
+                      )
+                    ],
+                  )),
                   Expanded(
                       child: Column(
-                        children: <Widget>[
-                          InkWell(
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              decoration: new BoxDecoration(
-                                border: new Border.all(
-                                    color: Colors.transparent, width: 0),
-                                // 边色与边宽度
-                                color: Color(0xFFf5f5f5),
-                                // 底色
-                                shape: BoxShape.circle, // 默认值也是矩形
-                              ),
-                              width: 40,
-                              height: 40,
-                              child: Center(
-                                  child: isCollect ? Icon(
-                                    Icons.favorite,
-                                    size: 30,
-                                  ) : Icon(Icons.favorite_border,
-                                    size: 30,)),
-                            ),
-                            onTap: () => _collect(),
+                    children: <Widget>[
+                      InkWell(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          decoration: new BoxDecoration(
+                            border: new Border.all(
+                                color: Colors.transparent, width: 0),
+                            // 边色与边宽度
+                            color: Color(0xFFf5f5f5),
+                            // 底色
+                            shape: BoxShape.circle, // 默认值也是矩形
                           ),
-                          Text(
-                            "收藏",
-                            style: TextStyle(fontSize: 8,
-                                color: Color(0xff333333)),
-                          )
-                        ],
-                      )),
+                          width: 40,
+                          height: 40,
+                          child: Center(
+                              child: isCollect
+                                  ? Icon(
+                                      Icons.favorite,
+                                      size: 30,
+                                      color: appTheme.themeColor,
+                                    )
+                                  : Icon(
+                                      Icons.favorite_border,
+                                      size: 30,
+                                      color: appTheme.themeColor,
+                                    )),
+                        ),
+                        onTap: () => _collect(),
+                      ),
+                      Text(
+                        "收藏",
+                        style: TextStyle(
+                            color: !isDarkMode
+                                ? appTheme.themeColor
+                                : Colors.white.withAlpha(120),
+                            fontSize: 11.0),
+                      )
+                    ],
+                  )),
                   Expanded(
                       child: Column(
-                        children: <Widget>[
-                          InkWell(
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              decoration: new BoxDecoration(
-                                border: new Border.all(
-                                    color: Colors.transparent, width: 0),
-                                // 边色与边宽度
-                                color: Color(0xFFf5f5f5),
-                                // 底色
-                                shape: BoxShape.circle, // 默认值也是矩形
-                              ),
-                              width: 40,
-                              height: 40,
-                              child: Center(
-                                  child: Icon(
-                                    Icons.content_copy,
-                                    size: 30,
-                                  )),
-                            ),
-                            onTap: () {
-                              webViewController.currentUrl().then((curl) {
-                                ClipboardUtil.saveData2Clipboard(url);
-                                CommonUtils.toast("复制成功");
-                                Navigator.pop(context);
-                              });
-                            },
+                    children: <Widget>[
+                      InkWell(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          decoration: new BoxDecoration(
+                            border: new Border.all(
+                                color: Colors.transparent, width: 0),
+                            // 边色与边宽度
+                            color: Color(0xFFf5f5f5),
+                            // 底色
+                            shape: BoxShape.circle, // 默认值也是矩形
                           ),
-                          Text(
-                            "复制链接",
-                            style: TextStyle(fontSize: 8,
-                                color: Color(0xff333333)),
-                          )
-                        ],
-                      )),
+                          width: 40,
+                          height: 40,
+                          child: Center(
+                              child: Icon(
+                            Icons.content_copy,
+                            size: 30,
+                            color: appTheme.themeColor,
+                          )),
+                        ),
+                        onTap: () {
+                          webViewController.currentUrl().then((curl) {
+                            ClipboardUtil.saveData2Clipboard(url);
+                            CommonUtils.toast("复制成功");
+                            Navigator.pop(context);
+                          });
+                        },
+                      ),
+                      Text(
+                        "复制链接",
+                        style: TextStyle(
+                            color: !isDarkMode
+                                ? appTheme.themeColor
+                                : Colors.white.withAlpha(120),
+                            fontSize: 11.0),
+                      )
+                    ],
+                  )),
                   Expanded(
                       child: Column(
-                        children: <Widget>[
-                          InkWell(
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 10),
-                              decoration: new BoxDecoration(
-                                border: new Border.all(
-                                    color: Colors.transparent, width: 0),
-                                // 边色与边宽度
-                                color: Color(0xFFf5f5f5),
-                                // 底色
-                                shape: BoxShape.circle, // 默认值也是矩形
-                              ),
-                              width: 40,
-                              height: 40,
-                              child: Center(
-                                  child: Icon(
-                                    Icons.exit_to_app,
-                                    size: 30,
-                                  )),
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
+                    children: <Widget>[
+                      InkWell(
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 10),
+                          decoration: new BoxDecoration(
+                            border: new Border.all(
+                                color: Colors.transparent, width: 0),
+                            // 边色与边宽度
+                            color: Color(0xFFf5f5f5),
+                            // 底色
+                            shape: BoxShape.circle, // 默认值也是矩形
                           ),
-                          Text(
-                            "退出",
-                            style: TextStyle(fontSize: 8,
-                                color: Color(0xff333333)),
-                          )
-                        ],
-                      )),
+                          width: 40,
+                          height: 40,
+                          child: Center(
+                              child: Icon(
+                            Icons.exit_to_app,
+                            size: 30,
+                            color: appTheme.themeColor,
+                          )),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        },
+                      ),
+                      Text(
+                        "退出",
+                        style: TextStyle(
+                            color: !isDarkMode
+                                ? appTheme.themeColor
+                                : Colors.white.withAlpha(120),
+                            fontSize: 11.0),
+                      )
+                    ],
+                  )),
                 ],
               )
             ],
@@ -374,12 +400,11 @@ class WebViewPageState extends State<WebViewPage>
     HttpRequest.getInstance().post(
         isCollect == false
             ? "${Api.COLLECT}$id/json"
-            : "${Api.UN_COLLECT_ORIGIN_ID}$id/json",
-        successCallBack: (data) {
-          Application.eventBus.fire(CollectEvent());
-          setState(() {
-           isCollect = !isCollect;
-          });
-        }, errorCallBack: (code, msg) {}, context: context);
+            : "${Api.UN_COLLECT_ORIGIN_ID}$id/json", successCallBack: (data) {
+      Application.eventBus.fire(CollectEvent());
+      setState(() {
+        isCollect = !isCollect;
+      });
+    }, errorCallBack: (code, msg) {}, context: context);
   }
 }
