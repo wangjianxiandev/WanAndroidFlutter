@@ -46,13 +46,16 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
 
 
 flutter:
   uses-material-design: true
 
   fonts:
-    - family : normal
+    - family: normal
       fonts:
         - asset: assets/fonts/NotoSans-Regular.ttf
     - family: kuaile
@@ -67,4 +70,3 @@ flutter:
     - assets/img/load_no_data.png
     - assets/img/ic_default.png
     - assets/img/ic_avatar.png
-

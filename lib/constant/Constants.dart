@@ -22,6 +22,8 @@ class Constants {
   // 字体列表
   static const FontList = ['normal', 'kuaile'];
 
+  // 语言列表
+  static const LocaleList = ['', 'zh-CN', 'en'];
 
   static final List<Page> todoTypes = [
     Page('只用这一个', 0),

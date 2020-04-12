@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/constant/Constants.dart';
 import 'package:wanandroidflutter/theme/font_model.dart';
+import 'package:wanandroidflutter/theme/locale_model.dart';
 import 'package:wanandroidflutter/theme/theme_colors.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/theme/dark_model.dart';
@@ -101,6 +102,42 @@ class _SettingFragmentState extends State<SettingFragment> {
                       );
                     })
               ],
+            ),
+          ),
+          Card(
+            elevation: 8.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
+            clipBehavior: Clip.antiAlias,
+            semanticContainer: false,
+            child: ListTile(
+              leading: Icon(
+                Icons.public,
+                color: appTheme.themeColor,
+              ),
+              title: Text(
+                "语言设置",
+                style: Theme.of(context).textTheme.title,
+              ),
+              trailing: Text("中文" ,style: Theme.of(context).textTheme.subtitle,),
+//              children: <Widget>[
+//                ListView.builder(
+//                    shrinkWrap: true,
+//                    itemCount: Constants.LocaleList.length,
+//                    itemBuilder: (context, index) {
+//                      return ListTile(
+//                        activeColor: appTheme.themeColor,
+//                        value: index,
+//                        onChanged: (index) {
+//                          print("index = $index");
+//                          Provider.of<LocaleModel>(context).updateLocaleIndex(index);
+//                        },
+//                        groupValue: Provider.of<LocaleModel>(context).localeIndex,
+//
+//                      );
+//                    })
+//              ],
             ),
           ),
           Card(

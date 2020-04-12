@@ -9,6 +9,7 @@ import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/splash.dart';
 import 'package:wanandroidflutter/theme/dark_model.dart';
 import 'package:wanandroidflutter/theme/font_model.dart';
+import 'package:wanandroidflutter/theme/locale_model.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/sp_util.dart';
 
@@ -18,6 +19,7 @@ void main() async {
   final appTheme = ThemeModel();
   final darkMode = DarkMode();
   final fontMode = FontModel();
+  final localeMode = LocaleModel();
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle =
         SystemUiOverlayStyle(statusBarColor: Colors.transparent);
@@ -64,6 +66,7 @@ void main() async {
           ChangeNotifierProvider.value(value: appTheme),
           ChangeNotifierProvider.value(value: darkMode),
           ChangeNotifierProvider.value(value: fontMode),
+          ChangeNotifierProvider.value(value: localeMode),
         ],
         child: MyApp(),
       ),

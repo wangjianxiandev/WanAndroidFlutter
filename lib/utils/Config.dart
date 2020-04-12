@@ -7,4 +7,5 @@ class Config {
   static final SP_BEFORE_CHANGE_DARK_MODE = "color_before";
   static final SP_DARK_MODEL = "dark_model";
   static final SP_FONT_INDEX = "font_index";
+  static final SP_LOCALE_INDEX = "locale_idnex";
 }

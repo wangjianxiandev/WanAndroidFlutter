@@ -3,12 +3,16 @@ import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/constant/Constants.dart';
 import 'package:wanandroidflutter/theme/font_model.dart';
+import 'package:wanandroidflutter/theme/locale_model.dart';
 import 'package:wanandroidflutter/theme/theme_colors.dart';
 import 'package:wanandroidflutter/page/tabs.dart';
 import 'package:wanandroidflutter/routes/routes.dart';
 import 'package:wanandroidflutter/theme/dark_model.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'generated/i10n.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -56,9 +60,15 @@ class _MainPageState extends State<MainPage> {
     var appTheme = Provider.of<ThemeModel>(context);
     var darkMode = Provider.of<DarkMode>(context);
     var fontMode = Provider.of<FontModel>(context);
+    var localeMode = Provider.of<LocaleModel>(context);
     return MaterialApp(
       theme: getTheme(appTheme.themeColor, isDarkMode: darkMode.isDark, fontIndex: fontMode.fontIndex),
       home: Tabs(),
+      localizationsDelegates: [                             //此处
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       initialRoute: '/',
       onGenerateRoute: onGenerateRoute,
     );
