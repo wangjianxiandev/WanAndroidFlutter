@@ -27,7 +27,7 @@ class _MainPageState extends State<MainPage> {
       Provider.of<ThemeModel>(context).updateThemeColor(getThemeColors()[index]);
     });
     queryDark().then((value) {
-      Provider.of<DarkMode>(context).setDark(value);
+      Provider.of<DarkMode>(context).updateDarkMode(value);
       if (value) {
         Provider.of<ThemeModel>(context).updateThemeColor(Color(0xff323638));
       }

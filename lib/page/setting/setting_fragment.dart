@@ -1,4 +1,3 @@
-import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
@@ -6,7 +5,6 @@ import 'package:wanandroidflutter/constant/Constants.dart';
 import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/theme/font_model.dart';
 import 'package:wanandroidflutter/theme/locale_model.dart';
-import 'package:wanandroidflutter/theme/theme_colors.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/theme/dark_model.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
@@ -60,10 +58,9 @@ class _SettingFragmentState extends State<SettingFragment> {
                   value: Provider.of<DarkMode>(context).isDark,
                   onChanged: (value) {
                     print("value = $value");
-                    Provider.of<DarkMode>(context).setDark(value);
+                    Provider.of<DarkMode>(context).updateDarkMode(value);
                     appTheme.updateThemeColor(
                         value ? Color(0xff323638) : beforeChangeColor);
-                    saveDarkMode(value);
                   }),
             ),
           ),
@@ -96,7 +93,6 @@ class _SettingFragmentState extends State<SettingFragment> {
                         onChanged: (index) {
                           print("index = $index");
                           Provider.of<FontModel>(context).updateFontIndex(index);
-                          saveFontMode(index);
                         },
                         groupValue: Provider.of<FontModel>(context).fontIndex,
                         title: Text(index == 0? S.of(context).normol_font : S.of(context).kuaile_font),
@@ -193,16 +189,6 @@ class _SettingFragmentState extends State<SettingFragment> {
         ],
       ),
     );
-  }
-
-  void saveDarkMode(bool value) async {
-    print("dark  = $value");
-    Application.sp.putBool(Config.SP_DARK_MODEL, value);
-  }
-
-  void saveFontMode(int index) async {
-    print("fontIndex  = $index");
-    Application.sp.putInt(Config.SP_FONT_INDEX, index);
   }
 
   void saveBeforeChangeTheme(Color color) async {
