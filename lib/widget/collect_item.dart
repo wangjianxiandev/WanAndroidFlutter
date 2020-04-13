@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/theme/dark_model.dart';
@@ -68,7 +69,7 @@ class _CollectWidgetState extends State<CollectWidget> {
                           Container(
                             padding: EdgeInsets.only(left: 5),
                             child: Text(
-                                "${article.author.isNotEmpty ? article.author : "匿名"}",
+                                "${article.author.isNotEmpty ? article.author : S.of(context).stranger}",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: Theme.of(context).textTheme.caption),

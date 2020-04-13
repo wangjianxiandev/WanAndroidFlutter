@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/constant/Constants.dart';
-import 'package:wanandroidflutter/generated/i18n.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/utils/Config.dart';
 
 class LocaleModel with ChangeNotifier {
@@ -31,7 +31,7 @@ class LocaleModel with ChangeNotifier {
   static String localeName(index, context) {
     switch (index) {
       case 0:
-//        return S.of(context).autoBySystem;
+        return S.of(context).autoBySystem;
       case 1:
         return '中文';
       case 2:

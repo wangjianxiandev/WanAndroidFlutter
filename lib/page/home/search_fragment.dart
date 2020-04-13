@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/data/hot_key.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/home/search_result_fragment.dart';
@@ -133,7 +134,10 @@ class _SearchFragmentState extends State<SearchFragment> {
           children: <Widget>[
             Icon(
               Icons.history,
-              color: appTheme.themeColor,
+              color: Theme.of(context)
+                  .iconTheme
+                  .color
+                  .withAlpha(120),
             ),
             Expanded(
               flex: 1,
@@ -175,7 +179,7 @@ class _SearchFragmentState extends State<SearchFragment> {
                           Padding(
                             padding: EdgeInsets.only(bottom: 10),
                             child: Text(
-                              "热门搜索",
+                              S.of(context).hot_search,
                               textAlign: TextAlign.left,
                               style: TextStyle(color: Colors.red),
                             ),
@@ -193,14 +197,17 @@ class _SearchFragmentState extends State<SearchFragment> {
                               children: <Widget>[
                                 Expanded(
                                   flex: 1,
-                                  child: Text("搜索记录",
-                                      style: Theme.of(context).textTheme.caption),
+                                  child: Text(S.of(context).search_history,
+                                      style:
+                                          Theme.of(context).textTheme.caption),
                                 ),
                                 InkWell(
                                   child: Padding(
                                     padding: EdgeInsets.all(5),
-                                    child: Text("清空",
-                                        style: Theme.of(context).textTheme.caption),
+                                    child: Text(S.of(context).clear_history,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .caption),
                                   ),
                                   onTap: () {
                                     clearHistory();
@@ -254,7 +261,7 @@ class _SearchFragmentState extends State<SearchFragment> {
                     obscureText: false,
                     style: TextStyle(fontSize: 15, color: appTheme.themeColor),
                     decoration: InputDecoration(
-                        hintText: "请输入搜索关键字",
+                        hintText: S.of(context).input_search,
                         contentPadding: EdgeInsets.all(6.0),
                         border: InputBorder.none)),
               ),
@@ -270,7 +277,7 @@ class _SearchFragmentState extends State<SearchFragment> {
                 highlightElevation: 0,
                 color: appTheme.themeColor,
                 child: Text(
-                  "搜索",
+                  S.of(context).search,
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white, fontSize: 12),
                   maxLines: 1,
@@ -280,7 +287,7 @@ class _SearchFragmentState extends State<SearchFragment> {
                 onPressed: () {
                   var key = controller.text.toString();
                   if (key.isEmpty) {
-                    CommonUtils.toast("输入字段为空");
+                    CommonUtils.toast(S.of(context).search_tip);
                     return;
                   }
                   _goToSearchResultPage(key);

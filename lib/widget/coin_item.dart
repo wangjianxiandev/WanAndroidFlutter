@@ -66,7 +66,7 @@ class _CoinRankWidgetState extends State<CoinRankWidget> {
         child: Text(
           rankData.rank.toString(),
           style: TextStyle(
-              color: !isDarkMode ? Colors.black : Colors.white.withAlpha(120), fontSize: 15.0, fontWeight: FontWeight.bold),
+              color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.bold),
         ),
       );
     }

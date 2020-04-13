@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/theme/dark_model.dart';
@@ -53,7 +54,7 @@ class LoginFormState extends State<LoginForm>
                 ),
               ),
               Text(
-                "去注册",
+                S.of(context).register,
                 style: TextStyle(
                     color: !isDarkMode
                         ? appTheme.themeColor
@@ -84,7 +85,7 @@ class LoginFormState extends State<LoginForm>
                 cursorColor: appTheme.themeColor,
                 decoration: InputDecoration(
                     filled: true,
-                    hintText: "请输入用户名",
+                    hintText: S.of(context).username,
                     fillColor: Colors.transparent,
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: appTheme.themeColor),
@@ -109,7 +110,7 @@ class LoginFormState extends State<LoginForm>
                 cursorColor: appTheme.themeColor,
                 decoration: InputDecoration(
                     filled: true,
-                    hintText: "请输入密码",
+                    hintText: S.of(context).password,
                     fillColor: Colors.transparent,
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: appTheme.themeColor),
@@ -134,17 +135,17 @@ class LoginFormState extends State<LoginForm>
                   child: RaisedButton(
                       onPressed: () {
                         if (_name == null || _name.isEmpty) {
-                          CommonUtils.toast("请输入用户名");
+                          CommonUtils.toast(S.of(context).username);
                           return;
                         }
                         if (_pwd == null || _pwd.isEmpty) {
-                          CommonUtils.toast("请输入密码");
+                          CommonUtils.toast(S.of(context).password);
                         }
                         doLogin();
                       },
                       textColor: Colors.white,
                       child: Text(
-                        "登录",
+                        S.of(context).login,
                         style: TextStyle(fontSize: 20),
                       ),
                       color: appTheme.themeColor,

@@ -12,6 +12,7 @@ class CommonUtils {
   static void showAlertDialog(BuildContext context, String contentText,
       {Function confirmCallback,
       Function dismissCallback,
+      String cancelText = "",
       String confirmText = ""}) async {
     return showDialog<void>(
       context: context,
@@ -21,7 +22,7 @@ class CommonUtils {
           content: Text(contentText),
           actions: <Widget>[
             FlatButton(
-              child: Text('我手滑了'),
+              child: Text(cancelText),
               onPressed: () {
                 if (dismissCallback != null) {
                   dismissCallback();

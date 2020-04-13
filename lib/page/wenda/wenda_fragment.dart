@@ -91,7 +91,7 @@ class _WenDaFragmentState extends State<WenDaFragment>
       ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: appTheme.themeColor.withAlpha(180),
-          child: Icon(Icons.add),
+          child: Icon(Icons.arrow_upward),
           onPressed: () {
             _scrollController.animateTo(0,
                 duration: Duration(milliseconds: 1000), curve: Curves.linear);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/data/article.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
@@ -82,7 +83,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                             child: Offstage(
                                 offstage: !article.fresh ?? true,
                                 child: WidgetUtils.buildStrokeWidget(
-                                    "新",
+                                    S.of(context).new_article,
                                     !isDarkMode
                                         ? appTheme.themeColor
                                         : Colors.white.withAlpha(120),
@@ -94,7 +95,7 @@ class _ArticleWidgetState extends State<ArticleWidget> {
                             child: Offstage(
                                 offstage: article.type == 0 ?? false,
                                 child: WidgetUtils.buildStrokeWidget(
-                                    "置顶",
+                                    S.of(context).top,
                                     !isDarkMode
                                         ? appTheme.themeColor
                                         : Colors.white.withAlpha(120),

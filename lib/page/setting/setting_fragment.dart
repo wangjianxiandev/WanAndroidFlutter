@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/constant/Constants.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/theme/font_model.dart';
 import 'package:wanandroidflutter/theme/locale_model.dart';
 import 'package:wanandroidflutter/theme/theme_colors.dart';
@@ -34,7 +35,7 @@ class _SettingFragmentState extends State<SettingFragment> {
     });
     return Scaffold(
       appBar: AppBar(
-        title: Text("设置"),
+        title: Text(S.of(context).setting),
         backgroundColor: appTheme.themeColor,
         centerTitle: true,
       ),
@@ -51,7 +52,7 @@ class _SettingFragmentState extends State<SettingFragment> {
               leading: Icon(!isDarkMode ? Icons.brightness_6 : Icons.brightness_2,
               color: !isDarkMode ? Color(0xFFFFC400) : Colors.yellow,),
               title: Text(
-                "夜间模式",
+                S.of(context).night_mode,
                 style: Theme.of(context).textTheme.title,
               ),
               trailing: Switch(
@@ -79,7 +80,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                 color: appTheme.themeColor,
               ),
               title: Text(
-                "切换字体",
+                S.of(context).switching_fonts,
                 style: Theme.of(context).textTheme.title,
               ),
               trailing: Icon(Icons.keyboard_arrow_down,
@@ -98,7 +99,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                           saveFontMode(index);
                         },
                         groupValue: Provider.of<FontModel>(context).fontIndex,
-                        title: Text(index == 0? "正常字体" : "喵趣字体"),
+                        title: Text(index == 0? S.of(context).normol_font : S.of(context).kuaile_font),
                       );
                     })
               ],
@@ -111,33 +112,34 @@ class _SettingFragmentState extends State<SettingFragment> {
             ),
             clipBehavior: Clip.antiAlias,
             semanticContainer: false,
-            child: ListTile(
+            child: ExpansionTile(
               leading: Icon(
                 Icons.public,
                 color: appTheme.themeColor,
               ),
               title: Text(
-                "语言设置",
+                S.of(context).language_setting,
                 style: Theme.of(context).textTheme.title,
               ),
-              trailing: Text("中文" ,style: Theme.of(context).textTheme.subtitle,),
-//              children: <Widget>[
-//                ListView.builder(
-//                    shrinkWrap: true,
-//                    itemCount: Constants.LocaleList.length,
-//                    itemBuilder: (context, index) {
-//                      return ListTile(
-//                        activeColor: appTheme.themeColor,
-//                        value: index,
-//                        onChanged: (index) {
-//                          print("index = $index");
-//                          Provider.of<LocaleModel>(context).updateLocaleIndex(index);
-//                        },
-//                        groupValue: Provider.of<LocaleModel>(context).localeIndex,
-//
-//                      );
-//                    })
-//              ],
+              trailing: Icon(Icons.keyboard_arrow_down,
+                color: appTheme.themeColor,),
+              children: <Widget>[
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: Constants.LocaleList.length,
+                    itemBuilder: (context, index) {
+                      return RadioListTile(
+                        activeColor: appTheme.themeColor,
+                        value: index,
+                        onChanged: (index) {
+                          print("index = $index");
+                          Provider.of<LocaleModel>(context).updateLocaleIndex(index);
+                        },
+                        groupValue: Provider.of<LocaleModel>(context).localeIndex,
+                        title: Text(LocaleModel.localeName(index, context)),
+                      );
+                    })
+              ],
             ),
           ),
           Card(
@@ -151,12 +153,12 @@ class _SettingFragmentState extends State<SettingFragment> {
                 leading: Icon(Icons.delete,
                 color: appTheme.themeColor,),
                 title: Text(
-                  "清除缓存",
+                  S.of(context).clear_cache,
                   style: Theme.of(context).textTheme.title,
                 ),
                 onTap: () {
-                  CommonUtils.showAlertDialog(context, "确定清除缓存吗？",
-                      confirmText: "确定", confirmCallback: () {
+                  CommonUtils.showAlertDialog(context, S.of(context).clear_cache_tip, cancelText: S.of(context).cancel,
+                      confirmText: S.of(context).confirm, confirmCallback: () {
                     //清除缓存
                     CommonUtils.clearCache();
                   });
@@ -173,7 +175,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                 leading: Icon(Icons.send,
                 color: appTheme.themeColor,),
                 title: Text(
-                  "关于作者",
+                  S.of(context).about,
                   style: Theme.of(context).textTheme.title,
                 ),
                 onTap: () {
@@ -181,7 +183,7 @@ class _SettingFragmentState extends State<SettingFragment> {
                       .push(new MaterialPageRoute(builder: (_) {
                     return new WebViewPage(
                       url: "https://blog.csdn.net/qq_39424143",
-                      title: "我的博客",
+                      title: S.of(context).my_blog,
                       id: null,
                       isCollect: false,
                     );

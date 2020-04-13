@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wanandroidflutter/application.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/theme/dark_model.dart';
@@ -250,7 +251,7 @@ class WebViewPageState extends State<WebViewPage>
                         )),
                       ),
                       Text(
-                        "分享到广场",
+                        S.of(context).share_to_square,
                         style: TextStyle(
                             color: !isDarkMode
                                 ? appTheme.themeColor
@@ -291,7 +292,7 @@ class WebViewPageState extends State<WebViewPage>
                         onTap: () => _collect(),
                       ),
                       Text(
-                        "收藏",
+                        S.of(context).collect,
                         style: TextStyle(
                             color: !isDarkMode
                                 ? appTheme.themeColor
@@ -332,7 +333,7 @@ class WebViewPageState extends State<WebViewPage>
                         },
                       ),
                       Text(
-                        "复制链接",
+                        S.of(context).copy_link,
                         style: TextStyle(
                             color: !isDarkMode
                                 ? appTheme.themeColor
@@ -370,7 +371,7 @@ class WebViewPageState extends State<WebViewPage>
                         },
                       ),
                       Text(
-                        "退出",
+                        S.of(context).exit,
                         style: TextStyle(
                             color: !isDarkMode
                                 ? appTheme.themeColor

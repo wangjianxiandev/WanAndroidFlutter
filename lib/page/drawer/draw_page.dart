@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/rank.dart';
 import 'package:wanandroidflutter/data/login.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/account/login_fragment.dart';
@@ -79,7 +79,7 @@ class _DrawerPageState extends State<DrawerPage> {
   void loginOut() async {
     HttpRequest.getInstance().get(Api.LOGIN_OUT_JSON, successCallBack: (data) {
       Application.eventBus.fire(LoginOutEvent());
-      CommonUtils.toast("登出成功");
+      CommonUtils.toast(S.of(context).loginoutTip);
     }, errorCallBack: (code, msg) {});
   }
 
@@ -99,7 +99,7 @@ class _DrawerPageState extends State<DrawerPage> {
           onWillPop: () async => false,
           child: AlertDialog(
             title: Text(
-              "主题颜色选择",
+              "主题颜色选择"
             ),
             content: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
@@ -169,7 +169,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     Navigator.of(context).pop(clickedIndex);
                   },
                   child: Text(
-                    "确定",
+                    "确认",
                     style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).textTheme.body1.color,
@@ -231,14 +231,17 @@ class _DrawerPageState extends State<DrawerPage> {
             color: appTheme.themeColor,
           ),
           accountName: Text(
-            loginData != null ? loginData.nickname : "点击头像登录",
+            loginData != null ? loginData.nickname : S.of(context).login_tip,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           accountEmail: Container(
             padding: const EdgeInsets.only(bottom: 10.0),
             child: Row(
               children: <Widget>[
-                Text(loginData != null ? "排名 " + rank.toString() : "排名--",
+                Text(
+                    loginData != null
+                        ? S.of(context).level + rank.toString()
+                        : S.of(context).level + "--",
                     style: TextStyle(
                       fontSize: 15.0,
                       color: Colors.white,
@@ -247,7 +250,9 @@ class _DrawerPageState extends State<DrawerPage> {
                   width: 10,
                 ),
                 Text(
-                  loginData != null ? "积分：" + coinCount.toString() : "积分：-- ",
+                  loginData != null
+                      ? S.of(context).integral + coinCount.toString()
+                      : S.of(context).integral + "-- ",
                   style: TextStyle(color: Colors.white, fontSize: 15.0),
                 )
               ],
@@ -264,8 +269,6 @@ class _DrawerPageState extends State<DrawerPage> {
             onTap: () {
               if (loginData == null) {
                 goLogin();
-              } else {
-                print("点击跳转用户中心");
               }
             },
           ),
@@ -276,7 +279,7 @@ class _DrawerPageState extends State<DrawerPage> {
             size: 27.0,
           ),
           title: Text(
-            '广场',
+            S.of(context).square,
             style: textStyle,
           ),
           onTap: () {
@@ -284,7 +287,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 context,
                 Scaffold(
                   appBar: AppBar(
-                    title: Text("广场"),
+                    title: Text(S.of(context).square),
                     backgroundColor: appTheme.themeColor,
                     centerTitle: true,
                   ),
@@ -298,7 +301,7 @@ class _DrawerPageState extends State<DrawerPage> {
             size: 27.0,
           ),
           title: Text(
-            '我的分享',
+            S.of(context).me_share,
             style: textStyle,
           ),
           onTap: () {
@@ -307,7 +310,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     context,
                     Scaffold(
                       appBar: AppBar(
-                        title: Text("我的分享"),
+                        title: Text(S.of(context).me_share),
                         backgroundColor: appTheme.themeColor,
                         centerTitle: true,
                       ),
@@ -322,7 +325,7 @@ class _DrawerPageState extends State<DrawerPage> {
             size: 27.0,
           ),
           title: Text(
-            '我的收藏',
+            S.of(context).me_collect,
             style: textStyle,
           ),
           onTap: () {
@@ -331,7 +334,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     context,
                     Scaffold(
                       appBar: AppBar(
-                        title: Text("我的收藏"),
+                        title: Text(S.of(context).me_collect),
                         backgroundColor: appTheme.themeColor,
                         centerTitle: true,
                       ),
@@ -346,7 +349,7 @@ class _DrawerPageState extends State<DrawerPage> {
             size: 27.0,
           ),
           title: Text(
-            '问答',
+            S.of(context).wenda,
             style: textStyle,
           ),
           onTap: () {
@@ -354,7 +357,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 context,
                 Scaffold(
                   appBar: AppBar(
-                    title: Text("问答"),
+                    title: Text(S.of(context).wenda),
                     backgroundColor: appTheme.themeColor,
                     centerTitle: true,
                   ),
@@ -368,12 +371,12 @@ class _DrawerPageState extends State<DrawerPage> {
             size: 27.0,
           ),
           title: Text(
-            '主题',
+            S.of(context).theme,
             style: textStyle,
           ),
           onTap: () {
             isDarkMode
-                ? CommonUtils.toast("夜间模式下不可以更改主题嗷~")
+                ? CommonUtils.toast(S.of(context).theme_tips)
                 : showThemeChooserDialog(context, curSelectedIndex, appTheme);
           },
         ),
@@ -384,7 +387,7 @@ class _DrawerPageState extends State<DrawerPage> {
             size: 27.0,
           ),
           title: Text(
-            '积分排行榜',
+            S.of(context).rank,
             style: textStyle,
           ),
           onTap: () {
@@ -392,7 +395,7 @@ class _DrawerPageState extends State<DrawerPage> {
                 context,
                 Scaffold(
                   appBar: AppBar(
-                    title: Text("积分排行"),
+                    title: Text(S.of(context).integral_rank),
                     backgroundColor: appTheme.themeColor,
                     centerTitle: true,
                   ),
@@ -406,7 +409,7 @@ class _DrawerPageState extends State<DrawerPage> {
             size: 27.0,
           ),
           title: Text(
-            '退出登录',
+            S.of(context).loginout,
             style: textStyle,
           ),
           onTap: () {
@@ -421,7 +424,7 @@ class _DrawerPageState extends State<DrawerPage> {
             size: 27.0,
           ),
           title: Text(
-            '设置',
+            S.of(context).setting,
             style: textStyle,
           ),
           onTap: () {

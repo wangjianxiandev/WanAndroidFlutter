@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/data/banner.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/http/api.dart';
 import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/drawer/draw_page.dart';
@@ -165,7 +166,7 @@ class _HomeFragmentState extends State<HomeFragment>
                         onPressed: () =>
                             _scaffoldKey.currentState.openDrawer())),
                 title: EmptyAnimatedSwitcher(
-                    display: isShowAppbar, child: Text("首页")),
+                    display: isShowAppbar, child: Text(S.of(context).tab_home)),
                 centerTitle: true,
                 backgroundColor: appTheme.themeColor,
                 actions: <Widget>[

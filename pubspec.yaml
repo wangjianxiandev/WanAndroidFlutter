@@ -70,3 +70,5 @@ flutter:
     - assets/img/load_no_data.png
     - assets/img/ic_default.png
     - assets/img/ic_avatar.png
+flutter_intl:
+  enabled: true

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/page/home/home_fragment.dart';
 import 'package:wanandroidflutter/page/project/project_fragment.dart';
 import 'package:wanandroidflutter/page/system/system_fragment.dart';
@@ -47,13 +48,13 @@ class _TabsState extends State<Tabs> {
           type: BottomNavigationBarType.fixed,
           //配置底部tabs可以有多个按钮
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("首页")),
+            BottomNavigationBarItem(icon: Icon(Icons.home), title: Text(S.of(context).tab_home)),
             BottomNavigationBarItem(
-                icon: Icon(Icons.category), title: Text("体系")),
+                icon: Icon(Icons.category), title: Text(S.of(context).tab_system)),
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings), title: Text("公众号")),
+                icon: Icon(Icons.settings), title: Text(S.of(context).tab_wechat)),
             BottomNavigationBarItem(
-                icon: Icon(Icons.category), title: Text("项目"))
+                icon: Icon(Icons.category), title: Text(S.of(context).tab_project))
           ],
         ),
     );
