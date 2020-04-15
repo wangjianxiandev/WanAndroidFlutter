@@ -70,8 +70,8 @@ class _MainPageState extends State<MainPage> {
           GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate
         ],
-        // 讲en设置为第一项,没有适配语言时,英语为首选项
-        supportedLocales: [const Locale('en', ''), ...S.delegate.supportedLocales],
+        // 设置中文为首选项
+        supportedLocales: [const Locale('zh', ''), ...S.delegate.supportedLocales],
       home: Tabs(),
       initialRoute: '/',
       onGenerateRoute: onGenerateRoute,
