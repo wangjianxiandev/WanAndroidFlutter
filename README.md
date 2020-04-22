@@ -4,7 +4,12 @@
 ## 项目地址
 [WanAndroid(github)](https://github.com/wangjianxiandev/WanAndroidFlutter)  （**留下个star再走叭**)
 ## 下载体验
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200409142741830.png)
+<table>
+    <tr>
+        <td ><center><img src="https://img-blog.csdnimg.cn/20200409142741830.png"></center></td>
+     </tr>
+</table>
+
 #### 密码123456
 ## 当前版本（2.0）
 - 添加自定义设置头像功能
@@ -96,7 +101,7 @@
 
 ### 特别感谢
 - [感谢鸿洋大神的WanAndroid网站提供开放Api](https://www.wanandroid.com/)
-- [参考开源项目fun_wandroid中的收藏动画和切换字体 ](https://github.com/phoenixsky/fun_android_flutter)
+- [参考开源项目fun_wandroid中的UI ](https://github.com/phoenixsky/fun_android_flutter)
 
 ### 开源
 
@@ -113,4 +118,4 @@
 | url_launcher |唤醒第三方应用  |
 | flutter_swiper | 轮播 |
 | image_picker | 图像选择 |
-|image_cropper| 图像裁剪 |
+| image_cropper| 图像裁剪 |
