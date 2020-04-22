@@ -29,13 +29,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.5"
-  cached_network_image:
-    dependency: "direct main"
-    description:
-      name: cached_network_image
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.0"
   charcode:
     dependency: transitive
     description:
@@ -132,13 +125,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_cache_manager:
-    dependency: transitive
-    description:
-      name: flutter_cache_manager
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.1.3"
   flutter_easyrefresh:
     dependency: "direct main"
     description:
@@ -172,20 +158,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.7"
-  flutter_redux:
-    dependency: "direct main"
-    description:
-      name: flutter_redux
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.5.4"
-  flutter_spinkit:
-    dependency: "direct main"
-    description:
-      name: flutter_spinkit
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.1.0"
   flutter_swiper:
     dependency: "direct main"
     description:
@@ -217,13 +189,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.13.4+2"
-  http:
-    dependency: transitive
-    description:
-      name: http
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.12.0+4"
   http_parser:
     dependency: transitive
     description:
@@ -336,34 +301,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.5"
-  redux:
-    dependency: transitive
-    description:
-      name: redux
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.0.0"
-  rxdart:
-    dependency: "direct main"
-    description:
-      name: rxdart
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.19.0"
   shared_preferences:
     dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.6+3"
+    version: "0.5.7"
   shared_preferences_macos:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: shared_preferences_macos
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.1+6"
+    version: "0.0.1+7"
   shared_preferences_platform_interface:
     dependency: transitive
     description:
@@ -390,20 +341,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.5.5"
-  sqflite:
-    dependency: transitive
-    description:
-      name: sqflite
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.3.0"
-  sqflite_common:
-    dependency: transitive
-    description:
-      name: sqflite_common
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.0+1"
   stack_trace:
     dependency: transitive
     description:
@@ -425,13 +362,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.5"
-  synchronized:
-    dependency: transitive
-    description:
-      name: synchronized
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.2.0"
   term_glyph:
     dependency: transitive
     description:
@@ -466,14 +396,14 @@ packages:
       name: url_launcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.4.2"
+    version: "5.4.5"
   url_launcher_macos:
     dependency: transitive
     description:
       name: url_launcher_macos
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.1+4"
+    version: "0.0.1+5"
   url_launcher_platform_interface:
     dependency: transitive
     description:
@@ -495,13 +425,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.9.0+5"
-  uuid:
-    dependency: transitive
-    description:
-      name: uuid
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.4"
   vector_math:
     dependency: transitive
     description:
@@ -515,7 +438,7 @@ packages:
       name: webview_flutter
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.19+9"
+    version: "0.3.20+2"
   xml:
     dependency: transitive
     description:
