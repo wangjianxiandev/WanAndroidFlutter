@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/rank.dart';
 import 'package:wanandroidflutter/data/login.dart';
@@ -84,9 +83,8 @@ class _DrawerPageState extends State<DrawerPage> {
   }
 
   void clearSharedPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(Config.SP_COIN, null);
-    await prefs.setString(Config.SP_USER_INFO, null);
+    await Application.sp.putString(Config.SP_COIN, null);
+    await Application.sp.putString(Config.SP_USER_INFO, null);
   }
 
   void showThemeChooserDialog(

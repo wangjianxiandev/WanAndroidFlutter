@@ -25,14 +25,15 @@ class _CoinRankWidgetState extends State<CoinRankWidget> {
       dense: true,
       contentPadding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
       onTap: () {},
-      leading: buildIcon(rankData, !isDarkMode),
+      leading: buildIcon(rankData, isDarkMode),
       title: Text(
         rankData == null ? "--" : (rankData.username),
         style: TextStyle(fontSize: 16),
       ),
       trailing: Text(
         rankData == null ? "--" : rankData.coinCount.toString(),
-        style: TextStyle(color: appTheme.themeColor),
+        style: TextStyle(
+            color: !isDarkMode ? Colors.black : Colors.white, fontSize: 15.0, fontWeight: FontWeight.bold),
       ),
     );
   }
