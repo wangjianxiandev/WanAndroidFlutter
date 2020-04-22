@@ -34,7 +34,8 @@ dependencies:
   webview_flutter: ^0.3.19+9
   cached_network_image: ^2.0.0
   flutter_html: ^0.8.2
-  fish_redux: ^0.2.5
+  image_picker: ^0.6.5+2
+  image_cropper: ^1.2.1
   flare_flutter: ^2.0.2
   fluttertoast: ^4.0.0
   url_launcher: ^5.4.2
@@ -64,7 +65,6 @@ flutter:
 
   assets:
     - assets/flrs/
-    - assets/img/logo.png
     - assets/img/ic_back.png
     - assets/img/load_fail.png
     - assets/img/load_no_data.png

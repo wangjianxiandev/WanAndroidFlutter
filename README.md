@@ -1,3 +1,4 @@
+
 # WanAndroid-Flutter 项目
 🔥🔥🔥项目基于 Flutter 移动应用框架，采用 Dart 语言编写，继续打造新的WanAndroid，重新打磨之前的flutter版本的WanAndroid, 持续更新....
 ## 项目地址
@@ -5,7 +6,10 @@
 ## 下载体验
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200409142741830.png)
 #### 密码123456
-## 当前版本（1.0）
+## 当前版本（2.0）
+- 添加自定义设置头像功能
+- 添加切换字体功能
+- 添加切换语言功能
 ## 项目展示
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200409142134382.gif)
@@ -15,9 +19,14 @@
         <td ><center><img src="https://img-blog.csdnimg.cn/20200409142211459.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200409142222888.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200409142232275.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
-        <td ><center><img src="https://img-blog.csdnimg.cn/20200409142241499.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
+           </tr>
+</table>
+<table>
+    <tr>
+        <td ><center><img src="https://img-blog.csdnimg.cn/20200422180823977.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200409142250428.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200409142257792.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
+        <td ><center><img src="https://img-blog.csdnimg.cn/2020042218081563.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
     </tr>
 </table>
 <table>
@@ -26,13 +35,17 @@
         <td ><center><img src="https://img-blog.csdnimg.cn/20200410212132986.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200410212141787.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200410212151600.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
+        </tr>
+</table>
+<table>
+    <tr>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200410212158511.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200413201527206.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200413201541390.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200413201552987.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
     </tr>
 </table>
-    
+   
 
 ## 项目功能
 ### 待完成功能
@@ -83,7 +96,7 @@
 
 ### 特别感谢
 - [感谢鸿洋大神的WanAndroid网站提供开放Api](https://www.wanandroid.com/)
-- [参考开源项目fun_wandroid中的收藏动画以及快乐字体](https://github.com/phoenixsky/fun_android_flutter)
+- [参考开源项目fun_wandroid中的收藏动画和切换字体 ](https://github.com/phoenixsky/fun_android_flutter)
 
 ### 开源
 
@@ -99,3 +112,5 @@
 | provider | 跨组件数据共享 |
 | url_launcher |唤醒第三方应用  |
 | flutter_swiper | 轮播 |
+| image_picker | 图像选择 |
+|image_cropper| 图像裁剪 |

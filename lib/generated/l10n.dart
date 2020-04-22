@@ -144,6 +144,15 @@ class S {
     );
   }
 
+  String get crop_image {
+    return Intl.message(
+      'Crop image',
+      name: 'crop_image',
+      desc: '',
+      args: [],
+    );
+  }
+
   String get square {
     return Intl.message(
       'Square',

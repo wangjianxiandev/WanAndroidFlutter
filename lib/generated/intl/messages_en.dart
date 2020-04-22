@@ -32,6 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "confirm" : MessageLookupByLibrary.simpleMessage("Confirm"),
     "copy_link" : MessageLookupByLibrary.simpleMessage("CopyLink"),
     "copy_tip" : MessageLookupByLibrary.simpleMessage("CopySuccess"),
+    "crop_image" : MessageLookupByLibrary.simpleMessage("Crop image"),
     "down_refresh" : MessageLookupByLibrary.simpleMessage("Down refresh"),
     "exit" : MessageLookupByLibrary.simpleMessage("Exit"),
     "hot_search" : MessageLookupByLibrary.simpleMessage("HotSearch"),

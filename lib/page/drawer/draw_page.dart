@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
 import 'package:wanandroidflutter/data/rank.dart';
@@ -34,6 +37,7 @@ class _DrawerPageState extends State<DrawerPage> {
   RankData coinData;
   int rank = 0;
   int coinCount = 0;
+  String avatarPath = null;
 
   List<Color> themeColors = List();
 
@@ -53,10 +57,16 @@ class _DrawerPageState extends State<DrawerPage> {
 
   void getUserInfo() async {
     String localInfo = Application.sp.getString(Config.SP_USER_INFO);
+    String localAvatar = Application.sp.getString(Config.SP_AVATAR);
     if (localInfo != null && localInfo.isNotEmpty) {
       Map userMap = json.decode(localInfo);
       setState(() {
         loginData = LoginData.fromJson(userMap);
+      });
+    }
+    if (localAvatar != null && localAvatar.isNotEmpty) {
+      setState(() {
+        avatarPath = Application.sp.getString(Config.SP_AVATAR);
       });
     }
   }
@@ -96,9 +106,7 @@ class _DrawerPageState extends State<DrawerPage> {
         return WillPopScope(
           onWillPop: () async => false,
           child: AlertDialog(
-            title: Text(
-              "主题颜色选择"
-            ),
+            title: Text("主题颜色选择"),
             content: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
                 return Container(
@@ -260,13 +268,32 @@ class _DrawerPageState extends State<DrawerPage> {
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             child: CircleAvatar(
               backgroundColor: Colors.white,
-              backgroundImage: AssetImage(loginData == null
-                  ? "assets/img/ic_default.png"
-                  : "assets/img/ic_avatar.png"),
+              backgroundImage: loginData == null ? AssetImage("assets/img/ic_default.png")
+                  : avatarPath == null ? AssetImage("assets/img/ic_avatar.png") : FileImage(File(avatarPath)),
             ),
-            onTap: () {
+            onTap: () async {
               if (loginData == null) {
                 goLogin();
+              } else {
+                var image =
+                    await ImagePicker.pickImage(source: ImageSource.gallery);
+                File srcFile = await ImageCropper.cropImage(
+                  sourcePath: image.path,
+                  aspectRatioPresets: [CropAspectRatioPreset.square],
+                  androidUiSettings: AndroidUiSettings(
+                      toolbarTitle: S.of(context).crop_image,
+                      toolbarColor: appTheme.themeColor,
+                      toolbarWidgetColor: Colors.white,
+                      initAspectRatio: CropAspectRatioPreset.square,
+                      hideBottomControls: true,
+                      lockAspectRatio: true),
+                );
+                if (srcFile != null) {
+                  Application.sp.putString(Config.SP_AVATAR, srcFile.path);
+                  setState(() {
+                    avatarPath = srcFile.path;
+                  });
+                }
               }
             },
           ),
