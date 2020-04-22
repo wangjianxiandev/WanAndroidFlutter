@@ -1,8 +1,8 @@
 
 # WanAndroid-Flutter 项目
-🔥🔥🔥项目基于 Flutter 移动应用框架，采用 Dart 语言编写，继续打造新的WanAndroid，重新打磨之前的flutter版本的WanAndroid, 持续更新....
+🔥🔥🔥项目基于 Flutter 移动应用框架，采用 Dart 语言编写，继续打造新的WanAndroid，持续更新(♡˙♡)....
 ## 项目地址
-[WanAndroid(github)](https://github.com/wangjianxiandev/WanAndroidFlutter)  （**留下个star再走叭**)
+[WanAndroid(github)](https://github.com/wangjianxiandev/WanAndroidFlutter) 
 ## 下载体验
 <table>
     <tr>
@@ -101,7 +101,7 @@
 
 ### 特别感谢
 - [感谢鸿洋大神的WanAndroid网站提供开放Api](https://www.wanandroid.com/)
-- [参考开源项目fun_wandroid中的UI ](https://github.com/phoenixsky/fun_android_flutter)
+- [参考开源项目fun_wandroid中的部分动画UI ](https://github.com/phoenixsky/fun_android_flutter)
 
 ### 开源
 
