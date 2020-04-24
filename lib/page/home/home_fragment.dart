@@ -53,11 +53,11 @@ class _HomeFragmentState extends State<HomeFragment>
           List responseJson = json.decode(data);
           articleList
               .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
+          loadArticleData();
         } else {
           _pageStateController.changeState(PageState.NoData);
         }
       }, errorCallBack: (code, msg) {});
-      loadArticleData();
     } else {
       loadArticleData();
     }
