@@ -1,9 +1,8 @@
 
 # WanAndroid-Flutter 项目
-🔥🔥🔥项目基于 Flutter 移动应用框架，采用 Dart 语言编写，继续打造新的WanAndroid，持续更新(♡˙♡)....
-## 项目地址
-[WanAndroid(github)](https://github.com/wangjianxiandev/WanAndroidFlutter) 留下个star再走叭(๑• . •๑)
-)
+🔥🔥🔥项目基于 Flutter 移动应用框架，采用 Dart 语言编写，打造新的WanAndroid，持续更新(♡˙♡)....
+[WanAndroid(github)](https://github.com/wangjianxiandev/WanAndroidFlutter) 如果项目对你有帮助，留下个star再走叭(๑• . •๑)
+
 ## 下载体验
 <table>
     <tr>
@@ -24,39 +23,38 @@
         <td ><center><img src="https://img-blog.csdnimg.cn/20200409142201139.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200409142211459.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200409142222888.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
-        <td ><center><img src="https://img-blog.csdnimg.cn/20200409142232275.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
-           </tr>
-</table>
-<table>
-    <tr>
-        <td ><center><img src="https://img-blog.csdnimg.cn/20200422180823977.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
-        <td ><center><img src="https://img-blog.csdnimg.cn/20200409142250428.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
-        <td ><center><img src="https://img-blog.csdnimg.cn/20200409142257792.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
-        <td ><center><img src="https://img-blog.csdnimg.cn/2020042218081563.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
     </tr>
 </table>
 <table>
     <tr>
+        <td ><center><img src="https://img-blog.csdnimg.cn/20200409142232275.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
+        <td ><center><img src="https://img-blog.csdnimg.cn/20200422180823977.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
+        <td ><center><img src="https://img-blog.csdnimg.cn/20200409142250428.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td ><center><img src="https://img-blog.csdnimg.cn/20200409142257792.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
+        <td ><center><img src="https://img-blog.csdnimg.cn/2020042218081563.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200410212124253.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
+</table>
+<table>
+    <tr>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200410212132986.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200410212141787.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200410212151600.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
-        </tr>
+    </tr>
 </table>
 <table>
     <tr>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200410212158511.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200413201527206.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
         <td ><center><img src="https://img-blog.csdnimg.cn/20200413201541390.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
-        <td ><center><img src="https://img-blog.csdnimg.cn/20200413201552987.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM5NDI0MTQz,size_16,color_FFFFFF,t_70"></center></td>
-    </tr>
-</table>
-   
+   </tr>
+</table>        
 
 ## 项目功能
-### 待完成功能
-- 夜间模式
-- 切换语言
+
 ### 首页
 - 首页文章列表
 - 首页banner
@@ -94,6 +92,8 @@
 
 ### 设置
 - 清除缓存
+- 夜间模式
+- 切换字体
 - 版本信息
 - 关于我们
 - 更换主题
