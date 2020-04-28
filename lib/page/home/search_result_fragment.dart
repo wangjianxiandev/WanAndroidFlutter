@@ -55,8 +55,11 @@ class _SearchResultFragmentState extends State<SearchResultFragment>
           searchResultList
               .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
         });
+        if (searchResultList.length == 0) {
+          _pageStateController.changeState(PageState.NoData);
+        }
       } else {
-        _pageStateController.changeState(PageState.NoData);
+        _pageStateController.changeState(PageState.LoadFail);
       }
     }, errorCallBack: (code, msg) {});
   }

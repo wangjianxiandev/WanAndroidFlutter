@@ -61,8 +61,11 @@ class _SquareFragmentState extends State<SquareFragment>
           squareList
               .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
         });
+        if (squareList.length == 0) {
+          _pageStateController.changeState(PageState.NoData);
+        }
       } else {
-        _pageStateController.changeState(PageState.NoData);
+        _pageStateController.changeState(PageState.LoadFail);
       }
     }, errorCallBack: (code, msg) {});
   }
@@ -102,27 +105,27 @@ class _SquareFragmentState extends State<SquareFragment>
 
   //分享文章
   void _inAddShare() {
-      showDialog<void>(
-          context: context,
-          barrierDismissible: false, // user must tap button!
-          builder: (BuildContext context) {
-            return SimpleInputDialogLayout(
-              isCollectArticle: false,
-              isDIYText: true,
-              themeText: "分享",
-              dialogTitleText: "分享文章",
-              confirmCallback2: (collectTitle,collectUrl) async{
-                //收藏文章
-                var data;
-                data = {'title': collectTitle, 'link': collectUrl};
-                HttpRequest.getInstance().post(Api.SHARE_ARTICLE, data: data, successCallBack: (data) {
-                  CommonUtils.toast("分享文章成功");
-                  _onRefresh(true);
-                });
-              },
-            );
-          }
-      );
+    showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return SimpleInputDialogLayout(
+            isCollectArticle: false,
+            isDIYText: true,
+            themeText: "分享",
+            dialogTitleText: "分享文章",
+            confirmCallback2: (collectTitle, collectUrl) async {
+              //收藏文章
+              var data;
+              data = {'title': collectTitle, 'link': collectUrl};
+              HttpRequest.getInstance().post(Api.SHARE_ARTICLE, data: data,
+                  successCallBack: (data) {
+                CommonUtils.toast("分享文章成功");
+                _onRefresh(true);
+              });
+            },
+          );
+        });
   }
 
   @override

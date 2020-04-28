@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 
 import 'load_fail_widget.dart';
@@ -92,9 +93,13 @@ class _PageWidgetState extends State<PageWidget> {
             AssetImage("assets/img/load_no_data.png"),
             size: 50,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-          )
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            S.of(context).no_data,
+            style: Theme.of(context).textTheme.caption,
+          ),
         ],
       ),
     );

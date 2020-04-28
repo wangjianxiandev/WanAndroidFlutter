@@ -56,5 +56,7 @@
   "refreshing" : "refreshing",
   "update_time" : "update time: ",
   "release_refresh" : "release refresh",
-  "complete_refresh" : "complete"
+  "complete_refresh" : "complete",
+  "network_error": "Network error, please try again!",
+  "no_data": "No data, please try again!"
 }

@@ -73,8 +73,11 @@ class _RankFragmentState extends State<RankFragment>
           rankList
               .addAll(responseJson.map((m) => RankData.fromJson(m)).toList());
         });
+        if (rankList.length == 0) {
+          _pageStateController.changeState(PageState.NoData);
+        }
       } else {
-        _pageStateController.changeState(PageState.NoData);
+        _pageStateController.changeState(PageState.LoadFail);
       }
     }, errorCallBack: (code, msg) {});
   }

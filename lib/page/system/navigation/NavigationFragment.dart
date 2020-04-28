@@ -8,6 +8,7 @@ import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/webview_page.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/common.dart';
+import 'package:wanandroidflutter/widget/load_fail_widget.dart';
 
 class NavigationFragment extends StatefulWidget {
   @override
@@ -17,20 +18,29 @@ class NavigationFragment extends StatefulWidget {
 class _NavigationFragmentState extends State<NavigationFragment> {
   List<NavigationData> navigationList = [];
   var appTheme;
+  bool isNetWorkError = false;
 
   @override
   void initState() {
     super.initState();
+    isNetWorkError = false;
     loadNavigationList();
   }
 
   void loadNavigationList() async {
     HttpRequest.getInstance().get(Api.NAVIGATION, successCallBack: (data) {
-      List responseJson = json.decode(data);
-      setState(() {
-        navigationList.addAll(
-            responseJson.map((m) => NavigationData.fromJson(m)).toList());
-      });
+      if (data != null) {
+        List responseJson = json.decode(data);
+        setState(() {
+          isNetWorkError = false;
+          navigationList.addAll(
+              responseJson.map((m) => NavigationData.fromJson(m)).toList());
+        });
+      } else {
+        setState(() {
+          isNetWorkError = true;
+        });
+      }
     }, errorCallBack: (code, msg) {});
   }
 
@@ -41,16 +51,24 @@ class _NavigationFragmentState extends State<NavigationFragment> {
       decoration: BoxDecoration(
         color: Theme.of(context).iconTheme.color.withAlpha(0),
       ),
-      child: Scrollbar(
-        child: ListView.builder(
-            padding: EdgeInsets.all(15),
-            itemCount: navigationList.length,
-            itemBuilder: (context, index) {
-              return NavigationCategoryWidget(
-                navigationData: navigationList[index],
-              );
-            }),
-      ),
+      child: isNetWorkError
+          ? Scaffold(
+              body: LoadFailWidget(
+                onTap: () {
+                  loadNavigationList();
+                },
+              ),
+            )
+          : Scrollbar(
+              child: ListView.builder(
+                  padding: EdgeInsets.all(15),
+                  itemCount: navigationList.length,
+                  itemBuilder: (context, index) {
+                    return NavigationCategoryWidget(
+                      navigationData: navigationList[index],
+                    );
+                  }),
+            ),
     );
   }
 }
@@ -87,7 +105,8 @@ class NavigationCategoryWidget extends StatelessWidget {
                               isCollect: navigationData.articles[index].collect,
                             ));
                       },
-                      backgroundColor: Theme.of(context).iconTheme.color.withAlpha(20),
+                      backgroundColor:
+                          Theme.of(context).iconTheme.color.withAlpha(20),
                       label: Text(
                         navigationData.articles[index].title,
                         maxLines: 1,

@@ -6,6 +6,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
 import 'package:wanandroidflutter/application.dart';
+import 'package:wanandroidflutter/constant/Constants.dart';
 import 'package:wanandroidflutter/data/article.dart';
 import 'package:wanandroidflutter/data/banner.dart';
 import 'package:wanandroidflutter/generated/l10n.dart';
@@ -54,8 +55,11 @@ class _HomeFragmentState extends State<HomeFragment>
           articleList
               .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
           loadArticleData();
+          if (articleList.length == 0) {
+            _pageStateController.changeState(PageState.NoData);
+          }
         } else {
-          _pageStateController.changeState(PageState.NoData);
+          _pageStateController.changeState(PageState.LoadFail);
         }
       }, errorCallBack: (code, msg) {});
     } else {
@@ -66,13 +70,20 @@ class _HomeFragmentState extends State<HomeFragment>
   loadArticleData() async {
     HttpRequest.getInstance().get("${Api.HOME_ARTICLE_LIST}$currentPage/json",
         successCallBack: (data) {
-      Map<String, dynamic> dataJson = json.decode(data);
-      List responseJson = json.decode(json.encode(dataJson["datas"]));
-      print(responseJson.runtimeType);
-      setState(() {
-        articleList
-            .addAll(responseJson.map((m) => new Article.fromJson(m)).toList());
-      });
+      if (data != null) {
+        Map<String, dynamic> dataJson = json.decode(data);
+        List responseJson = json.decode(json.encode(dataJson["datas"]));
+        print(responseJson.runtimeType);
+        setState(() {
+          articleList.addAll(
+              responseJson.map((m) => new Article.fromJson(m)).toList());
+        });
+        if (articleList.length == 0) {
+          _pageStateController.changeState(PageState.NoData);
+        }
+      } else {
+        _pageStateController.changeState(PageState.LoadFail);
+      }
     }, errorCallBack: (code, msg) {});
   }
 

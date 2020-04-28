@@ -8,6 +8,7 @@ import 'package:wanandroidflutter/http/http_request.dart';
 import 'package:wanandroidflutter/page/system/knowledge/KnowledgeListFragment.dart';
 import 'package:wanandroidflutter/theme/theme_model.dart';
 import 'package:wanandroidflutter/utils/common.dart';
+import 'package:wanandroidflutter/widget/load_fail_widget.dart';
 
 class KnowledgeFragment extends StatefulWidget {
   @override
@@ -17,20 +18,29 @@ class KnowledgeFragment extends StatefulWidget {
 class _KnowledgeFragmentState extends State<KnowledgeFragment> {
   List<KnowledgeData> knowLedgeList = [];
   var appTheme;
+  bool isNetWorkError = false;
 
   @override
   void initState() {
     super.initState();
+    isNetWorkError = false;
     loadKnowledgeList();
   }
 
   void loadKnowledgeList() async {
     HttpRequest.getInstance().get(Api.TREE, successCallBack: (data) {
-      List responseJson = json.decode(data);
-      setState(() {
-        knowLedgeList.addAll(
-            responseJson.map((m) => KnowledgeData.fromJson(m)).toList());
-      });
+      if (data != null) {
+        List responseJson = json.decode(data);
+        setState(() {
+          isNetWorkError = false;
+          knowLedgeList.addAll(
+              responseJson.map((m) => KnowledgeData.fromJson(m)).toList());
+        });
+      } else {
+        setState(() {
+          isNetWorkError = true;
+        });
+      }
     }, errorCallBack: (code, msg) {});
   }
 
@@ -41,22 +51,31 @@ class _KnowledgeFragmentState extends State<KnowledgeFragment> {
       decoration: BoxDecoration(
         color: Theme.of(context).iconTheme.color.withAlpha(0),
       ),
-      child: Scrollbar(
-        child: ListView.builder(
-            padding: EdgeInsets.all(15),
-            itemCount: knowLedgeList.length,
-            itemBuilder: (context, index) {
-              return KnowledgeCategoryWidget(
-                knowledgeData: knowLedgeList[index],
-              );
-            }),
-      ),
+      child: isNetWorkError
+          ? Scaffold(
+            body: LoadFailWidget(
+                onTap: () {
+                  loadKnowledgeList();
+                },
+              ),
+          )
+          : Scrollbar(
+              child: ListView.builder(
+                  padding: EdgeInsets.all(15),
+                  itemCount: knowLedgeList.length,
+                  itemBuilder: (context, index) {
+                    return KnowledgeCategoryWidget(
+                      knowledgeData: knowLedgeList[index],
+                    );
+                  }),
+            ),
     );
   }
 }
 
 class KnowledgeCategoryWidget extends StatelessWidget {
   final KnowledgeData knowledgeData;
+
   KnowledgeCategoryWidget({Key key, this.knowledgeData});
 
   @override
@@ -90,7 +109,8 @@ class KnowledgeCategoryWidget extends StatelessWidget {
                                   knowledgeData.children[index].id),
                             ));
                       },
-                      backgroundColor: Theme.of(context).iconTheme.color.withAlpha(20),
+                      backgroundColor:
+                          Theme.of(context).iconTheme.color.withAlpha(20),
                       label: Text(
                         knowledgeData.children[index].name,
                         maxLines: 1,

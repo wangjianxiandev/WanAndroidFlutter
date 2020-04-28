@@ -59,8 +59,11 @@ class _WenDaFragmentState extends State<WenDaFragment>
           wendaList
               .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
         });
+        if (wendaList.length == 0) {
+          _pageStateController.changeState(PageState.NoData);
+        }
       } else {
-        _pageStateController.changeState(PageState.NoData);
+        _pageStateController.changeState(PageState.LoadFail);
       }
     }, errorCallBack: (code, msg) {});
   }

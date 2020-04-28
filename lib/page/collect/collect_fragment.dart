@@ -68,8 +68,11 @@ class _CollectFragmentState extends State<CollectFragment>
           collectList
               .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
         });
+        if (collectList.length == 0) {
+          _pageStateController.changeState(PageState.NoData);
+        }
       } else {
-        _pageStateController.changeState(PageState.NoData);
+        _pageStateController.changeState(PageState.LoadFail);
       }
     }, errorCallBack: (code, msg) {});
   }

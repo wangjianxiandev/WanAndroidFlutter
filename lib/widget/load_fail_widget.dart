@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wanandroidflutter/generated/l10n.dart';
 
 //加载失败widget
 class LoadFailWidget extends StatelessWidget {
@@ -9,7 +10,7 @@ class LoadFailWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         onTap();
       },
       child: Center(
@@ -20,9 +21,13 @@ class LoadFailWidget extends StatelessWidget {
               AssetImage("assets/img/load_fail.png"),
               size: 50,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-            )
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              S.of(context).network_error,
+              style: Theme.of(context).textTheme.caption,
+            ),
           ],
         ),
       ),

@@ -548,6 +548,24 @@ class S {
       args: [],
     );
   }
+
+  String get network_error {
+    return Intl.message(
+      'Network error, please try again!',
+      name: 'network_error',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get no_data {
+    return Intl.message(
+      'No data, please try again!',
+      name: 'no_data',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

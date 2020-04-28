@@ -57,6 +57,7 @@
   "refreshing" : "刷新中",
   "update_time" : "更新时间: ",
   "release_refresh" : "释放刷新",
-  "complete_refresh" : "刷新完成"
-
+  "complete_refresh" : "刷新完成",
+  "network_error": "网络异常，点击重试!",
+  "no_data": "没有数据，请重试!"
 }

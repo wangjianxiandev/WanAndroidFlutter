@@ -58,6 +58,7 @@ class HttpRequest {
           queryParameters: data, options: options, cancelToken: cancelToken);
     } on DioError catch (e) {
       handlerError(e);
+      successCallBack(null);
     }
     if (response.data != null) {
       BaseResponse baseResponse =
@@ -68,7 +69,6 @@ class HttpRequest {
             successCallBack(jsonEncode(baseResponse.data));
             break;
           case -1001:
-
             /// 返回-1001跳转到登录页
             errorCallBack(baseResponse.errorCode, baseResponse.errorMessage);
             if (context != null) {
@@ -104,6 +104,7 @@ class HttpRequest {
           queryParameters: data, options: options, cancelToken: cancelToken);
     } on DioError catch (e) {
       handlerError(e);
+      successCallBack(null);
     }
     if (response.data != null) {
       BaseResponse baseResponse =

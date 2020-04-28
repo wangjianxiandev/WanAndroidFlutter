@@ -89,8 +89,11 @@ class WeChatListFragmentState extends State<WeChatListFragment>
           weChatArticleList
               .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
         });
+        if (weChatArticleList.length == 0) {
+          _pageStateController.changeState(PageState.NoData);
+        }
       } else {
-        _pageStateController.changeState(PageState.NoData);
+        _pageStateController.changeState(PageState.LoadFail);
       }
     }, errorCallBack: (code, msg) {});
   }
@@ -129,13 +132,16 @@ class WeChatListFragmentState extends State<WeChatListFragment>
                   return ArticleWidget(weChatArticleList[index]);
                 })),
       ),
-      floatingActionButton: isShowFab ? FloatingActionButton(
-          backgroundColor: appTheme.themeColor.withAlpha(180),
-          child: Icon(Icons.arrow_upward),
-          onPressed: () {
-            _scrollController.animateTo(0,
-                duration: Duration(milliseconds: 1000), curve: Curves.linear);
-          }) : null,
+      floatingActionButton: isShowFab
+          ? FloatingActionButton(
+              backgroundColor: appTheme.themeColor.withAlpha(180),
+              child: Icon(Icons.arrow_upward),
+              onPressed: () {
+                _scrollController.animateTo(0,
+                    duration: Duration(milliseconds: 1000),
+                    curve: Curves.linear);
+              })
+          : null,
     );
   }
 

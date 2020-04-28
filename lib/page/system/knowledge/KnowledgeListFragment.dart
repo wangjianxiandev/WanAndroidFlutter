@@ -69,8 +69,11 @@ class _KnowledgeListFragmentState extends State<KnowledgeListFragment>
           knowledgeList
               .addAll(responseJson.map((m) => Article.fromJson(m)).toList());
         });
+        if (knowledgeList.length == 0) {
+          _pageStateController.changeState(PageState.NoData);
+        }
       } else {
-        _pageStateController.changeState(PageState.NoData);
+        _pageStateController.changeState(PageState.LoadFail);
       }
     }, errorCallBack: (code, msg) {});
   }
