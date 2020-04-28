@@ -25,7 +25,6 @@ class ProjectFragmentState extends State<ProjectFragment>
   @override
   void initState() {
     super.initState();
-    isNetWorkError = false;
     loadProjectTab();
   }
 

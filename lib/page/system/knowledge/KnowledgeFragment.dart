@@ -23,7 +23,6 @@ class _KnowledgeFragmentState extends State<KnowledgeFragment> {
   @override
   void initState() {
     super.initState();
-    isNetWorkError = false;
     loadKnowledgeList();
   }
 

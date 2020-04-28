@@ -26,7 +26,6 @@ class WeChatFragmentState extends State<WeChatFragment>
   @override
   void initState() {
     super.initState();
-    isNetWorkError = false;
     loadWeChatTab();
   }
 

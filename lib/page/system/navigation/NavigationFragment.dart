@@ -23,7 +23,6 @@ class _NavigationFragmentState extends State<NavigationFragment> {
   @override
   void initState() {
     super.initState();
-    isNetWorkError = false;
     loadNavigationList();
   }
 
