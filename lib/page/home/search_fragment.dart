@@ -75,6 +75,30 @@ class _SearchFragmentState extends State<SearchFragment> {
     Application.sp.putString(Config.SP_SEARCH_HISTORY, result);
   }
 
+  void clearHistoryByContent(String deleteText) async {
+    String longHistory =
+        await Application.sp.getString(Config.SP_SEARCH_HISTORY);
+    var tempHistory = longHistory.split(",");
+    if (tempHistory.length > 0) {
+      for (var i = 0; i < tempHistory.length; i++) {
+        if (deleteText == tempHistory[i]) {
+          setState(() {
+            searchHistory.removeAt(i);
+          });
+          break;
+        }
+      }
+      String result = "";
+      for (var i = 0; i < tempHistory.length; i++) {
+        result += tempHistory[i];
+        if (i + 1 != tempHistory.length) {
+          result += ",";
+        }
+      }
+      Application.sp.putString(Config.SP_SEARCH_HISTORY, result);
+    }
+  }
+
   void clearHistory() async {
     await Application.sp.remove(Config.SP_SEARCH_HISTORY);
     setState(() {
@@ -131,21 +155,32 @@ class _SearchFragmentState extends State<SearchFragment> {
       child: Padding(
         padding: EdgeInsets.all(10),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Icon(
-              Icons.history,
-              color: Theme.of(context)
-                  .iconTheme
-                  .color
-                  .withAlpha(120),
+            Row(
+              children: <Widget>[
+                Icon(
+                  Icons.history,
+                  color: Theme.of(context).iconTheme.color.withAlpha(120),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Text(
+                    name,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Text(
-                  name,
-                  textAlign: TextAlign.start,
+            Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: InkWell(
+                onTap: () {
+                  clearHistoryByContent(name);
+                },
+                child: Icon(
+                  Icons.delete_outline,
+                  color: Theme.of(context).iconTheme.color.withAlpha(120),
                 ),
               ),
             )
